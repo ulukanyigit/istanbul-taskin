@@ -1,0 +1,110 @@
+{
+  "olay_sayisi": 22,
+  "konumlanan_nokta": 11,
+  "konumlanan_hat": 11,
+  "konumlanamayan": [],
+  "nokta_r50m": {
+    "n_olay": 11,
+    "n_karsilastirma": 2000,
+    "auc_derinlik_25mm": 0.496,
+    "auc_derinlik_25mm_ci95": [
+      0.34,
+      0.66
+    ],
+    "auc_esik": 0.6,
+    "auc_esik_ci95": [
+      0.45,
+      0.74
+    ],
+    "derinlik25_ge_0.1m": {
+      "olay": 0.273,
+      "karsilastirma": 0.288
+    },
+    "derinlik25_ge_0.3m": {
+      "olay": 0.182,
+      "karsilastirma": 0.111
+    },
+    "medyan_derinlik_25mm": {
+      "olay": 0.0,
+      "karsilastirma": 0.0
+    }
+  },
+  "nokta_r100m": {
+    "n_olay": 11,
+    "n_karsilastirma": 2000,
+    "auc_derinlik_25mm": 0.655,
+    "auc_derinlik_25mm_ci95": [
+      0.49,
+      0.81
+    ],
+    "auc_esik": 0.651,
+    "auc_esik_ci95": [
+      0.53,
+      0.76
+    ],
+    "derinlik25_ge_0.1m": {
+      "olay": 0.636,
+      "karsilastirma": 0.542
+    },
+    "derinlik25_ge_0.3m": {
+      "olay": 0.455,
+      "karsilastirma": 0.281
+    },
+    "medyan_derinlik_25mm": {
+      "olay": 0.27,
+      "karsilastirma": 0.15
+    }
+  },
+  "nokta_r150m": {
+    "n_olay": 11,
+    "n_karsilastirma": 2000,
+    "auc_derinlik_25mm": 0.662,
+    "auc_derinlik_25mm_ci95": [
+      0.49,
+      0.82
+    ],
+    "auc_esik": 0.542,
+    "auc_esik_ci95": [
+      0.41,
+      0.67
+    ],
+    "derinlik25_ge_0.1m": {
+      "olay": 0.818,
+      "karsilastirma": 0.718
+    },
+    "derinlik25_ge_0.3m": {
+      "olay": 0.727,
+      "karsilastirma": 0.442
+    },
+    "medyan_derinlik_25mm": {
+      "olay": 0.5,
+      "karsilastirma": 0.26
+    }
+  },
+  "hat_20m": {
+    "n_olay": 11,
+    "n_karsilastirma": 500,
+    "auc_derinlik_25mm": 0.727,
+    "auc_derinlik_25mm_ci95": [
+      0.61,
+      0.83
+    ],
+    "auc_esik": 0.829,
+    "auc_esik_ci95": [
+      0.74,
+      0.91
+    ],
+    "derinlik25_ge_0.1m": {
+      "olay": 0.909,
+      "karsilastirma": 0.496
+    },
+    "derinlik25_ge_0.3m": {
+      "olay": 0.636,
+      "karsilastirma": 0.278
+    },
+    "medyan_derinlik_25mm": {
+      "olay": 0.31,
+      "karsilastirma": 0.1
+    }
+  }
+}

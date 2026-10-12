@@ -1,0 +1,1783 @@
+<title>İstanbul Taşkın Simülatörü</title>
+<meta name="description" content="Altyapı devre dışı kaldığında İstanbul'da suyun ilk biriktiği yerler: 58.874 çukurun zaman adımlı kova modeli.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Barlow+Semi+Condensed:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>.maplibregl-map{font:12px/20px Helvetica Neue,Arial,Helvetica,sans-serif;overflow:hidden;position:relative;-webkit-tap-highlight-color:rgb(0 0 0/0)}.maplibregl-canvas{left:0;position:absolute;top:0}.maplibregl-map:fullscreen{height:100%;width:100%}.maplibregl-ctrl-group button.maplibregl-ctrl-compass{touch-action:none}.maplibregl-canvas-container.maplibregl-interactive,.maplibregl-ctrl-group button.maplibregl-ctrl-compass{cursor:grab;-webkit-user-select:none;-moz-user-select:none;user-select:none}.maplibregl-canvas-container.maplibregl-interactive.maplibregl-track-pointer{cursor:pointer}.maplibregl-canvas-container.maplibregl-interactive:active,.maplibregl-ctrl-group button.maplibregl-ctrl-compass:active{cursor:grabbing}.maplibregl-canvas-container.maplibregl-touch-zoom-rotate,.maplibregl-canvas-container.maplibregl-touch-zoom-rotate .maplibregl-canvas{touch-action:pan-x pan-y}.maplibregl-canvas-container.maplibregl-touch-drag-pan,.maplibregl-canvas-container.maplibregl-touch-drag-pan .maplibregl-canvas{touch-action:pinch-zoom}.maplibregl-canvas-container.maplibregl-touch-zoom-rotate.maplibregl-touch-drag-pan,.maplibregl-canvas-container.maplibregl-touch-zoom-rotate.maplibregl-touch-drag-pan .maplibregl-canvas{touch-action:none}.maplibregl-canvas-container.maplibregl-touch-drag-pan.maplibregl-cooperative-gestures,.maplibregl-canvas-container.maplibregl-touch-drag-pan.maplibregl-cooperative-gestures .maplibregl-canvas{touch-action:pan-x pan-y}.maplibregl-ctrl-bottom-left,.maplibregl-ctrl-bottom-right,.maplibregl-ctrl-top-left,.maplibregl-ctrl-top-right{pointer-events:none;position:absolute;z-index:2}.maplibregl-ctrl-top-left{left:0;top:0}.maplibregl-ctrl-top-right{right:0;top:0}.maplibregl-ctrl-bottom-left{bottom:0;left:0}.maplibregl-ctrl-bottom-right{bottom:0;right:0}.maplibregl-ctrl{clear:both;pointer-events:auto;transform:translate(0)}.maplibregl-ctrl-top-left .maplibregl-ctrl{float:left;margin:10px 0 0 10px}.maplibregl-ctrl-top-right .maplibregl-ctrl{float:right;margin:10px 10px 0 0}.maplibregl-ctrl-bottom-left .maplibregl-ctrl{float:left;margin:0 0 10px 10px}.maplibregl-ctrl-bottom-right .maplibregl-ctrl{float:right;margin:0 10px 10px 0}.maplibregl-ctrl-group{background:#fff;border-radius:4px}.maplibregl-ctrl-group:not(:empty){box-shadow:0 0 0 2px rgba(0,0,0,.1)}@media (forced-colors:active){.maplibregl-ctrl-group:not(:empty){box-shadow:0 0 0 2px ButtonText}}.maplibregl-ctrl-group button{background-color:transparent;border:0;box-sizing:border-box;cursor:pointer;display:block;height:29px;outline:none;padding:0;width:29px}.maplibregl-ctrl-group button+button{border-top:1px solid #ddd}.maplibregl-ctrl button .maplibregl-ctrl-icon{background-position:50%;background-repeat:no-repeat;display:block;height:100%;width:100%}@media (forced-colors:active){.maplibregl-ctrl-icon{background-color:transparent}.maplibregl-ctrl-group button+button{border-top:1px solid ButtonText}}.maplibregl-ctrl button::-moz-focus-inner{border:0;padding:0}.maplibregl-ctrl-attrib-button:focus,.maplibregl-ctrl-group button:focus{box-shadow:0 0 2px 2px #0096ff}.maplibregl-ctrl button:disabled{cursor:not-allowed}.maplibregl-ctrl button:disabled .maplibregl-ctrl-icon{opacity:.25}.maplibregl-ctrl button:not(:disabled):hover{background-color:rgb(0 0 0/5%)}.maplibregl-ctrl-group button:focus:focus-visible{box-shadow:0 0 2px 2px #0096ff}.maplibregl-ctrl-group button:focus:not(:focus-visible){box-shadow:none}.maplibregl-ctrl-group button:focus:first-child{border-radius:4px 4px 0 0}.maplibregl-ctrl-group button:focus:last-child{border-radius:0 0 4px 4px}.maplibregl-ctrl-group button:focus:only-child{border-radius:inherit}.maplibregl-ctrl button.maplibregl-ctrl-zoom-out .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23333' viewBox='0 0 29 29'%3E%3Cpath d='M10 13c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h9c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13z'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23333' viewBox='0 0 29 29'%3E%3Cpath d='M14.5 8.5c-.75 0-1.5.75-1.5 1.5v3h-3c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h3v3c0 .75.75 1.5 1.5 1.5S16 19.75 16 19v-3h3c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13h-3v-3c0-.75-.75-1.5-1.5-1.5'/%3E%3C/svg%3E")}@media (forced-colors:active){.maplibregl-ctrl button.maplibregl-ctrl-zoom-out .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23fff' viewBox='0 0 29 29'%3E%3Cpath d='M10 13c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h9c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13z'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23fff' viewBox='0 0 29 29'%3E%3Cpath d='M14.5 8.5c-.75 0-1.5.75-1.5 1.5v3h-3c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h3v3c0 .75.75 1.5 1.5 1.5S16 19.75 16 19v-3h3c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13h-3v-3c0-.75-.75-1.5-1.5-1.5'/%3E%3C/svg%3E")}}@media (forced-colors:active) and (prefers-color-scheme:light){.maplibregl-ctrl button.maplibregl-ctrl-zoom-out .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' viewBox='0 0 29 29'%3E%3Cpath d='M10 13c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h9c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13z'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' viewBox='0 0 29 29'%3E%3Cpath d='M14.5 8.5c-.75 0-1.5.75-1.5 1.5v3h-3c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h3v3c0 .75.75 1.5 1.5 1.5S16 19.75 16 19v-3h3c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13h-3v-3c0-.75-.75-1.5-1.5-1.5'/%3E%3C/svg%3E")}}.maplibregl-ctrl button.maplibregl-ctrl-fullscreen .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23333' viewBox='0 0 29 29'%3E%3Cpath d='M24 16v5.5c0 1.75-.75 2.5-2.5 2.5H16v-1l3-1.5-4-5.5 1-1 5.5 4 1.5-3zM6 16l1.5 3 5.5-4 1 1-4 5.5 3 1.5v1H7.5C5.75 24 5 23.25 5 21.5V16zm7-11v1l-3 1.5 4 5.5-1 1-5.5-4L6 13H5V7.5C5 5.75 5.75 5 7.5 5zm11 2.5c0-1.75-.75-2.5-2.5-2.5H16v1l3 1.5-4 5.5 1 1 5.5-4 1.5 3h1z'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-shrink .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' viewBox='0 0 29 29'%3E%3Cpath d='M18.5 16c-1.75 0-2.5.75-2.5 2.5V24h1l1.5-3 5.5 4 1-1-4-5.5 3-1.5v-1zM13 18.5c0-1.75-.75-2.5-2.5-2.5H5v1l3 1.5L4 24l1 1 5.5-4 1.5 3h1zm3-8c0 1.75.75 2.5 2.5 2.5H24v-1l-3-1.5L25 5l-1-1-5.5 4L17 5h-1zM10.5 13c1.75 0 2.5-.75 2.5-2.5V5h-1l-1.5 3L5 4 4 5l4 5.5L5 12v1z'/%3E%3C/svg%3E")}@media (forced-colors:active){.maplibregl-ctrl button.maplibregl-ctrl-fullscreen .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23fff' viewBox='0 0 29 29'%3E%3Cpath d='M24 16v5.5c0 1.75-.75 2.5-2.5 2.5H16v-1l3-1.5-4-5.5 1-1 5.5 4 1.5-3zM6 16l1.5 3 5.5-4 1 1-4 5.5 3 1.5v1H7.5C5.75 24 5 23.25 5 21.5V16zm7-11v1l-3 1.5 4 5.5-1 1-5.5-4L6 13H5V7.5C5 5.75 5.75 5 7.5 5zm11 2.5c0-1.75-.75-2.5-2.5-2.5H16v1l3 1.5-4 5.5 1 1 5.5-4 1.5 3h1z'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-shrink .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23fff' viewBox='0 0 29 29'%3E%3Cpath d='M18.5 16c-1.75 0-2.5.75-2.5 2.5V24h1l1.5-3 5.5 4 1-1-4-5.5 3-1.5v-1zM13 18.5c0-1.75-.75-2.5-2.5-2.5H5v1l3 1.5L4 24l1 1 5.5-4 1.5 3h1zm3-8c0 1.75.75 2.5 2.5 2.5H24v-1l-3-1.5L25 5l-1-1-5.5 4L17 5h-1zM10.5 13c1.75 0 2.5-.75 2.5-2.5V5h-1l-1.5 3L5 4 4 5l4 5.5L5 12v1z'/%3E%3C/svg%3E")}}@media (forced-colors:active) and (prefers-color-scheme:light){.maplibregl-ctrl button.maplibregl-ctrl-fullscreen .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' viewBox='0 0 29 29'%3E%3Cpath d='M24 16v5.5c0 1.75-.75 2.5-2.5 2.5H16v-1l3-1.5-4-5.5 1-1 5.5 4 1.5-3zM6 16l1.5 3 5.5-4 1 1-4 5.5 3 1.5v1H7.5C5.75 24 5 23.25 5 21.5V16zm7-11v1l-3 1.5 4 5.5-1 1-5.5-4L6 13H5V7.5C5 5.75 5.75 5 7.5 5zm11 2.5c0-1.75-.75-2.5-2.5-2.5H16v1l3 1.5-4 5.5 1 1 5.5-4 1.5 3h1z'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-shrink .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' viewBox='0 0 29 29'%3E%3Cpath d='M18.5 16c-1.75 0-2.5.75-2.5 2.5V24h1l1.5-3 5.5 4 1-1-4-5.5 3-1.5v-1zM13 18.5c0-1.75-.75-2.5-2.5-2.5H5v1l3 1.5L4 24l1 1 5.5-4 1.5 3h1zm3-8c0 1.75.75 2.5 2.5 2.5H24v-1l-3-1.5L25 5l-1-1-5.5 4L17 5h-1zM10.5 13c1.75 0 2.5-.75 2.5-2.5V5h-1l-1.5 3L5 4 4 5l4 5.5L5 12v1z'/%3E%3C/svg%3E")}}.maplibregl-ctrl button.maplibregl-ctrl-compass .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23333' viewBox='0 0 29 29'%3E%3Cpath d='m10.5 14 4-8 4 8z'/%3E%3Cpath fill='%23ccc' d='m10.5 16 4 8 4-8z'/%3E%3C/svg%3E")}@media (forced-colors:active){.maplibregl-ctrl button.maplibregl-ctrl-compass .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23fff' viewBox='0 0 29 29'%3E%3Cpath d='m10.5 14 4-8 4 8z'/%3E%3Cpath fill='%23ccc' d='m10.5 16 4 8 4-8z'/%3E%3C/svg%3E")}}@media (forced-colors:active) and (prefers-color-scheme:light){.maplibregl-ctrl button.maplibregl-ctrl-compass .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' viewBox='0 0 29 29'%3E%3Cpath d='m10.5 14 4-8 4 8z'/%3E%3Cpath fill='%23ccc' d='m10.5 16 4 8 4-8z'/%3E%3C/svg%3E")}}.maplibregl-ctrl button.maplibregl-ctrl-terrain .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' fill='%23333' viewBox='0 0 22 22'%3E%3Cpath d='m1.754 13.406 4.453-4.851 3.09 3.09 3.281 3.277.969-.969-3.309-3.312 3.844-4.121 6.148 6.886h1.082v-.855l-7.207-8.07-4.84 5.187L6.169 6.57l-5.48 5.965v.871ZM.688 16.844h20.625v1.375H.688Zm0 0'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-terrain-enabled .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' fill='%2333b5e5' viewBox='0 0 22 22'%3E%3Cpath d='m1.754 13.406 4.453-4.851 3.09 3.09 3.281 3.277.969-.969-3.309-3.312 3.844-4.121 6.148 6.886h1.082v-.855l-7.207-8.07-4.84 5.187L6.169 6.57l-5.48 5.965v.871ZM.688 16.844h20.625v1.375H.688Zm0 0'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23333' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate:disabled .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23aaa' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3Cpath fill='red' d='m14 5 1 1-9 9-1-1z'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate.maplibregl-ctrl-geolocate-active .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%2333b5e5' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate.maplibregl-ctrl-geolocate-active-error .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23e58978' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate.maplibregl-ctrl-geolocate-background .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%2333b5e5' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate.maplibregl-ctrl-geolocate-background-error .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23e54e33' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate.maplibregl-ctrl-geolocate-waiting .maplibregl-ctrl-icon{animation:maplibregl-spin 2s linear infinite}@media (forced-colors:active){.maplibregl-ctrl button.maplibregl-ctrl-geolocate .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23fff' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate:disabled .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23999' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3Cpath fill='red' d='m14 5 1 1-9 9-1-1z'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate.maplibregl-ctrl-geolocate-active .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%2333b5e5' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate.maplibregl-ctrl-geolocate-active-error .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23e58978' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate.maplibregl-ctrl-geolocate-background .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%2333b5e5' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate.maplibregl-ctrl-geolocate-background-error .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23e54e33' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3C/svg%3E")}}@media (forced-colors:active) and (prefers-color-scheme:light){.maplibregl-ctrl button.maplibregl-ctrl-geolocate .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3C/svg%3E")}.maplibregl-ctrl button.maplibregl-ctrl-geolocate:disabled .maplibregl-ctrl-icon{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23666' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3Cpath fill='red' d='m14 5 1 1-9 9-1-1z'/%3E%3C/svg%3E")}}@keyframes maplibregl-spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}a.maplibregl-ctrl-logo{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='23' fill='none'%3E%3Cpath fill='%23000' fill-opacity='.4' fill-rule='evenodd' d='M17.408 16.796h-1.827l2.501-12.095h.198l3.324 6.533.988 2.19.988-2.19 3.258-6.533h.181l2.6 12.095h-1.81l-1.218-5.644-.362-1.71-.658 1.71-2.929 5.644h-.098l-2.914-5.644-.757-1.71-.345 1.71zm1.958-3.42-.726 3.663a1.255 1.255 0 0 1-1.232 1.011h-1.827a1.255 1.255 0 0 1-1.229-1.509l2.501-12.095a1.255 1.255 0 0 1 1.23-1.001h.197a1.25 1.25 0 0 1 1.12.685l3.19 6.273 3.125-6.263a1.25 1.25 0 0 1 1.123-.695h.181a1.255 1.255 0 0 1 1.227.991l1.443 6.71a5 5 0 0 1 .314-.787l.009-.016a4.6 4.6 0 0 1 1.777-1.887c.782-.46 1.668-.667 2.611-.667a4.6 4.6 0 0 1 1.7.32l.306.134c.21-.16.474-.256.759-.256h1.694a1.255 1.255 0 0 1 1.212.925 1.255 1.255 0 0 1 1.212-.925h1.711c.284 0 .545.094.755.252.613-.3 1.312-.45 2.075-.45 1.356 0 2.557.445 3.482 1.4q.47.48.763 1.064V4.701a1.255 1.255 0 0 1 1.255-1.255h1.86A1.255 1.255 0 0 1 54.44 4.7v9.194h2.217c.19 0 .37.043.532.118v-4.77c0-.356.147-.678.385-.906a2.42 2.42 0 0 1-.682-1.71c0-.665.267-1.253.735-1.7a2.45 2.45 0 0 1 1.722-.674 2.43 2.43 0 0 1 1.705.675q.318.302.504.683V4.7a1.255 1.255 0 0 1 1.255-1.255h1.744A1.255 1.255 0 0 1 65.812 4.7v3.335a4.8 4.8 0 0 1 1.526-.246c.938 0 1.817.214 2.59.69a4.47 4.47 0 0 1 1.67 1.743v-.98a1.255 1.255 0 0 1 1.256-1.256h1.777c.233 0 .451.064.639.174a3.4 3.4 0 0 1 1.567-.372c.346 0 .861.02 1.285.232a1.25 1.25 0 0 1 .689 1.004 4.7 4.7 0 0 1 .853-.588c.795-.44 1.675-.647 2.61-.647 1.385 0 2.65.39 3.525 1.396.836.938 1.168 2.173 1.168 3.528q-.001.515-.056 1.051a1.255 1.255 0 0 1-.947 1.09l.408.952a1.255 1.255 0 0 1-.477 1.552c-.418.268-.92.463-1.458.612-.613.171-1.304.244-2.049.244-1.06 0-2.043-.207-2.886-.698l-.015-.008c-.798-.48-1.419-1.135-1.818-1.963l-.004-.008a5.8 5.8 0 0 1-.548-2.512q0-.429.053-.843a1.3 1.3 0 0 1-.333-.086l-.166-.004c-.223 0-.426.062-.643.228-.03.024-.142.139-.142.59v3.883a1.255 1.255 0 0 1-1.256 1.256h-1.777a1.255 1.255 0 0 1-1.256-1.256V15.69l-.032.057a4.8 4.8 0 0 1-1.86 1.833 5.04 5.04 0 0 1-2.484.634 4.5 4.5 0 0 1-1.935-.424 1.25 1.25 0 0 1-.764.258h-1.71a1.255 1.255 0 0 1-1.256-1.255V7.687a2.4 2.4 0 0 1-.428.625c.253.23.412.561.412.93v7.553a1.255 1.255 0 0 1-1.256 1.255h-1.843a1.25 1.25 0 0 1-.894-.373c-.228.23-.544.373-.894.373H51.32a1.255 1.255 0 0 1-1.256-1.255v-1.251l-.061.117a4.7 4.7 0 0 1-1.782 1.884 4.77 4.77 0 0 1-2.485.67 5.6 5.6 0 0 1-1.485-.188l.009 2.764a1.255 1.255 0 0 1-1.255 1.259h-1.729a1.255 1.255 0 0 1-1.255-1.255v-3.537a1.255 1.255 0 0 1-1.167.793h-1.679a1.25 1.25 0 0 1-.77-.263 4.5 4.5 0 0 1-1.945.429c-.885 0-1.724-.21-2.495-.632l-.017-.01a5 5 0 0 1-1.081-.836 1.255 1.255 0 0 1-1.254 1.312h-1.81a1.255 1.255 0 0 1-1.228-.99l-.782-3.625-2.044 3.939a1.25 1.25 0 0 1-1.115.676h-.098a1.25 1.25 0 0 1-1.116-.68l-2.061-3.994zM35.92 16.63l.207-.114.223-.15q.493-.356.735-.785l.061-.118.033 1.332h1.678V9.242h-1.694l-.033 1.267q-.133-.329-.526-.658l-.032-.028a3.2 3.2 0 0 0-.668-.428l-.27-.12a3.3 3.3 0 0 0-1.235-.23q-1.136-.001-1.974.493a3.36 3.36 0 0 0-1.3 1.382q-.445.89-.444 2.074 0 1.2.51 2.107a3.8 3.8 0 0 0 1.382 1.381 3.9 3.9 0 0 0 1.893.477q.795 0 1.455-.33zm-2.789-5.38q-.576.675-.575 1.762 0 1.102.559 1.794.576.675 1.645.675a2.25 2.25 0 0 0 .934-.19 2.2 2.2 0 0 0 .468-.29l.178-.161a2.2 2.2 0 0 0 .397-.561q.244-.5.244-1.15v-.115q0-.708-.296-1.267l-.043-.077a2.2 2.2 0 0 0-.633-.709l-.13-.086-.047-.028a2.1 2.1 0 0 0-1.073-.285q-1.052 0-1.629.692zm2.316 2.706c.163-.17.28-.407.28-.83v-.114c0-.292-.06-.508-.15-.68a.96.96 0 0 0-.353-.389.85.85 0 0 0-.464-.127c-.4 0-.56.114-.664.239l-.01.012c-.148.174-.275.45-.275.945 0 .506.122.801.27.99.097.11.266.224.68.224.303 0 .504-.09.687-.269zm7.545 1.705a2.6 2.6 0 0 0 .331.423q.319.33.755.548l.173.074q.65.255 1.49.255 1.02 0 1.844-.493a3.45 3.45 0 0 0 1.316-1.4q.493-.904.493-2.089 0-1.909-.988-2.913-.988-1.02-2.584-1.02-.898 0-1.575.347a3 3 0 0 0-.415.262l-.199.166a3.4 3.4 0 0 0-.64.82V9.242h-1.712v11.553h1.729l-.017-5.134zm.53-1.138q.206.29.48.5l.155.11.053.034q.51.296 1.119.297 1.07 0 1.645-.675.577-.69.576-1.762 0-1.119-.576-1.777-.558-.675-1.645-.675-.435 0-.835.16a2 2 0 0 0-.284.136 2 2 0 0 0-.363.254 2.2 2.2 0 0 0-.46.569l-.082.162a2.6 2.6 0 0 0-.213 1.072v.115q0 .707.296 1.267l.135.211zm.964-.818a1.1 1.1 0 0 0 .367.385.94.94 0 0 0 .476.118c.423 0 .59-.117.687-.23.159-.194.28-.478.28-.95 0-.53-.133-.8-.266-.952l-.021-.025c-.078-.094-.231-.221-.68-.221a1 1 0 0 0-.503.135l-.012.007a.86.86 0 0 0-.335.343c-.073.133-.132.324-.132.614v.115a1.4 1.4 0 0 0 .14.66zm15.7-6.222q.347-.346.346-.856a1.05 1.05 0 0 0-.345-.79 1.18 1.18 0 0 0-.84-.329q-.51 0-.855.33a1.05 1.05 0 0 0-.346.79q0 .51.346.855.345.346.856.346.51 0 .839-.346zm4.337 9.314.033-1.332q.191.403.59.747l.098.081a4 4 0 0 0 .316.224l.223.122a3.2 3.2 0 0 0 1.44.322 3.8 3.8 0 0 0 1.875-.477 3.5 3.5 0 0 0 1.382-1.366q.527-.89.526-2.09 0-1.184-.444-2.073a3.24 3.24 0 0 0-1.283-1.399q-.823-.51-1.942-.51a3.5 3.5 0 0 0-1.527.344l-.086.043-.165.09a3 3 0 0 0-.33.214q-.432.315-.656.707a2 2 0 0 0-.099.198l.082-1.283V4.701h-1.744v12.095zm.473-2.509a2.5 2.5 0 0 0 .566.7q.117.098.245.18l.144.08a2.1 2.1 0 0 0 .975.232q1.07 0 1.645-.675.576-.69.576-1.778 0-1.102-.576-1.777-.56-.691-1.645-.692a2.2 2.2 0 0 0-1.015.235q-.22.113-.415.282l-.15.142a2.1 2.1 0 0 0-.42.594q-.223.479-.223 1.1v.115q0 .705.293 1.26zm2.616-.293c.157-.191.28-.479.28-.967 0-.51-.13-.79-.276-.961l-.021-.026c-.082-.1-.232-.225-.67-.225a.87.87 0 0 0-.681.279l-.012.011c-.154.155-.274.38-.274.807v.115c0 .285.057.499.144.669a1.1 1.1 0 0 0 .367.405c.137.082.28.123.455.123.423 0 .59-.118.686-.23zm8.266-3.013q.345-.13.724-.14l.069-.002q.493 0 .642.099l.247-1.794q-.196-.099-.717-.099a2.3 2.3 0 0 0-.545.063 2 2 0 0 0-.411.148 2.2 2.2 0 0 0-.4.249 2.5 2.5 0 0 0-.485.499 2.7 2.7 0 0 0-.32.581l-.05.137v-1.48h-1.778v7.553h1.777v-3.884q0-.546.159-.943a1.5 1.5 0 0 1 .466-.636 2.5 2.5 0 0 1 .399-.253 2 2 0 0 1 .224-.099zm9.784 2.656.05-.922q0-1.743-.856-2.698-.838-.97-2.584-.97-1.119-.001-2.007.493a3.46 3.46 0 0 0-1.4 1.382q-.493.906-.493 2.106 0 1.07.428 1.975.428.89 1.332 1.432.906.526 2.255.526.973 0 1.668-.185l.044-.012.135-.04q.613-.184.984-.421l-.542-1.267q-.3.162-.642.274l-.297.087q-.51.131-1.3.131-.954 0-1.497-.444a1.6 1.6 0 0 1-.192-.193q-.366-.44-.512-1.234l-.004-.021zm-5.427-1.256-.003.022h3.752v-.138q-.011-.727-.288-1.118a1 1 0 0 0-.156-.176q-.46-.428-1.316-.428-.986 0-1.494.604-.379.45-.494 1.234zm-27.053 2.77V4.7h-1.86v12.095h5.333V15.15zm7.103-5.908v7.553h-1.843V9.242h1.843z'/%3E%3Cpath fill='%23fff' d='m19.63 11.151-.757-1.71-.345 1.71-1.12 5.644h-1.827L18.083 4.7h.197l3.325 6.533.988 2.19.988-2.19L26.839 4.7h.181l2.6 12.095h-1.81l-1.218-5.644-.362-1.71-.658 1.71-2.93 5.644h-.098l-2.913-5.644zm14.836 5.81q-1.02 0-1.893-.478a3.8 3.8 0 0 1-1.381-1.382q-.51-.906-.51-2.106 0-1.185.444-2.074a3.36 3.36 0 0 1 1.3-1.382q.839-.494 1.974-.494a3.3 3.3 0 0 1 1.234.231 3.3 3.3 0 0 1 .97.575q.396.33.527.659l.033-1.267h1.694v7.553H37.18l-.033-1.332q-.279.593-1.02 1.053a3.17 3.17 0 0 1-1.662.444zm.296-1.482q.938 0 1.58-.642.642-.66.642-1.711v-.115q0-.708-.296-1.267a2.2 2.2 0 0 0-.807-.872 2.1 2.1 0 0 0-1.119-.313q-1.053 0-1.629.692-.575.675-.575 1.76 0 1.103.559 1.795.577.675 1.645.675zm6.521-6.237h1.711v1.4q.906-1.597 2.83-1.597 1.596 0 2.584 1.02.988 1.005.988 2.914 0 1.185-.493 2.09a3.46 3.46 0 0 1-1.316 1.399 3.5 3.5 0 0 1-1.844.493q-.954 0-1.662-.329a2.67 2.67 0 0 1-1.086-.97l.017 5.134h-1.728zm4.048 6.22q1.07 0 1.645-.674.577-.69.576-1.762 0-1.119-.576-1.777-.558-.675-1.645-.675-.592 0-1.12.296-.51.28-.822.823-.296.527-.296 1.234v.115q0 .708.296 1.267.313.543.823.855.51.296 1.119.297z'/%3E%3Cpath fill='%23e1e3e9' d='M51.325 4.7h1.86v10.45h3.473v1.646h-5.333zm7.12 4.542h1.843v7.553h-1.843zm.905-1.415a1.16 1.16 0 0 1-.856-.346 1.17 1.17 0 0 1-.346-.856 1.05 1.05 0 0 1 .346-.79q.346-.329.856-.329.494 0 .839.33a1.05 1.05 0 0 1 .345.79 1.16 1.16 0 0 1-.345.855q-.33.346-.84.346zm7.875 9.133a3.17 3.17 0 0 1-1.662-.444q-.723-.46-1.004-1.053l-.033 1.332h-1.71V4.701h1.743v4.657l-.082 1.283q.279-.658 1.086-1.119a3.5 3.5 0 0 1 1.778-.477q1.119 0 1.942.51a3.24 3.24 0 0 1 1.283 1.4q.445.888.444 2.072 0 1.201-.526 2.09a3.5 3.5 0 0 1-1.382 1.366 3.8 3.8 0 0 1-1.876.477zm-.296-1.481q1.069 0 1.645-.675.577-.69.577-1.778 0-1.102-.577-1.776-.56-.691-1.645-.692a2.12 2.12 0 0 0-1.58.659q-.642.641-.642 1.694v.115q0 .71.296 1.267a2.4 2.4 0 0 0 .807.872 2.1 2.1 0 0 0 1.119.313zm5.927-6.237h1.777v1.481q.263-.757.856-1.217a2.14 2.14 0 0 1 1.349-.46q.527 0 .724.098l-.247 1.794q-.149-.099-.642-.099-.774 0-1.416.494-.626.493-.626 1.58v3.883h-1.777V9.242zm9.534 7.718q-1.35 0-2.255-.526-.904-.543-1.332-1.432a4.6 4.6 0 0 1-.428-1.975q0-1.2.493-2.106a3.46 3.46 0 0 1 1.4-1.382q.889-.495 2.007-.494 1.744 0 2.584.97.855.956.856 2.7 0 .444-.05.92h-5.43q.18 1.005.708 1.45.542.443 1.497.443.79 0 1.3-.131a4 4 0 0 0 .938-.362l.542 1.267q-.411.263-1.119.46-.708.198-1.711.197zm1.596-4.558q.016-1.02-.444-1.432-.46-.428-1.316-.428-1.728 0-1.991 1.86z'/%3E%3Cpath d='M5.074 15.948a.484.657 0 0 0-.486.659v1.84a.484.657 0 0 0 .486.659h4.101a.484.657 0 0 0 .486-.659v-1.84a.484.657 0 0 0-.486-.659zm3.56 1.16H5.617v.838h3.017z' style='fill:%23fff;fill-rule:evenodd;stroke-width:1.03600001'/%3E%3Cg style='stroke-width:1.12603545'%3E%3Cpath d='M-9.408-1.416c-3.833-.025-7.056 2.912-7.08 6.615-.02 3.08 1.653 4.832 3.107 6.268.903.892 1.721 1.74 2.32 2.902l-.525-.004c-.543-.003-.992.304-1.24.639a1.87 1.87 0 0 0-.362 1.121l-.011 1.877c-.003.402.104.787.347 1.125.244.338.688.653 1.23.656l4.142.028c.542.003.99-.306 1.238-.641a1.87 1.87 0 0 0 .363-1.121l.012-1.875a1.87 1.87 0 0 0-.348-1.127c-.243-.338-.688-.653-1.23-.656l-.518-.004c.597-1.145 1.425-1.983 2.348-2.87 1.473-1.414 3.18-3.149 3.2-6.226-.016-3.59-2.923-6.684-6.993-6.707m-.006 1.1v.002c3.274.02 5.92 2.532 5.9 5.6-.017 2.706-1.39 4.026-2.863 5.44-1.034.994-2.118 2.033-2.814 3.633-.018.041-.052.055-.075.065q-.013.004-.02.01a.34.34 0 0 1-.226.084.34.34 0 0 1-.224-.086l-.092-.077c-.699-1.615-1.768-2.669-2.781-3.67-1.454-1.435-2.797-2.762-2.78-5.478.02-3.067 2.7-5.545 5.975-5.523m-.02 2.826c-1.62-.01-2.944 1.315-2.955 2.96-.01 1.646 1.295 2.988 2.916 2.999h.002c1.621.01 2.943-1.316 2.953-2.961.011-1.646-1.294-2.988-2.916-2.998m-.005 1.1c1.017.006 1.829.83 1.822 1.89s-.83 1.874-1.848 1.867c-1.018-.006-1.829-.83-1.822-1.89s.83-1.874 1.848-1.868m-2.155 11.857 4.14.025c.271.002.49.305.487.676l-.013 1.875c-.003.37-.224.67-.495.668l-4.14-.025c-.27-.002-.487-.306-.485-.676l.012-1.875c.003-.37.224-.67.494-.668' style='color:%23000;font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:%23000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:evenodd;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:%23000;solid-opacity:1;vector-effect:none;fill:%23000;fill-opacity:.4;fill-rule:evenodd;stroke:none;stroke-width:2.47727823;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto' transform='translate(15.553 2.85)scale(.88807)'/%3E%3Cpath d='M-9.415-.316C-12.69-.338-15.37 2.14-15.39 5.207c-.017 2.716 1.326 4.041 2.78 5.477 1.013 1 2.081 2.055 2.78 3.67l.092.076a.34.34 0 0 0 .225.086.34.34 0 0 0 .227-.083l.019-.01c.022-.009.057-.024.074-.064.697-1.6 1.78-2.64 2.814-3.634 1.473-1.414 2.847-2.733 2.864-5.44.02-3.067-2.627-5.58-5.901-5.601m-.057 8.784c1.621.011 2.944-1.315 2.955-2.96.01-1.646-1.295-2.988-2.916-2.999-1.622-.01-2.945 1.315-2.955 2.96s1.295 2.989 2.916 3' style='clip-rule:evenodd;fill:%23e1e3e9;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.47727823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:.4' transform='translate(15.553 2.85)scale(.88807)'/%3E%3Cpath d='M-11.594 15.465c-.27-.002-.492.297-.494.668l-.012 1.876c-.003.371.214.673.485.675l4.14.027c.271.002.492-.298.495-.668l.012-1.877c.003-.37-.215-.672-.485-.674z' style='clip-rule:evenodd;fill:%23fff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.47727823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:.4' transform='translate(15.553 2.85)scale(.88807)'/%3E%3C/g%3E%3C/svg%3E");background-repeat:no-repeat;cursor:pointer;display:block;height:23px;margin:0 0 -4px -4px;overflow:hidden;width:88px}a.maplibregl-ctrl-logo.maplibregl-compact{width:14px}@media (forced-colors:active){a.maplibregl-ctrl-logo{background-color:transparent;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='23' fill='none'%3E%3Cpath fill='%23000' fill-opacity='.4' fill-rule='evenodd' d='M17.408 16.796h-1.827l2.501-12.095h.198l3.324 6.533.988 2.19.988-2.19 3.258-6.533h.181l2.6 12.095h-1.81l-1.218-5.644-.362-1.71-.658 1.71-2.929 5.644h-.098l-2.914-5.644-.757-1.71-.345 1.71zm1.958-3.42-.726 3.663a1.255 1.255 0 0 1-1.232 1.011h-1.827a1.255 1.255 0 0 1-1.229-1.509l2.501-12.095a1.255 1.255 0 0 1 1.23-1.001h.197a1.25 1.25 0 0 1 1.12.685l3.19 6.273 3.125-6.263a1.25 1.25 0 0 1 1.123-.695h.181a1.255 1.255 0 0 1 1.227.991l1.443 6.71a5 5 0 0 1 .314-.787l.009-.016a4.6 4.6 0 0 1 1.777-1.887c.782-.46 1.668-.667 2.611-.667a4.6 4.6 0 0 1 1.7.32l.306.134c.21-.16.474-.256.759-.256h1.694a1.255 1.255 0 0 1 1.212.925 1.255 1.255 0 0 1 1.212-.925h1.711c.284 0 .545.094.755.252.613-.3 1.312-.45 2.075-.45 1.356 0 2.557.445 3.482 1.4q.47.48.763 1.064V4.701a1.255 1.255 0 0 1 1.255-1.255h1.86A1.255 1.255 0 0 1 54.44 4.7v9.194h2.217c.19 0 .37.043.532.118v-4.77c0-.356.147-.678.385-.906a2.42 2.42 0 0 1-.682-1.71c0-.665.267-1.253.735-1.7a2.45 2.45 0 0 1 1.722-.674 2.43 2.43 0 0 1 1.705.675q.318.302.504.683V4.7a1.255 1.255 0 0 1 1.255-1.255h1.744A1.255 1.255 0 0 1 65.812 4.7v3.335a4.8 4.8 0 0 1 1.526-.246c.938 0 1.817.214 2.59.69a4.47 4.47 0 0 1 1.67 1.743v-.98a1.255 1.255 0 0 1 1.256-1.256h1.777c.233 0 .451.064.639.174a3.4 3.4 0 0 1 1.567-.372c.346 0 .861.02 1.285.232a1.25 1.25 0 0 1 .689 1.004 4.7 4.7 0 0 1 .853-.588c.795-.44 1.675-.647 2.61-.647 1.385 0 2.65.39 3.525 1.396.836.938 1.168 2.173 1.168 3.528q-.001.515-.056 1.051a1.255 1.255 0 0 1-.947 1.09l.408.952a1.255 1.255 0 0 1-.477 1.552c-.418.268-.92.463-1.458.612-.613.171-1.304.244-2.049.244-1.06 0-2.043-.207-2.886-.698l-.015-.008c-.798-.48-1.419-1.135-1.818-1.963l-.004-.008a5.8 5.8 0 0 1-.548-2.512q0-.429.053-.843a1.3 1.3 0 0 1-.333-.086l-.166-.004c-.223 0-.426.062-.643.228-.03.024-.142.139-.142.59v3.883a1.255 1.255 0 0 1-1.256 1.256h-1.777a1.255 1.255 0 0 1-1.256-1.256V15.69l-.032.057a4.8 4.8 0 0 1-1.86 1.833 5.04 5.04 0 0 1-2.484.634 4.5 4.5 0 0 1-1.935-.424 1.25 1.25 0 0 1-.764.258h-1.71a1.255 1.255 0 0 1-1.256-1.255V7.687a2.4 2.4 0 0 1-.428.625c.253.23.412.561.412.93v7.553a1.255 1.255 0 0 1-1.256 1.255h-1.843a1.25 1.25 0 0 1-.894-.373c-.228.23-.544.373-.894.373H51.32a1.255 1.255 0 0 1-1.256-1.255v-1.251l-.061.117a4.7 4.7 0 0 1-1.782 1.884 4.77 4.77 0 0 1-2.485.67 5.6 5.6 0 0 1-1.485-.188l.009 2.764a1.255 1.255 0 0 1-1.255 1.259h-1.729a1.255 1.255 0 0 1-1.255-1.255v-3.537a1.255 1.255 0 0 1-1.167.793h-1.679a1.25 1.25 0 0 1-.77-.263 4.5 4.5 0 0 1-1.945.429c-.885 0-1.724-.21-2.495-.632l-.017-.01a5 5 0 0 1-1.081-.836 1.255 1.255 0 0 1-1.254 1.312h-1.81a1.255 1.255 0 0 1-1.228-.99l-.782-3.625-2.044 3.939a1.25 1.25 0 0 1-1.115.676h-.098a1.25 1.25 0 0 1-1.116-.68l-2.061-3.994zM35.92 16.63l.207-.114.223-.15q.493-.356.735-.785l.061-.118.033 1.332h1.678V9.242h-1.694l-.033 1.267q-.133-.329-.526-.658l-.032-.028a3.2 3.2 0 0 0-.668-.428l-.27-.12a3.3 3.3 0 0 0-1.235-.23q-1.136-.001-1.974.493a3.36 3.36 0 0 0-1.3 1.382q-.445.89-.444 2.074 0 1.2.51 2.107a3.8 3.8 0 0 0 1.382 1.381 3.9 3.9 0 0 0 1.893.477q.795 0 1.455-.33zm-2.789-5.38q-.576.675-.575 1.762 0 1.102.559 1.794.576.675 1.645.675a2.25 2.25 0 0 0 .934-.19 2.2 2.2 0 0 0 .468-.29l.178-.161a2.2 2.2 0 0 0 .397-.561q.244-.5.244-1.15v-.115q0-.708-.296-1.267l-.043-.077a2.2 2.2 0 0 0-.633-.709l-.13-.086-.047-.028a2.1 2.1 0 0 0-1.073-.285q-1.052 0-1.629.692zm2.316 2.706c.163-.17.28-.407.28-.83v-.114c0-.292-.06-.508-.15-.68a.96.96 0 0 0-.353-.389.85.85 0 0 0-.464-.127c-.4 0-.56.114-.664.239l-.01.012c-.148.174-.275.45-.275.945 0 .506.122.801.27.99.097.11.266.224.68.224.303 0 .504-.09.687-.269zm7.545 1.705a2.6 2.6 0 0 0 .331.423q.319.33.755.548l.173.074q.65.255 1.49.255 1.02 0 1.844-.493a3.45 3.45 0 0 0 1.316-1.4q.493-.904.493-2.089 0-1.909-.988-2.913-.988-1.02-2.584-1.02-.898 0-1.575.347a3 3 0 0 0-.415.262l-.199.166a3.4 3.4 0 0 0-.64.82V9.242h-1.712v11.553h1.729l-.017-5.134zm.53-1.138q.206.29.48.5l.155.11.053.034q.51.296 1.119.297 1.07 0 1.645-.675.577-.69.576-1.762 0-1.119-.576-1.777-.558-.675-1.645-.675-.435 0-.835.16a2 2 0 0 0-.284.136 2 2 0 0 0-.363.254 2.2 2.2 0 0 0-.46.569l-.082.162a2.6 2.6 0 0 0-.213 1.072v.115q0 .707.296 1.267l.135.211zm.964-.818a1.1 1.1 0 0 0 .367.385.94.94 0 0 0 .476.118c.423 0 .59-.117.687-.23.159-.194.28-.478.28-.95 0-.53-.133-.8-.266-.952l-.021-.025c-.078-.094-.231-.221-.68-.221a1 1 0 0 0-.503.135l-.012.007a.86.86 0 0 0-.335.343c-.073.133-.132.324-.132.614v.115a1.4 1.4 0 0 0 .14.66zm15.7-6.222q.347-.346.346-.856a1.05 1.05 0 0 0-.345-.79 1.18 1.18 0 0 0-.84-.329q-.51 0-.855.33a1.05 1.05 0 0 0-.346.79q0 .51.346.855.345.346.856.346.51 0 .839-.346zm4.337 9.314.033-1.332q.191.403.59.747l.098.081a4 4 0 0 0 .316.224l.223.122a3.2 3.2 0 0 0 1.44.322 3.8 3.8 0 0 0 1.875-.477 3.5 3.5 0 0 0 1.382-1.366q.527-.89.526-2.09 0-1.184-.444-2.073a3.24 3.24 0 0 0-1.283-1.399q-.823-.51-1.942-.51a3.5 3.5 0 0 0-1.527.344l-.086.043-.165.09a3 3 0 0 0-.33.214q-.432.315-.656.707a2 2 0 0 0-.099.198l.082-1.283V4.701h-1.744v12.095zm.473-2.509a2.5 2.5 0 0 0 .566.7q.117.098.245.18l.144.08a2.1 2.1 0 0 0 .975.232q1.07 0 1.645-.675.576-.69.576-1.778 0-1.102-.576-1.777-.56-.691-1.645-.692a2.2 2.2 0 0 0-1.015.235q-.22.113-.415.282l-.15.142a2.1 2.1 0 0 0-.42.594q-.223.479-.223 1.1v.115q0 .705.293 1.26zm2.616-.293c.157-.191.28-.479.28-.967 0-.51-.13-.79-.276-.961l-.021-.026c-.082-.1-.232-.225-.67-.225a.87.87 0 0 0-.681.279l-.012.011c-.154.155-.274.38-.274.807v.115c0 .285.057.499.144.669a1.1 1.1 0 0 0 .367.405c.137.082.28.123.455.123.423 0 .59-.118.686-.23zm8.266-3.013q.345-.13.724-.14l.069-.002q.493 0 .642.099l.247-1.794q-.196-.099-.717-.099a2.3 2.3 0 0 0-.545.063 2 2 0 0 0-.411.148 2.2 2.2 0 0 0-.4.249 2.5 2.5 0 0 0-.485.499 2.7 2.7 0 0 0-.32.581l-.05.137v-1.48h-1.778v7.553h1.777v-3.884q0-.546.159-.943a1.5 1.5 0 0 1 .466-.636 2.5 2.5 0 0 1 .399-.253 2 2 0 0 1 .224-.099zm9.784 2.656.05-.922q0-1.743-.856-2.698-.838-.97-2.584-.97-1.119-.001-2.007.493a3.46 3.46 0 0 0-1.4 1.382q-.493.906-.493 2.106 0 1.07.428 1.975.428.89 1.332 1.432.906.526 2.255.526.973 0 1.668-.185l.044-.012.135-.04q.613-.184.984-.421l-.542-1.267q-.3.162-.642.274l-.297.087q-.51.131-1.3.131-.954 0-1.497-.444a1.6 1.6 0 0 1-.192-.193q-.366-.44-.512-1.234l-.004-.021zm-5.427-1.256-.003.022h3.752v-.138q-.011-.727-.288-1.118a1 1 0 0 0-.156-.176q-.46-.428-1.316-.428-.986 0-1.494.604-.379.45-.494 1.234zm-27.053 2.77V4.7h-1.86v12.095h5.333V15.15zm7.103-5.908v7.553h-1.843V9.242h1.843z'/%3E%3Cpath fill='%23fff' d='m19.63 11.151-.757-1.71-.345 1.71-1.12 5.644h-1.827L18.083 4.7h.197l3.325 6.533.988 2.19.988-2.19L26.839 4.7h.181l2.6 12.095h-1.81l-1.218-5.644-.362-1.71-.658 1.71-2.93 5.644h-.098l-2.913-5.644zm14.836 5.81q-1.02 0-1.893-.478a3.8 3.8 0 0 1-1.381-1.382q-.51-.906-.51-2.106 0-1.185.444-2.074a3.36 3.36 0 0 1 1.3-1.382q.839-.494 1.974-.494a3.3 3.3 0 0 1 1.234.231 3.3 3.3 0 0 1 .97.575q.396.33.527.659l.033-1.267h1.694v7.553H37.18l-.033-1.332q-.279.593-1.02 1.053a3.17 3.17 0 0 1-1.662.444zm.296-1.482q.938 0 1.58-.642.642-.66.642-1.711v-.115q0-.708-.296-1.267a2.2 2.2 0 0 0-.807-.872 2.1 2.1 0 0 0-1.119-.313q-1.053 0-1.629.692-.575.675-.575 1.76 0 1.103.559 1.795.577.675 1.645.675zm6.521-6.237h1.711v1.4q.906-1.597 2.83-1.597 1.596 0 2.584 1.02.988 1.005.988 2.914 0 1.185-.493 2.09a3.46 3.46 0 0 1-1.316 1.399 3.5 3.5 0 0 1-1.844.493q-.954 0-1.662-.329a2.67 2.67 0 0 1-1.086-.97l.017 5.134h-1.728zm4.048 6.22q1.07 0 1.645-.674.577-.69.576-1.762 0-1.119-.576-1.777-.558-.675-1.645-.675-.592 0-1.12.296-.51.28-.822.823-.296.527-.296 1.234v.115q0 .708.296 1.267.313.543.823.855.51.296 1.119.297z'/%3E%3Cpath fill='%23e1e3e9' d='M51.325 4.7h1.86v10.45h3.473v1.646h-5.333zm7.12 4.542h1.843v7.553h-1.843zm.905-1.415a1.16 1.16 0 0 1-.856-.346 1.17 1.17 0 0 1-.346-.856 1.05 1.05 0 0 1 .346-.79q.346-.329.856-.329.494 0 .839.33a1.05 1.05 0 0 1 .345.79 1.16 1.16 0 0 1-.345.855q-.33.346-.84.346zm7.875 9.133a3.17 3.17 0 0 1-1.662-.444q-.723-.46-1.004-1.053l-.033 1.332h-1.71V4.701h1.743v4.657l-.082 1.283q.279-.658 1.086-1.119a3.5 3.5 0 0 1 1.778-.477q1.119 0 1.942.51a3.24 3.24 0 0 1 1.283 1.4q.445.888.444 2.072 0 1.201-.526 2.09a3.5 3.5 0 0 1-1.382 1.366 3.8 3.8 0 0 1-1.876.477zm-.296-1.481q1.069 0 1.645-.675.577-.69.577-1.778 0-1.102-.577-1.776-.56-.691-1.645-.692a2.12 2.12 0 0 0-1.58.659q-.642.641-.642 1.694v.115q0 .71.296 1.267a2.4 2.4 0 0 0 .807.872 2.1 2.1 0 0 0 1.119.313zm5.927-6.237h1.777v1.481q.263-.757.856-1.217a2.14 2.14 0 0 1 1.349-.46q.527 0 .724.098l-.247 1.794q-.149-.099-.642-.099-.774 0-1.416.494-.626.493-.626 1.58v3.883h-1.777V9.242zm9.534 7.718q-1.35 0-2.255-.526-.904-.543-1.332-1.432a4.6 4.6 0 0 1-.428-1.975q0-1.2.493-2.106a3.46 3.46 0 0 1 1.4-1.382q.889-.495 2.007-.494 1.744 0 2.584.97.855.956.856 2.7 0 .444-.05.92h-5.43q.18 1.005.708 1.45.542.443 1.497.443.79 0 1.3-.131a4 4 0 0 0 .938-.362l.542 1.267q-.411.263-1.119.46-.708.198-1.711.197zm1.596-4.558q.016-1.02-.444-1.432-.46-.428-1.316-.428-1.728 0-1.991 1.86z'/%3E%3Cpath d='M5.074 15.948a.484.657 0 0 0-.486.659v1.84a.484.657 0 0 0 .486.659h4.101a.484.657 0 0 0 .486-.659v-1.84a.484.657 0 0 0-.486-.659zm3.56 1.16H5.617v.838h3.017z' style='fill:%23fff;fill-rule:evenodd;stroke-width:1.03600001'/%3E%3Cg style='stroke-width:1.12603545'%3E%3Cpath d='M-9.408-1.416c-3.833-.025-7.056 2.912-7.08 6.615-.02 3.08 1.653 4.832 3.107 6.268.903.892 1.721 1.74 2.32 2.902l-.525-.004c-.543-.003-.992.304-1.24.639a1.87 1.87 0 0 0-.362 1.121l-.011 1.877c-.003.402.104.787.347 1.125.244.338.688.653 1.23.656l4.142.028c.542.003.99-.306 1.238-.641a1.87 1.87 0 0 0 .363-1.121l.012-1.875a1.87 1.87 0 0 0-.348-1.127c-.243-.338-.688-.653-1.23-.656l-.518-.004c.597-1.145 1.425-1.983 2.348-2.87 1.473-1.414 3.18-3.149 3.2-6.226-.016-3.59-2.923-6.684-6.993-6.707m-.006 1.1v.002c3.274.02 5.92 2.532 5.9 5.6-.017 2.706-1.39 4.026-2.863 5.44-1.034.994-2.118 2.033-2.814 3.633-.018.041-.052.055-.075.065q-.013.004-.02.01a.34.34 0 0 1-.226.084.34.34 0 0 1-.224-.086l-.092-.077c-.699-1.615-1.768-2.669-2.781-3.67-1.454-1.435-2.797-2.762-2.78-5.478.02-3.067 2.7-5.545 5.975-5.523m-.02 2.826c-1.62-.01-2.944 1.315-2.955 2.96-.01 1.646 1.295 2.988 2.916 2.999h.002c1.621.01 2.943-1.316 2.953-2.961.011-1.646-1.294-2.988-2.916-2.998m-.005 1.1c1.017.006 1.829.83 1.822 1.89s-.83 1.874-1.848 1.867c-1.018-.006-1.829-.83-1.822-1.89s.83-1.874 1.848-1.868m-2.155 11.857 4.14.025c.271.002.49.305.487.676l-.013 1.875c-.003.37-.224.67-.495.668l-4.14-.025c-.27-.002-.487-.306-.485-.676l.012-1.875c.003-.37.224-.67.494-.668' style='color:%23000;font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:%23000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:evenodd;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:%23000;solid-opacity:1;vector-effect:none;fill:%23000;fill-opacity:.4;fill-rule:evenodd;stroke:none;stroke-width:2.47727823;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto' transform='translate(15.553 2.85)scale(.88807)'/%3E%3Cpath d='M-9.415-.316C-12.69-.338-15.37 2.14-15.39 5.207c-.017 2.716 1.326 4.041 2.78 5.477 1.013 1 2.081 2.055 2.78 3.67l.092.076a.34.34 0 0 0 .225.086.34.34 0 0 0 .227-.083l.019-.01c.022-.009.057-.024.074-.064.697-1.6 1.78-2.64 2.814-3.634 1.473-1.414 2.847-2.733 2.864-5.44.02-3.067-2.627-5.58-5.901-5.601m-.057 8.784c1.621.011 2.944-1.315 2.955-2.96.01-1.646-1.295-2.988-2.916-2.999-1.622-.01-2.945 1.315-2.955 2.96s1.295 2.989 2.916 3' style='clip-rule:evenodd;fill:%23e1e3e9;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.47727823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:.4' transform='translate(15.553 2.85)scale(.88807)'/%3E%3Cpath d='M-11.594 15.465c-.27-.002-.492.297-.494.668l-.012 1.876c-.003.371.214.673.485.675l4.14.027c.271.002.492-.298.495-.668l.012-1.877c.003-.37-.215-.672-.485-.674z' style='clip-rule:evenodd;fill:%23fff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.47727823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:.4' transform='translate(15.553 2.85)scale(.88807)'/%3E%3C/g%3E%3C/svg%3E")}}@media (forced-colors:active) and (prefers-color-scheme:light){a.maplibregl-ctrl-logo{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='23' fill='none'%3E%3Cpath fill='%23000' fill-opacity='.4' fill-rule='evenodd' d='M17.408 16.796h-1.827l2.501-12.095h.198l3.324 6.533.988 2.19.988-2.19 3.258-6.533h.181l2.6 12.095h-1.81l-1.218-5.644-.362-1.71-.658 1.71-2.929 5.644h-.098l-2.914-5.644-.757-1.71-.345 1.71zm1.958-3.42-.726 3.663a1.255 1.255 0 0 1-1.232 1.011h-1.827a1.255 1.255 0 0 1-1.229-1.509l2.501-12.095a1.255 1.255 0 0 1 1.23-1.001h.197a1.25 1.25 0 0 1 1.12.685l3.19 6.273 3.125-6.263a1.25 1.25 0 0 1 1.123-.695h.181a1.255 1.255 0 0 1 1.227.991l1.443 6.71a5 5 0 0 1 .314-.787l.009-.016a4.6 4.6 0 0 1 1.777-1.887c.782-.46 1.668-.667 2.611-.667a4.6 4.6 0 0 1 1.7.32l.306.134c.21-.16.474-.256.759-.256h1.694a1.255 1.255 0 0 1 1.212.925 1.255 1.255 0 0 1 1.212-.925h1.711c.284 0 .545.094.755.252.613-.3 1.312-.45 2.075-.45 1.356 0 2.557.445 3.482 1.4q.47.48.763 1.064V4.701a1.255 1.255 0 0 1 1.255-1.255h1.86A1.255 1.255 0 0 1 54.44 4.7v9.194h2.217c.19 0 .37.043.532.118v-4.77c0-.356.147-.678.385-.906a2.42 2.42 0 0 1-.682-1.71c0-.665.267-1.253.735-1.7a2.45 2.45 0 0 1 1.722-.674 2.43 2.43 0 0 1 1.705.675q.318.302.504.683V4.7a1.255 1.255 0 0 1 1.255-1.255h1.744A1.255 1.255 0 0 1 65.812 4.7v3.335a4.8 4.8 0 0 1 1.526-.246c.938 0 1.817.214 2.59.69a4.47 4.47 0 0 1 1.67 1.743v-.98a1.255 1.255 0 0 1 1.256-1.256h1.777c.233 0 .451.064.639.174a3.4 3.4 0 0 1 1.567-.372c.346 0 .861.02 1.285.232a1.25 1.25 0 0 1 .689 1.004 4.7 4.7 0 0 1 .853-.588c.795-.44 1.675-.647 2.61-.647 1.385 0 2.65.39 3.525 1.396.836.938 1.168 2.173 1.168 3.528q-.001.515-.056 1.051a1.255 1.255 0 0 1-.947 1.09l.408.952a1.255 1.255 0 0 1-.477 1.552c-.418.268-.92.463-1.458.612-.613.171-1.304.244-2.049.244-1.06 0-2.043-.207-2.886-.698l-.015-.008c-.798-.48-1.419-1.135-1.818-1.963l-.004-.008a5.8 5.8 0 0 1-.548-2.512q0-.429.053-.843a1.3 1.3 0 0 1-.333-.086l-.166-.004c-.223 0-.426.062-.643.228-.03.024-.142.139-.142.59v3.883a1.255 1.255 0 0 1-1.256 1.256h-1.777a1.255 1.255 0 0 1-1.256-1.256V15.69l-.032.057a4.8 4.8 0 0 1-1.86 1.833 5.04 5.04 0 0 1-2.484.634 4.5 4.5 0 0 1-1.935-.424 1.25 1.25 0 0 1-.764.258h-1.71a1.255 1.255 0 0 1-1.256-1.255V7.687a2.4 2.4 0 0 1-.428.625c.253.23.412.561.412.93v7.553a1.255 1.255 0 0 1-1.256 1.255h-1.843a1.25 1.25 0 0 1-.894-.373c-.228.23-.544.373-.894.373H51.32a1.255 1.255 0 0 1-1.256-1.255v-1.251l-.061.117a4.7 4.7 0 0 1-1.782 1.884 4.77 4.77 0 0 1-2.485.67 5.6 5.6 0 0 1-1.485-.188l.009 2.764a1.255 1.255 0 0 1-1.255 1.259h-1.729a1.255 1.255 0 0 1-1.255-1.255v-3.537a1.255 1.255 0 0 1-1.167.793h-1.679a1.25 1.25 0 0 1-.77-.263 4.5 4.5 0 0 1-1.945.429c-.885 0-1.724-.21-2.495-.632l-.017-.01a5 5 0 0 1-1.081-.836 1.255 1.255 0 0 1-1.254 1.312h-1.81a1.255 1.255 0 0 1-1.228-.99l-.782-3.625-2.044 3.939a1.25 1.25 0 0 1-1.115.676h-.098a1.25 1.25 0 0 1-1.116-.68l-2.061-3.994zM35.92 16.63l.207-.114.223-.15q.493-.356.735-.785l.061-.118.033 1.332h1.678V9.242h-1.694l-.033 1.267q-.133-.329-.526-.658l-.032-.028a3.2 3.2 0 0 0-.668-.428l-.27-.12a3.3 3.3 0 0 0-1.235-.23q-1.136-.001-1.974.493a3.36 3.36 0 0 0-1.3 1.382q-.445.89-.444 2.074 0 1.2.51 2.107a3.8 3.8 0 0 0 1.382 1.381 3.9 3.9 0 0 0 1.893.477q.795 0 1.455-.33zm-2.789-5.38q-.576.675-.575 1.762 0 1.102.559 1.794.576.675 1.645.675a2.25 2.25 0 0 0 .934-.19 2.2 2.2 0 0 0 .468-.29l.178-.161a2.2 2.2 0 0 0 .397-.561q.244-.5.244-1.15v-.115q0-.708-.296-1.267l-.043-.077a2.2 2.2 0 0 0-.633-.709l-.13-.086-.047-.028a2.1 2.1 0 0 0-1.073-.285q-1.052 0-1.629.692zm2.316 2.706c.163-.17.28-.407.28-.83v-.114c0-.292-.06-.508-.15-.68a.96.96 0 0 0-.353-.389.85.85 0 0 0-.464-.127c-.4 0-.56.114-.664.239l-.01.012c-.148.174-.275.45-.275.945 0 .506.122.801.27.99.097.11.266.224.68.224.303 0 .504-.09.687-.269zm7.545 1.705a2.6 2.6 0 0 0 .331.423q.319.33.755.548l.173.074q.65.255 1.49.255 1.02 0 1.844-.493a3.45 3.45 0 0 0 1.316-1.4q.493-.904.493-2.089 0-1.909-.988-2.913-.988-1.02-2.584-1.02-.898 0-1.575.347a3 3 0 0 0-.415.262l-.199.166a3.4 3.4 0 0 0-.64.82V9.242h-1.712v11.553h1.729l-.017-5.134zm.53-1.138q.206.29.48.5l.155.11.053.034q.51.296 1.119.297 1.07 0 1.645-.675.577-.69.576-1.762 0-1.119-.576-1.777-.558-.675-1.645-.675-.435 0-.835.16a2 2 0 0 0-.284.136 2 2 0 0 0-.363.254 2.2 2.2 0 0 0-.46.569l-.082.162a2.6 2.6 0 0 0-.213 1.072v.115q0 .707.296 1.267l.135.211zm.964-.818a1.1 1.1 0 0 0 .367.385.94.94 0 0 0 .476.118c.423 0 .59-.117.687-.23.159-.194.28-.478.28-.95 0-.53-.133-.8-.266-.952l-.021-.025c-.078-.094-.231-.221-.68-.221a1 1 0 0 0-.503.135l-.012.007a.86.86 0 0 0-.335.343c-.073.133-.132.324-.132.614v.115a1.4 1.4 0 0 0 .14.66zm15.7-6.222q.347-.346.346-.856a1.05 1.05 0 0 0-.345-.79 1.18 1.18 0 0 0-.84-.329q-.51 0-.855.33a1.05 1.05 0 0 0-.346.79q0 .51.346.855.345.346.856.346.51 0 .839-.346zm4.337 9.314.033-1.332q.191.403.59.747l.098.081a4 4 0 0 0 .316.224l.223.122a3.2 3.2 0 0 0 1.44.322 3.8 3.8 0 0 0 1.875-.477 3.5 3.5 0 0 0 1.382-1.366q.527-.89.526-2.09 0-1.184-.444-2.073a3.24 3.24 0 0 0-1.283-1.399q-.823-.51-1.942-.51a3.5 3.5 0 0 0-1.527.344l-.086.043-.165.09a3 3 0 0 0-.33.214q-.432.315-.656.707a2 2 0 0 0-.099.198l.082-1.283V4.701h-1.744v12.095zm.473-2.509a2.5 2.5 0 0 0 .566.7q.117.098.245.18l.144.08a2.1 2.1 0 0 0 .975.232q1.07 0 1.645-.675.576-.69.576-1.778 0-1.102-.576-1.777-.56-.691-1.645-.692a2.2 2.2 0 0 0-1.015.235q-.22.113-.415.282l-.15.142a2.1 2.1 0 0 0-.42.594q-.223.479-.223 1.1v.115q0 .705.293 1.26zm2.616-.293c.157-.191.28-.479.28-.967 0-.51-.13-.79-.276-.961l-.021-.026c-.082-.1-.232-.225-.67-.225a.87.87 0 0 0-.681.279l-.012.011c-.154.155-.274.38-.274.807v.115c0 .285.057.499.144.669a1.1 1.1 0 0 0 .367.405c.137.082.28.123.455.123.423 0 .59-.118.686-.23zm8.266-3.013q.345-.13.724-.14l.069-.002q.493 0 .642.099l.247-1.794q-.196-.099-.717-.099a2.3 2.3 0 0 0-.545.063 2 2 0 0 0-.411.148 2.2 2.2 0 0 0-.4.249 2.5 2.5 0 0 0-.485.499 2.7 2.7 0 0 0-.32.581l-.05.137v-1.48h-1.778v7.553h1.777v-3.884q0-.546.159-.943a1.5 1.5 0 0 1 .466-.636 2.5 2.5 0 0 1 .399-.253 2 2 0 0 1 .224-.099zm9.784 2.656.05-.922q0-1.743-.856-2.698-.838-.97-2.584-.97-1.119-.001-2.007.493a3.46 3.46 0 0 0-1.4 1.382q-.493.906-.493 2.106 0 1.07.428 1.975.428.89 1.332 1.432.906.526 2.255.526.973 0 1.668-.185l.044-.012.135-.04q.613-.184.984-.421l-.542-1.267q-.3.162-.642.274l-.297.087q-.51.131-1.3.131-.954 0-1.497-.444a1.6 1.6 0 0 1-.192-.193q-.366-.44-.512-1.234l-.004-.021zm-5.427-1.256-.003.022h3.752v-.138q-.011-.727-.288-1.118a1 1 0 0 0-.156-.176q-.46-.428-1.316-.428-.986 0-1.494.604-.379.45-.494 1.234zm-27.053 2.77V4.7h-1.86v12.095h5.333V15.15zm7.103-5.908v7.553h-1.843V9.242h1.843z'/%3E%3Cpath fill='%23fff' d='m19.63 11.151-.757-1.71-.345 1.71-1.12 5.644h-1.827L18.083 4.7h.197l3.325 6.533.988 2.19.988-2.19L26.839 4.7h.181l2.6 12.095h-1.81l-1.218-5.644-.362-1.71-.658 1.71-2.93 5.644h-.098l-2.913-5.644zm14.836 5.81q-1.02 0-1.893-.478a3.8 3.8 0 0 1-1.381-1.382q-.51-.906-.51-2.106 0-1.185.444-2.074a3.36 3.36 0 0 1 1.3-1.382q.839-.494 1.974-.494a3.3 3.3 0 0 1 1.234.231 3.3 3.3 0 0 1 .97.575q.396.33.527.659l.033-1.267h1.694v7.553H37.18l-.033-1.332q-.279.593-1.02 1.053a3.17 3.17 0 0 1-1.662.444zm.296-1.482q.938 0 1.58-.642.642-.66.642-1.711v-.115q0-.708-.296-1.267a2.2 2.2 0 0 0-.807-.872 2.1 2.1 0 0 0-1.119-.313q-1.053 0-1.629.692-.575.675-.575 1.76 0 1.103.559 1.795.577.675 1.645.675zm6.521-6.237h1.711v1.4q.906-1.597 2.83-1.597 1.596 0 2.584 1.02.988 1.005.988 2.914 0 1.185-.493 2.09a3.46 3.46 0 0 1-1.316 1.399 3.5 3.5 0 0 1-1.844.493q-.954 0-1.662-.329a2.67 2.67 0 0 1-1.086-.97l.017 5.134h-1.728zm4.048 6.22q1.07 0 1.645-.674.577-.69.576-1.762 0-1.119-.576-1.777-.558-.675-1.645-.675-.592 0-1.12.296-.51.28-.822.823-.296.527-.296 1.234v.115q0 .708.296 1.267.313.543.823.855.51.296 1.119.297z'/%3E%3Cpath fill='%23e1e3e9' d='M51.325 4.7h1.86v10.45h3.473v1.646h-5.333zm7.12 4.542h1.843v7.553h-1.843zm.905-1.415a1.16 1.16 0 0 1-.856-.346 1.17 1.17 0 0 1-.346-.856 1.05 1.05 0 0 1 .346-.79q.346-.329.856-.329.494 0 .839.33a1.05 1.05 0 0 1 .345.79 1.16 1.16 0 0 1-.345.855q-.33.346-.84.346zm7.875 9.133a3.17 3.17 0 0 1-1.662-.444q-.723-.46-1.004-1.053l-.033 1.332h-1.71V4.701h1.743v4.657l-.082 1.283q.279-.658 1.086-1.119a3.5 3.5 0 0 1 1.778-.477q1.119 0 1.942.51a3.24 3.24 0 0 1 1.283 1.4q.445.888.444 2.072 0 1.201-.526 2.09a3.5 3.5 0 0 1-1.382 1.366 3.8 3.8 0 0 1-1.876.477zm-.296-1.481q1.069 0 1.645-.675.577-.69.577-1.778 0-1.102-.577-1.776-.56-.691-1.645-.692a2.12 2.12 0 0 0-1.58.659q-.642.641-.642 1.694v.115q0 .71.296 1.267a2.4 2.4 0 0 0 .807.872 2.1 2.1 0 0 0 1.119.313zm5.927-6.237h1.777v1.481q.263-.757.856-1.217a2.14 2.14 0 0 1 1.349-.46q.527 0 .724.098l-.247 1.794q-.149-.099-.642-.099-.774 0-1.416.494-.626.493-.626 1.58v3.883h-1.777V9.242zm9.534 7.718q-1.35 0-2.255-.526-.904-.543-1.332-1.432a4.6 4.6 0 0 1-.428-1.975q0-1.2.493-2.106a3.46 3.46 0 0 1 1.4-1.382q.889-.495 2.007-.494 1.744 0 2.584.97.855.956.856 2.7 0 .444-.05.92h-5.43q.18 1.005.708 1.45.542.443 1.497.443.79 0 1.3-.131a4 4 0 0 0 .938-.362l.542 1.267q-.411.263-1.119.46-.708.198-1.711.197zm1.596-4.558q.016-1.02-.444-1.432-.46-.428-1.316-.428-1.728 0-1.991 1.86z'/%3E%3Cpath d='M5.074 15.948a.484.657 0 0 0-.486.659v1.84a.484.657 0 0 0 .486.659h4.101a.484.657 0 0 0 .486-.659v-1.84a.484.657 0 0 0-.486-.659zm3.56 1.16H5.617v.838h3.017z' style='fill:%23fff;fill-rule:evenodd;stroke-width:1.03600001'/%3E%3Cg style='stroke-width:1.12603545'%3E%3Cpath d='M-9.408-1.416c-3.833-.025-7.056 2.912-7.08 6.615-.02 3.08 1.653 4.832 3.107 6.268.903.892 1.721 1.74 2.32 2.902l-.525-.004c-.543-.003-.992.304-1.24.639a1.87 1.87 0 0 0-.362 1.121l-.011 1.877c-.003.402.104.787.347 1.125.244.338.688.653 1.23.656l4.142.028c.542.003.99-.306 1.238-.641a1.87 1.87 0 0 0 .363-1.121l.012-1.875a1.87 1.87 0 0 0-.348-1.127c-.243-.338-.688-.653-1.23-.656l-.518-.004c.597-1.145 1.425-1.983 2.348-2.87 1.473-1.414 3.18-3.149 3.2-6.226-.016-3.59-2.923-6.684-6.993-6.707m-.006 1.1v.002c3.274.02 5.92 2.532 5.9 5.6-.017 2.706-1.39 4.026-2.863 5.44-1.034.994-2.118 2.033-2.814 3.633-.018.041-.052.055-.075.065q-.013.004-.02.01a.34.34 0 0 1-.226.084.34.34 0 0 1-.224-.086l-.092-.077c-.699-1.615-1.768-2.669-2.781-3.67-1.454-1.435-2.797-2.762-2.78-5.478.02-3.067 2.7-5.545 5.975-5.523m-.02 2.826c-1.62-.01-2.944 1.315-2.955 2.96-.01 1.646 1.295 2.988 2.916 2.999h.002c1.621.01 2.943-1.316 2.953-2.961.011-1.646-1.294-2.988-2.916-2.998m-.005 1.1c1.017.006 1.829.83 1.822 1.89s-.83 1.874-1.848 1.867c-1.018-.006-1.829-.83-1.822-1.89s.83-1.874 1.848-1.868m-2.155 11.857 4.14.025c.271.002.49.305.487.676l-.013 1.875c-.003.37-.224.67-.495.668l-4.14-.025c-.27-.002-.487-.306-.485-.676l.012-1.875c.003-.37.224-.67.494-.668' style='color:%23000;font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:%23000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:evenodd;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:%23000;solid-opacity:1;vector-effect:none;fill:%23000;fill-opacity:.4;fill-rule:evenodd;stroke:none;stroke-width:2.47727823;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto' transform='translate(15.553 2.85)scale(.88807)'/%3E%3Cpath d='M-9.415-.316C-12.69-.338-15.37 2.14-15.39 5.207c-.017 2.716 1.326 4.041 2.78 5.477 1.013 1 2.081 2.055 2.78 3.67l.092.076a.34.34 0 0 0 .225.086.34.34 0 0 0 .227-.083l.019-.01c.022-.009.057-.024.074-.064.697-1.6 1.78-2.64 2.814-3.634 1.473-1.414 2.847-2.733 2.864-5.44.02-3.067-2.627-5.58-5.901-5.601m-.057 8.784c1.621.011 2.944-1.315 2.955-2.96.01-1.646-1.295-2.988-2.916-2.999-1.622-.01-2.945 1.315-2.955 2.96s1.295 2.989 2.916 3' style='clip-rule:evenodd;fill:%23e1e3e9;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.47727823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:.4' transform='translate(15.553 2.85)scale(.88807)'/%3E%3Cpath d='M-11.594 15.465c-.27-.002-.492.297-.494.668l-.012 1.876c-.003.371.214.673.485.675l4.14.027c.271.002.492-.298.495-.668l.012-1.877c.003-.37-.215-.672-.485-.674z' style='clip-rule:evenodd;fill:%23fff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.47727823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:.4' transform='translate(15.553 2.85)scale(.88807)'/%3E%3C/g%3E%3C/svg%3E")}}.maplibregl-ctrl.maplibregl-ctrl-attrib{background-color:hsla(0,0%,100%,.5);margin:0;padding:0 5px}@media screen{.maplibregl-ctrl-attrib.maplibregl-compact{background-color:#fff;border-radius:12px;box-sizing:content-box;color:#000;margin:10px;min-height:20px;padding:2px 24px 2px 0;position:relative}.maplibregl-ctrl-attrib.maplibregl-compact-show{padding:2px 28px 2px 8px;visibility:visible}.maplibregl-ctrl-bottom-left>.maplibregl-ctrl-attrib.maplibregl-compact-show,.maplibregl-ctrl-top-left>.maplibregl-ctrl-attrib.maplibregl-compact-show{border-radius:12px;padding:2px 8px 2px 28px}.maplibregl-ctrl-attrib.maplibregl-compact .maplibregl-ctrl-attrib-inner{display:none}.maplibregl-ctrl-attrib-button{background-color:hsla(0,0%,100%,.5);background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill-rule='evenodd' viewBox='0 0 20 20'%3E%3Cpath d='M4 10a6 6 0 1 0 12 0 6 6 0 1 0-12 0m5-3a1 1 0 1 0 2 0 1 1 0 1 0-2 0m0 3a1 1 0 1 1 2 0v3a1 1 0 1 1-2 0'/%3E%3C/svg%3E");border:0;border-radius:12px;box-sizing:border-box;cursor:pointer;display:none;height:24px;outline:none;position:absolute;right:0;top:0;width:24px}.maplibregl-ctrl-attrib summary.maplibregl-ctrl-attrib-button{-webkit-appearance:none;-moz-appearance:none;appearance:none;list-style:none}.maplibregl-ctrl-attrib summary.maplibregl-ctrl-attrib-button::-webkit-details-marker{display:none}.maplibregl-ctrl-bottom-left .maplibregl-ctrl-attrib-button,.maplibregl-ctrl-top-left .maplibregl-ctrl-attrib-button{left:0}.maplibregl-ctrl-attrib.maplibregl-compact .maplibregl-ctrl-attrib-button,.maplibregl-ctrl-attrib.maplibregl-compact-show .maplibregl-ctrl-attrib-inner{display:block}.maplibregl-ctrl-attrib.maplibregl-compact-show .maplibregl-ctrl-attrib-button{background-color:rgb(0 0 0/5%)}.maplibregl-ctrl-bottom-right>.maplibregl-ctrl-attrib.maplibregl-compact:after{bottom:0;right:0}.maplibregl-ctrl-top-right>.maplibregl-ctrl-attrib.maplibregl-compact:after{right:0;top:0}.maplibregl-ctrl-top-left>.maplibregl-ctrl-attrib.maplibregl-compact:after{left:0;top:0}.maplibregl-ctrl-bottom-left>.maplibregl-ctrl-attrib.maplibregl-compact:after{bottom:0;left:0}}@media screen and (forced-colors:active){.maplibregl-ctrl-attrib.maplibregl-compact:after{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='%23fff' fill-rule='evenodd' viewBox='0 0 20 20'%3E%3Cpath d='M4 10a6 6 0 1 0 12 0 6 6 0 1 0-12 0m5-3a1 1 0 1 0 2 0 1 1 0 1 0-2 0m0 3a1 1 0 1 1 2 0v3a1 1 0 1 1-2 0'/%3E%3C/svg%3E")}}@media screen and (forced-colors:active) and (prefers-color-scheme:light){.maplibregl-ctrl-attrib.maplibregl-compact:after{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill-rule='evenodd' viewBox='0 0 20 20'%3E%3Cpath d='M4 10a6 6 0 1 0 12 0 6 6 0 1 0-12 0m5-3a1 1 0 1 0 2 0 1 1 0 1 0-2 0m0 3a1 1 0 1 1 2 0v3a1 1 0 1 1-2 0'/%3E%3C/svg%3E")}}.maplibregl-ctrl-attrib a{color:rgba(0,0,0,.75);text-decoration:none}.maplibregl-ctrl-attrib a:hover{color:inherit;text-decoration:underline}.maplibregl-attrib-empty{display:none}.maplibregl-ctrl-scale{background-color:hsla(0,0%,100%,.75);border:2px solid #333;border-top:#333;box-sizing:border-box;color:#333;font-size:10px;padding:0 5px}.maplibregl-popup{display:flex;left:0;pointer-events:none;position:absolute;top:0;will-change:transform}.maplibregl-popup-anchor-top,.maplibregl-popup-anchor-top-left,.maplibregl-popup-anchor-top-right{flex-direction:column}.maplibregl-popup-anchor-bottom,.maplibregl-popup-anchor-bottom-left,.maplibregl-popup-anchor-bottom-right{flex-direction:column-reverse}.maplibregl-popup-anchor-left{flex-direction:row}.maplibregl-popup-anchor-right{flex-direction:row-reverse}.maplibregl-popup-tip{border:10px solid transparent;height:0;width:0;z-index:1}.maplibregl-popup-anchor-top .maplibregl-popup-tip{align-self:center;border-bottom-color:#fff;border-top:none}.maplibregl-popup-anchor-top-left .maplibregl-popup-tip{align-self:flex-start;border-bottom-color:#fff;border-left:none;border-top:none}.maplibregl-popup-anchor-top-right .maplibregl-popup-tip{align-self:flex-end;border-bottom-color:#fff;border-right:none;border-top:none}.maplibregl-popup-anchor-bottom .maplibregl-popup-tip{align-self:center;border-bottom:none;border-top-color:#fff}.maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip{align-self:flex-start;border-bottom:none;border-left:none;border-top-color:#fff}.maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip{align-self:flex-end;border-bottom:none;border-right:none;border-top-color:#fff}.maplibregl-popup-anchor-left .maplibregl-popup-tip{align-self:center;border-left:none;border-right-color:#fff}.maplibregl-popup-anchor-right .maplibregl-popup-tip{align-self:center;border-left-color:#fff;border-right:none}.maplibregl-popup-close-button{background-color:transparent;border:0;border-radius:0 3px 0 0;cursor:pointer;position:absolute;right:0;top:0}.maplibregl-popup-close-button:hover{background-color:rgb(0 0 0/5%)}.maplibregl-popup-content{background:#fff;border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.1);padding:15px 10px;pointer-events:auto;position:relative}.maplibregl-popup-anchor-top-left .maplibregl-popup-content{border-top-left-radius:0}.maplibregl-popup-anchor-top-right .maplibregl-popup-content{border-top-right-radius:0}.maplibregl-popup-anchor-bottom-left .maplibregl-popup-content{border-bottom-left-radius:0}.maplibregl-popup-anchor-bottom-right .maplibregl-popup-content{border-bottom-right-radius:0}.maplibregl-popup-track-pointer{display:none}.maplibregl-popup-track-pointer *{pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.maplibregl-map:hover .maplibregl-popup-track-pointer{display:flex}.maplibregl-map:active .maplibregl-popup-track-pointer{display:none}.maplibregl-marker{left:0;position:absolute;top:0;transition:opacity .2s;will-change:transform}.maplibregl-user-location-dot,.maplibregl-user-location-dot:before{background-color:#1da1f2;border-radius:50%;height:15px;width:15px}.maplibregl-user-location-dot:before{animation:maplibregl-user-location-dot-pulse 2s infinite;content:"";position:absolute}.maplibregl-user-location-dot:after{border:2px solid #fff;border-radius:50%;box-shadow:0 0 3px rgba(0,0,0,.35);box-sizing:border-box;content:"";height:19px;left:-2px;position:absolute;top:-2px;width:19px}@keyframes maplibregl-user-location-dot-pulse{0%{opacity:1;transform:scale(1)}70%{opacity:0;transform:scale(3)}to{opacity:0;transform:scale(1)}}.maplibregl-user-location-dot-stale{background-color:#aaa}.maplibregl-user-location-dot-stale:after{display:none}.maplibregl-user-location-accuracy-circle{background-color:#1da1f233;border-radius:100%;height:1px;width:1px}.maplibregl-crosshair,.maplibregl-crosshair .maplibregl-interactive,.maplibregl-crosshair .maplibregl-interactive:active{cursor:crosshair}.maplibregl-boxzoom{background:#fff;border:2px dotted #202020;height:0;left:0;opacity:.5;position:absolute;top:0;width:0}.maplibregl-cooperative-gesture-screen{align-items:center;background:rgba(0,0,0,.4);color:#fff;display:flex;font-size:1.4em;inset:0;justify-content:center;line-height:1.2;opacity:0;padding:1rem;pointer-events:none;position:absolute;transition:opacity 1s ease 1s;z-index:99999}.maplibregl-cooperative-gesture-screen.maplibregl-show{opacity:1;transition:opacity .05s}.maplibregl-cooperative-gesture-screen .maplibregl-mobile-message{display:none}@media (hover:none),(width <= 480px){.maplibregl-cooperative-gesture-screen .maplibregl-desktop-message{display:none}.maplibregl-cooperative-gesture-screen .maplibregl-mobile-message{display:block}}.maplibregl-pseudo-fullscreen{height:100%!important;left:0!important;position:fixed!important;top:0!important;width:100%!important;z-index:99999}</style>
+<style>
+/* Düzen: solda senaryo/istatistik paneli, sağda harita; haritanın altında yağış–tepki çizelgesi (hiyetograf yukarıdan sarkar). */
+:root {
+  --zemin: #e4e8e7;      /* sayfa ve kara */
+  --panel: #f6f8f7;
+  --cizgi: #c5cdcb;
+  --metin: #18232a;
+  --soluk: #5b6a70;
+  --vurgu: #b0601a;      /* aşı boyası: seçim, düğmeler */
+  --vurgu-metin: #ffffff;
+  --su1: #7fdcec; --su2: #2ea3dc; --su3: #1d55c4; --su4: #241f86;
+  --yagis: #4d6f86;
+  --tehlike: #c23b2a;
+  --uyari: #c98a12;
+  --iyi: #2f7d55;
+  --f-baslik: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-govde: "Barlow Semi Condensed", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --f-sayi: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --panel-gen: 372px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --zemin: #151b1f; --panel: #1b2227; --cizgi: #2f3a40; --metin: #e3ebee; --soluk: #93a4ab;
+    --vurgu: #e39a4c; --vurgu-metin: #1b1208;
+    --su1: #6ff0ff; --su2: #2fb4ff; --su3: #4c6bff; --su4: #9a6bff;
+    --yagis: #8fb2c9; --tehlike: #ff7a66; --uyari: #f0b44a; --iyi: #6cc596;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --zemin: #151b1f; --panel: #1b2227; --cizgi: #2f3a40; --metin: #e3ebee; --soluk: #93a4ab;
+  --vurgu: #e39a4c; --vurgu-metin: #1b1208;
+  --su1: #6ff0ff; --su2: #2fb4ff; --su3: #4c6bff; --su4: #9a6bff;
+  --yagis: #8fb2c9; --tehlike: #ff7a66; --uyari: #f0b44a; --iyi: #6cc596;
+  color-scheme: dark;
+}
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--zemin); color: var(--metin); font-family: var(--f-govde); font-size: 14px; line-height: 1.4; }
+* { box-sizing: border-box; }
+button, input, select { font: inherit; color: inherit; }
+.uygulama { display: grid; grid-template-columns: var(--panel-gen) minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); grid-template-areas: "baslik harita" "panel harita"; height: 100%; }
+.panel { grid-area: panel; background: var(--panel); border-right: 1px solid var(--cizgi); overflow-y: auto; display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.panel-ust { grid-area: baslik; background: var(--panel); border-right: 1px solid var(--cizgi); padding: 16px 18px 10px; border-bottom: 1px solid var(--cizgi); display: grid; gap: 4px; }
+.panel-ust h1 { font-family: var(--f-baslik); font-weight: 600; font-size: 26px; line-height: 1.05; margin: 0; letter-spacing: .2px; text-wrap: balance; }
+.panel-ust p { margin: 0; color: var(--soluk); font-size: 13px; }
+.sekmeler { display: flex; border-bottom: 1px solid var(--cizgi); position: sticky; top: 0; background: var(--panel); z-index: 2; }
+.sekmeler button { flex: 1; background: none; border: 0; border-bottom: 2px solid transparent; padding: 9px 4px 8px; cursor: pointer; color: var(--soluk); font-weight: 500; }
+.sekmeler button[aria-selected="true"] { color: var(--metin); border-bottom-color: var(--vurgu); }
+.sekmeler button:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--vurgu); outline-offset: 1px; }
+.sayfa { padding: 14px 18px 22px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-content: start; }
+.bolum { min-width: 0; }
+.satir select { min-width: 0; max-width: 100%; flex: 1 1 12em; }
+.bolum { display: grid; gap: 8px; }
+.bolum h2 { font-family: var(--f-baslik); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--soluk); margin: 0; }
+.cipler { display: flex; flex-wrap: wrap; gap: 6px; }
+.cip { border: 1px solid var(--cizgi); background: transparent; border-radius: 3px; padding: 4px 9px; cursor: pointer; font-size: 13px; }
+.cip[aria-pressed="true"] { background: var(--vurgu); border-color: var(--vurgu); color: var(--vurgu-metin); }
+.ayar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; align-items: center; }
+.ayar label { font-size: 13px; }
+.ayar output { font-family: var(--f-sayi); font-size: 12.5px; text-align: right; }
+.ayar input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--vurgu); margin: 2px 0 4px; }
+.ayar small { grid-column: 1 / -1; color: var(--soluk); font-size: 12px; margin-top: -4px; }
+.satir { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+select { background: var(--panel); border: 1px solid var(--cizgi); border-radius: 3px; padding: 4px 6px; }
+.dugme { border: 1px solid var(--vurgu); background: transparent; color: var(--vurgu); border-radius: 3px; padding: 5px 10px; cursor: pointer; font-weight: 500; }
+.dugme.dolu { background: var(--vurgu); color: var(--vurgu-metin); }
+.dugme:disabled { opacity: .45; cursor: default; }
+.anahtar { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; }
+.anahtar input { accent-color: var(--vurgu); width: 16px; height: 16px; }
+.not { font-size: 12.5px; color: var(--soluk); margin: 0; }
+.not b { color: var(--metin); font-weight: 600; }
+/* istatistik */
+.olcum { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--cizgi); }
+.olcum > div { padding: 8px 0 8px; border-bottom: 1px solid var(--cizgi); display: grid; gap: 1px; }
+.olcum > div:nth-child(odd) { padding-right: 10px; border-right: 1px solid var(--cizgi); }
+.olcum > div:nth-child(even) { padding-left: 10px; }
+.olcum dt { font-size: 12px; color: var(--soluk); }
+.olcum dd { margin: 0; font-family: var(--f-sayi); font-size: 19px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.olcum dd small { font-size: 11px; color: var(--soluk); font-weight: 400; margin-left: 3px; }
+.tesisler { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12.5px; }
+.tesisler span b { font-family: var(--f-sayi); font-weight: 500; }
+.nokta { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 4px; vertical-align: 0; }
+/* harita alanı */
+.harita-alan { grid-area: harita; position: relative; display: grid; grid-template-rows: minmax(0, 1fr) auto; min-width: 0; }
+#harita { position: relative; min-height: 0; }
+.cizelge { border-top: 1px solid var(--cizgi); background: var(--panel); padding: 8px 14px 10px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; align-items: center; }
+.cizelge .kontrol { display: flex; gap: 6px; align-items: center; }
+.oynat { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--vurgu); background: var(--vurgu); color: var(--vurgu-metin); cursor: pointer; display: grid; place-items: center; padding: 0; }
+.oynat svg { width: 14px; height: 14px; fill: currentColor; }
+.zaman { font-family: var(--f-sayi); font-size: 13px; min-width: 116px; }
+.zaman small { display: block; color: var(--soluk); font-size: 11px; font-family: var(--f-govde); }
+#grafik { width: 100%; height: 112px; display: block; cursor: ew-resize; touch-action: none; }
+.cizelge-alt { grid-column: 2; display: flex; gap: 14px; font-size: 11.5px; color: var(--soluk); flex-wrap: wrap; }
+.cizelge-alt i { display: inline-block; width: 14px; height: 3px; vertical-align: 3px; margin-right: 4px; }
+.lejant { position: absolute; right: 10px; top: 10px; background: var(--panel); border: 1px solid var(--cizgi); border-radius: 3px; padding: 7px 9px; font-size: 11.5px; display: grid; gap: 4px; z-index: 2; max-width: 210px; }
+.lejant .rampa, .lejant-ic .rampa { height: 8px; border-radius: 1px; }
+.lejant-ic { display: grid; gap: 3px; max-width: 280px; }
+.lejant .olcek, .lejant-ic .olcek { display: flex; justify-content: space-between; font-family: var(--f-sayi); font-size: 10.5px; color: var(--soluk); }
+.durum { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: var(--panel); border: 1px solid var(--cizgi); padding: 14px 18px; border-radius: 4px; z-index: 5; display: grid; gap: 8px; min-width: 240px; max-width: calc(100% - 32px); }
+.durum .cubuk { height: 4px; background: var(--cizgi); border-radius: 2px; overflow: hidden; }
+.durum .cubuk div { height: 100%; width: 0; background: var(--vurgu); transition: width .2s; }
+.ipucu { position: absolute; left: 10px; top: 10px; background: var(--vurgu); color: var(--vurgu-metin); padding: 6px 10px; border-radius: 3px; z-index: 3; font-size: 13px; }
+/* listeler */
+.liste { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--cizgi); }
+.liste li { border-bottom: 1px solid var(--cizgi); }
+.liste button { width: 100%; text-align: left; background: none; border: 0; padding: 7px 2px; cursor: pointer; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; }
+.liste button:hover { background: color-mix(in srgb, var(--vurgu) 8%, transparent); }
+.liste .no { font-family: var(--f-sayi); color: var(--soluk); font-size: 12px; }
+.liste .ad { min-width: 0; }
+.liste .ad b { font-weight: 600; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.liste .ad span { color: var(--soluk); font-size: 12px; }
+.liste .deger { font-family: var(--f-sayi); font-size: 12.5px; text-align: right; }
+.liste .deger small { display: block; color: var(--soluk); font-size: 11px; }
+.etiket { display: inline-block; font-size: 10.5px; padding: 0 5px; border-radius: 2px; border: 1px solid currentColor; margin-left: 4px; vertical-align: 1px; text-transform: uppercase; letter-spacing: .5px; }
+table.tablo { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.tablo th, .tablo td { padding: 4px 4px; border-bottom: 1px solid var(--cizgi); text-align: right; font-variant-numeric: tabular-nums; }
+.tablo th:first-child, .tablo td:first-child { text-align: left; }
+.tablo td { font-family: var(--f-sayi); font-size: 12px; }
+.tablo td:first-child { font-family: var(--f-govde); font-size: 12.5px; }
+.tablo thead th { color: var(--soluk); font-weight: 500; }
+.kutu { border: 1px solid var(--cizgi); border-radius: 3px; padding: 10px 12px; display: grid; gap: 8px; }
+.kutu h3 { margin: 0; font-family: var(--f-baslik); font-size: 19px; font-weight: 600; }
+.metin p, .metin li { font-size: 13px; max-width: 62ch; }
+.metin ul { padding-left: 18px; margin: 0; display: grid; gap: 4px; }
+.metin a { color: var(--vurgu); }
+/* harita açılır pencere */
+.maplibregl-popup-content { background: var(--panel); color: var(--metin); border: 1px solid var(--cizgi); border-radius: 3px; padding: 10px 12px; font-family: var(--f-govde); box-shadow: 0 4px 18px rgba(0,0,0,.18); }
+.maplibregl-popup-tip { border-top-color: var(--cizgi) !important; border-bottom-color: var(--cizgi) !important; }
+.maplibregl-popup-close-button { color: var(--soluk); font-size: 18px; padding: 0 6px; }
+.pop { display: grid; gap: 6px; min-width: 220px; max-width: 280px; }
+.pop h4 { margin: 0; font-family: var(--f-baslik); font-size: 17px; font-weight: 600; padding-right: 14px; }
+.pop .alt { color: var(--soluk); font-size: 12px; }
+.pop dl { display: grid; grid-template-columns: auto auto; gap: 2px 10px; margin: 0; font-size: 12.5px; }
+.pop dt { color: var(--soluk); }
+.pop dd { margin: 0; text-align: right; font-family: var(--f-sayi); font-size: 12px; }
+.pop canvas { width: 100%; height: 64px; }
+.maplibregl-ctrl-group { background: var(--panel); }
+.uc-dugme { font-family: var(--f-baslik); font-weight: 600; font-size: 14px; color: var(--metin) !important; }
+.uc-dugme[aria-pressed="true"] { background: var(--vurgu) !important; color: var(--vurgu-metin) !important; }
+.maplibregl-ctrl-group button + button { border-top-color: var(--cizgi); }
+.maplibregl-ctrl-attrib { background: color-mix(in srgb, var(--panel) 80%, transparent) !important; color: var(--soluk); }
+.maplibregl-ctrl-attrib a { color: var(--soluk); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); } }
+:root[data-theme="dark"] .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); }
+@media (max-width: 820px) {
+  html, body { height: auto; }
+  .uygulama { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; grid-template-areas: "baslik" "harita" "panel"; height: auto; }
+  .harita-alan { height: 74vh; min-height: 440px; }
+  .panel-ust { border-right: 0; padding-block: 12px 10px; }
+  .panel-ust h1 { font-size: 22px; }
+  .panel { border-right: 0; overflow: visible; }
+  .lejant { display: none; }
+  .zaman { min-width: 88px; }
+}
+@media (prefers-reduced-motion: reduce) { .durum .cubuk div { transition: none; } }
+</style>
+
+<div class="uygulama">
+  <header class="panel-ust">
+    <h1>İstanbul Taşkın Simülatörü</h1>
+    <p>Yağmur suyu şebekesi çalışmadığında su önce nerede birikir? 58.874 çukurun (bluespot) 10 m çözünürlüklü kova modeli.</p>
+  </header>
+  <aside class="panel" aria-label="Senaryo ve sonuçlar">
+    <nav class="sekmeler" role="tablist">
+      <button role="tab" id="t-senaryo" aria-selected="true" data-sayfa="senaryo">Senaryo</button>
+      <button role="tab" id="t-ilk" aria-selected="false" data-sayfa="ilk">İlk dolanlar</button>
+      <button role="tab" id="t-karne" aria-selected="false" data-sayfa="karne">Mahalleler</button>
+      <button role="tab" id="t-yontem" aria-selected="false" data-sayfa="yontem">Yöntem</button>
+    </nav>
+
+    <section class="sayfa" id="s-senaryo" role="tabpanel">
+      <div class="bolum" aria-live="polite">
+        <h2 id="anlik-baslik">Şu an</h2>
+        <dl class="olcum">
+          <div><dt>Su altındaki alan</dt><dd id="o-alan">–</dd></div>
+          <div><dt>Duvarına ≥10 cm su değen bina</dt><dd id="o-bina">–</dd></div>
+          <div><dt>Bu binalarda yaşayan</dt><dd id="o-nufus">–</dd></div>
+          <div><dt>≥30 cm su (bodrum/zemin riski)</dt><dd id="o-bina30">–</dd></div>
+          <div><dt>Araç geçemez yol (≥30 cm)</dt><dd id="o-yol">–</dd></div>
+          <div><dt>Dolup taşan çukur</dt><dd id="o-dolu">–</dd></div>
+        </dl>
+        <div class="tesisler" id="o-tesis"></div>
+      </div>
+
+      <div class="bolum">
+        <h2>Yağış</h2>
+        <div class="cipler" id="yagis-hazir">
+          <button class="cip" data-p="40" data-s="45" data-d="basta">Kısa sağanak</button>
+          <button class="cip" data-p="60" data-s="90" data-d="orta">Saatlik fırtına</button>
+          <button class="cip" data-p="100" data-s="360" data-d="duzgun">Uzun yağış</button>
+          <button class="cip" data-p="150" data-s="180" data-d="orta">Aşırı</button>
+        </div>
+        <div id="olay-blok" hidden>
+          <div class="satir"><label for="g-olay-sec">Geçmiş olay</label>
+            <select id="g-olay-sec"><option value="">— seçilmedi —</option></select></div>
+          <p class="not" id="olay-not"></p>
+        </div>
+        <div class="ayar"><label for="g-p">Toplam yağış</label><output id="v-p" for="g-p"></output>
+          <input type="range" id="g-p" min="5" max="200" step="5" value="60"></div>
+        <div class="ayar"><label for="g-s">Süre</label><output id="v-s" for="g-s"></output>
+          <input type="range" id="g-s" min="15" max="720" step="15" value="90"></div>
+        <div class="satir"><label for="g-d">Yoğunluk deseni</label>
+          <select id="g-d"><option value="basta">Tepe başta</option><option value="orta" selected>Tepe ortada</option>
+            <option value="sonda">Tepe sonda</option><option value="duzgun">Düzgün</option></select></div>
+      </div>
+
+      <div class="bolum">
+        <h2>Altyapı</h2>
+        <div class="cipler" id="altyapi-hazir">
+          <button class="cip" data-dr="0" data-pm="0">Tamamen devre dışı</button>
+          <button class="cip" data-dr="10" data-pm="1">Kısmen tıkalı</button>
+          <button class="cip" data-dr="25" data-pm="1">Çalışıyor</button>
+        </div>
+        <div class="ayar"><label for="g-dr">Drenaj kapasitesi</label><output id="v-dr" for="g-dr"></output>
+          <input type="range" id="g-dr" min="0" max="50" step="1" value="0">
+          <small>Şebekenin yerel havzadan alabildiği akış, havza alanı başına (mm/sa). 0 = şebeke çalışmıyor.</small></div>
+        <label class="anahtar"><input type="checkbox" id="g-pm"> Alt geçit pompaları çalışıyor (her biri 0,5 m³/s)</label>
+      </div>
+
+      <div class="bolum">
+        <h2>Arazi örtüsü</h2>
+        <div class="cipler" id="arazi-sec">
+          <button class="cip" aria-pressed="true" data-a="2020">Bugün (2020)</button>
+          <button class="cip" aria-pressed="false" data-a="1990">1990 yapılaşması</button>
+        </div>
+        <p class="not" id="arazi-not">Aynı topografyada, 1990'daki yapılaşma ve geçirimsizlikle yüzey akışı (GHSL 1990 → 2020).</p>
+      </div>
+
+      <div class="bolum">
+        <h2>Menfez tıkanması</h2>
+        <p class="not">Kapalı derenin ya da menfezin ağzı tıkanırsa (çöp, moloz, sediman) su setin önünde göllenir. İl içinde, kıyısında en çok bina olan 30 menfez modellendi.</p>
+        <div class="cipler" id="menfez-hazir">
+          <button class="cip" aria-pressed="true" data-n="0">Hepsi açık</button>
+          <button class="cip" aria-pressed="false" data-n="10">En kritik 10 tıkalı</button>
+          <button class="cip" aria-pressed="false" data-n="30">30'u tıkalı</button>
+        </div>
+        <p class="not" id="menfez-not">Haritadaki menfez işaretlerine (yakınlaşınca görünür) tıklayarak tek tek tıkayıp açabilirsin.</p>
+      </div>
+
+      <div class="bolum">
+        <h2>Boru patlaması</h2>
+        <p class="not">Bir isale ya da ana su borusu patlarsa çıkan su, o noktanın yerel havzasındaki ilk çukura akar ve oradan taşma zinciriyle ilerler.</p>
+        <div class="satir"><button class="dugme" id="patlama-sec">Haritada nokta seç</button>
+          <button class="dugme" id="patlama-sil" hidden>Kaldır</button></div>
+        <p class="not" id="patlama-bilgi" hidden></p>
+        <div class="ayar"><label for="g-q">Debi</label><output id="v-q" for="g-q"></output>
+          <input type="range" id="g-q" min="0.1" max="3" step="0.1" value="0.8"></div>
+        <div class="ayar"><label for="g-qs">Akış süresi</label><output id="v-qs" for="g-qs"></output>
+          <input type="range" id="g-qs" min="15" max="360" step="15" value="120"></div>
+      </div>
+
+      <div class="bolum">
+        <h2>Harita katmanı</h2>
+        <div class="cipler" id="katman-sec">
+          <button class="cip" aria-pressed="true" data-k="anlik">Anlık derinlik</button>
+          <button class="cip" aria-pressed="false" data-k="tepe">En büyük derinlik</button>
+          <button class="cip" aria-pressed="false" data-k="esik">Dolma eşiği</button>
+        </div>
+        <div class="lejant-ic" id="lejant-panel"></div>
+        <p class="not" id="katman-not">Su, yağış bittikten sonra 3 saat daha izlenir. Drenaj kapasitesi varsa çukurlar bu sürede boşalır.</p>
+      </div>
+
+      <div class="bolum">
+        <h2>Dışa aktar</h2>
+        <div class="satir"><button class="dugme" id="csv-zaman">Zaman serisi (CSV)</button>
+          <button class="dugme" id="csv-mahalle">Mahalle sonuçları (CSV)</button></div>
+        <p class="not">Mahalle sonuçları bu senaryonun en çok su basan anındandır.</p>
+      </div>
+    </section>
+
+    <section class="sayfa" id="s-ilk" role="tabpanel" hidden>
+      <div class="bolum">
+        <h2>Bu senaryoda ilk dolup taşan yerler</h2>
+        <p class="not">Kentsel alanda, alt geçitlerde ve dere vadilerinde, il sınırı içinde, <b>tamamen dolma</b> zamanına göre sıralı; aynı adımda dolanlar drenajsız dolma eşiğine göre. Avlular, göl yüzeyleri ve maden ocakları hariç.</p>
+        <p class="not"><b>Okurken:</b> tek tek cadde çukurlarının sırası, yolların kaldırıma göre ne kadar alçak alındığına (30 cm) duyarlıdır; mahalle ve ilçe düzeyindeki tablo bu varsayıma dayanıklıdır (Yöntem sekmesi).</p>
+        <div class="cipler" id="ilk-filtre">
+          <button class="cip" aria-pressed="true" data-k="kent">Kentsel + alt geçit</button>
+          <button class="cip" aria-pressed="false" data-k="alt_gecit">Yalnız alt geçit</button>
+          <button class="cip" aria-pressed="false" data-k="dere_vadi">Dere vadisi</button>
+          <button class="cip" aria-pressed="false" data-k="hepsi">Hepsi</button>
+        </div>
+        <div class="satir"><label for="ilk-hacim">En az hacim</label>
+          <select id="ilk-hacim"><option value="0">hepsi</option><option value="100">100 m³</option><option value="500" selected>500 m³</option><option value="2000">2.000 m³</option></select></div>
+        <ol class="liste" id="ilk-liste"></ol>
+        <div class="satir"><button class="dugme" id="csv-ilk">Tüm listeyi CSV indir</button></div>
+      </div>
+    </section>
+
+    <section class="sayfa" id="s-karne" role="tabpanel" hidden>
+      <div class="bolum">
+        <h2>Mahalle karnesi</h2>
+        <div class="satir"><label for="k-gosterge">Haritada göster</label>
+          <select id="k-gosterge">
+            <option value="risk_indeksi">Risk indeksi (0–100)</option>
+            <option value="gi_z">Sıcak nokta (Getis-Ord Gi* z)</option>
+            <option value="islak_oran_50">Su altındaki alan oranı, 50 mm</option>
+            <option value="nufus_oran_50">Etkilenen nüfus oranı, 50 mm</option>
+            <option value="ulasilamaz_50">Hastaneye ulaşamayan yol düğümü, 50 mm</option>
+            <option value="dusus_mm">Betonlaşmayla dolma eşiği düşüşü (1990 → 2020)</option>
+          </select></div>
+        <div id="k-lejant"></div>
+        <p class="not">Karne değerleri drenajsız, düzgün yağış için önceden hesaplandı (25 / 50 / 100 mm). Ayrıntı için haritada bir mahalleye tıklayın.</p>
+        <div id="k-detay"></div>
+        <h2>En riskli 15 mahalle</h2>
+        <ol class="liste" id="k-liste"></ol>
+      </div>
+    </section>
+
+    <section class="sayfa metin" id="s-yontem" role="tabpanel" hidden>
+      <div class="bolum"><h2>Model</h2>
+        <p>Yüzey, 10 m'lik koşullandırılmış bir yükseklik modeli (FABDEM; köprüler kaldırıldı, binalar +5 m yükseltildi, yollar 0,3 m alçaltıldı, dereler ve menfezler oyuldu). Bu yüzeyde suyun toplanabileceği <b>58.874 çukur</b> bulundu ve her çukurun suyu nereye taşırdığı bir taşma ağacına bağlandı (fill–spill–merge).</p>
+        <p>Haritadaki su, çukur piksellerinin derinliğinden çift doğrusal olarak yumuşatılır; kıyı çizgisi derinliğin sıfır eş-eğrisidir. 3B görünümde arazi 30 m çözünürlükte ve 1,6 kat abartılı, bina yükseklikleri OSM kat sayısından (yoksa 2 kat).</p>
+        <p>Her zaman adımında (5 dk): yerel havzaya düşen yağıştan SCS eğri numarası (CN; ESA WorldCover + HiHydroSoil) ile akış hesaplanır; drenaj kapasitesi kadar su şebekeye gider; artan su çukura dolar, çukur dolunca taşan su alıcı çukura geçer. Su seviyesi çukurun hipsometrisinden (her pikselin kotu) bulunur.</p>
+      </div>
+      <div class="bolum"><h2>Doğrulama</h2>
+        <p id="dogrulama-metin">Haberlerde su bastığı yazan 22 olay (2021–2026) rastgele yerlerle karşılaştırıldı.</p>
+        <label class="anahtar"><input type="checkbox" id="g-olay" checked> Doğrulama olaylarını haritada göster</label>
+      </div>
+      <div class="bolum"><h2>Kentleşme etkisi</h2><div id="kentlesme-metin"></div></div>
+      <div class="bolum"><h2>Duyarlılık ve belirsizlik</h2><div id="duyarlilik-metin"><p>Hesaplanıyor…</p></div></div>
+      <div class="bolum"><h2>Menfez tıkanması</h2>
+        <p>Koşullandırmada açılan her kapalı dere/menfez hattı tıkanınca DEM'deki set ham haline döner. Set önünde oluşan gölet, menfez açık ve kapalıyken yapılan iki doldurmanın farkıdır; gölete, akışı menfezden geçen memba alanının suyu ve taşması menfezin mansabına giden çukurların taşması gelir. Gölet tabanında mevcut çukurların dolu olduğu varsayılır.</p></div>
+      <div class="bolum"><h2>Sınırlamalar</h2>
+        <ul>
+          <li>Akış süresi ihmal edilir: taşan su aynı adımda alıcı çukura ulaşır. Sonuç, yerlerin dolma <b>sırasını</b> güvenilir verir; dakika düzeyindeki zamanlar yaklaşıktır.</li>
+          <li>Kanalizasyonun geri tepmesi ve denizden kabarma modellenmez; kıyıdaki ve köprü altındaki baskınlar eksik kalır.</li>
+          <li>"Duvarına su değen bina" bir maruziyet ölçüsüdür, hasar değil. Nüfus binaya alanıyla dağıtıldı (GHS-POP 2020, TÜİK toplamına ölçeklendi).</li>
+          <li>Drenaj kapasitesi ve pompa değerleri senaryo varsayımıdır; İSKİ'nin gerçek şebeke kapasitesi değildir.</li>
+        </ul>
+      </div>
+      <div class="bolum"><h2>Veri</h2>
+        <p>FABDEM v1.2, Copernicus GLO-30, ESA WorldCover 2021, HiHydroSoil v2, JRC GHSL (GHS-BUILT-S, GHS-POP), HydroSHEDS, OpenStreetMap katkıcıları. Hesaplar Google Earth Engine ve Python (numba) ile yapıldı.</p>
+      </div>
+    </section>
+  </aside>
+
+  <main class="harita-alan">
+    <div id="harita">
+      <div class="durum" id="durum"><b id="durum-metin">Veri yükleniyor…</b><div class="cubuk"><div id="durum-cubuk"></div></div></div>
+      <div class="ipucu" id="ipucu" hidden>Patlama noktası için haritaya tıklayın · Esc ile vazgeç</div>
+      <div class="lejant" id="lejant"></div>
+    </div>
+    <div class="cizelge">
+      <div class="kontrol">
+        <button class="oynat" id="oynat" aria-label="Oynat"><svg viewBox="0 0 16 16" id="oynat-ikon"><path d="M3 1.5v13l11-6.5z"/></svg></button>
+        <div class="zaman" id="zaman">00:00<small>yağış başladıktan sonra</small></div>
+      </div>
+      <canvas id="grafik" aria-label="Yağış ve su altındaki alan zaman çizelgesi"></canvas>
+      <div class="cizelge-alt"><span><i style="background:var(--yagis)"></i>yağış şiddeti (mm/sa, yukarıdan)</span><span><i style="background:var(--su2)"></i>su altındaki alan</span><span><i style="background:var(--tehlike)"></i>etkilenen nüfus</span></div>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pmtiles@3.2.1/dist/pmtiles.js"></script>
+<script id="motor-src" type="text/plain">/* İstanbul taşkın simülatörü — zaman adımlı kova motoru.
+ *
+ * pipeline/maruziyet/motor.py'nin tarayıcı karşılığı. Drenaj kapasitesi 0, pompa yok ve tek adımda verilen yağış
+ * için sonuç motor.py ile aynıdır (test: web/test/motor_test.js).
+ *
+ * Her adımda: (1) her çukurun yerel havzasından SCS-CN akışı (birikimli yağıştan), (2) boru patlaması varsa o
+ * noktanın havzasındaki çukura su, (3) kademe sırasıyla (memba → mansap) her çukurda drenaj kapasitesi kadar su
+ * şebekeye gider, kapasiteyi aşan su alıcı çukura taşar (alıcı yoksa denize/dereye), (4) hipsometriden su seviyesi.
+ * Akış süresi ihmal edilir: adım içinde taşan su aynı adımda alıcıya ulaşır.
+ */
+(function (kok) {
+  "use strict";
+
+  function scsQ(P, cn) {
+    const S = 25400 / cn - 254;
+    if (S <= 0) return P;
+    const Pe = Math.max(P - 0.2 * S, 0);
+    return (Pe * Pe) / (Pe + S);
+  }
+
+  // Yağış deseni: birikimli yağış oranı F(t/D) ∈ [0,1]
+  function birikimli(desen, x) {
+    if (x <= 0) return 0;
+    if (x >= 1) return 1;
+    if (desen === "duzgun") return x;
+    const r = desen === "basta" ? 0.25 : desen === "sonda" ? 0.75 : 0.5; // üçgen hiyetograf, tepe r·D'de
+    return x <= r ? (x * x) / r : 1 - ((1 - x) * (1 - x)) / (1 - r);
+  }
+
+  class Motor {
+    /** d: {meta, model:{...typed arrays}, piksel:{dz}, maruz:{...}} */
+    constructor(d) {
+      const M = d.model, meta = d.meta;
+      this.meta = meta;
+      this.m = meta.m;
+      this.A = meta.piksel_alan_m2;
+      this.cnMin = meta.cn_min;
+      this.cnN = meta.cn_n;
+      Object.assign(this, {
+        ofset: M.ofset, alici: M.alici, kap: M.kap, sira: M.sira, kat: M.kat, ilIci: M.il_ici,
+        yerelPx: M.yerel_px, cnPtr: M.cn_ptr, cnKod: M.cn_kod, cnSay: M.cn_say,
+      });
+      // hipsometri: tabandan yükseklik (m) ve önek toplamları
+      const dz = d.piksel.dz, n = dz.length;
+      this.dz = new Float32Array(n);
+      this.onek = new Float64Array(n + 1);
+      for (let i = 0; i < n; i++) {
+        const v = dz[i] / 100;
+        this.dz[i] = v;
+        this.onek[i + 1] = this.onek[i] + v;
+      }
+      this.altgecit = meta.kategori.indexOf("alt_gecit");
+      // ek senaryolar (08_senaryo_paket.py): menfez göletleri m0+1..m, 1990 CN histogramı
+      this.m0 = meta.m0 || meta.m;
+      this.besOfs = M.m_bes_ofs || null; this.bes = M.m_bes || null;
+      this.cn90 = M.cn90_ptr ? { ptr: M.cn90_ptr, kod: M.cn90_kod, say: M.cn90_say } : null;
+      this.pasif = new Uint8Array(this.m + 1);
+      for (let b = this.m0 + 1; b <= this.m; b++) this.pasif[b] = 1;   // göletler varsayılan kapalı
+      this.X = d.maruz;
+      let nb = 0;
+      for (let i = 0; i < this.X.b_i.length; i++) if (this.X.b_i[i] + 1 > nb) nb = this.X.b_i[i] + 1;
+      this.nBina = nb;
+      let nt = 0;
+      for (let i = 0; i < this.X.t_i.length; i++) if (this.X.t_i[i] + 1 > nt) nt = this.X.t_i[i] + 1;
+      this.nTesis = nt;
+      this.tesisler = d.tesisler || null;
+    }
+
+    /** b çukurunda V m³ su varken su seviyesi (tabandan, m) ve ıslak piksel sayısı. motor.py::_seviyeler ile aynı. */
+    seviye(b, V) {
+      const o0 = b === 0 ? 0 : this.ofset[b - 1], o1 = this.ofset[b], n = o1 - o0;
+      if (n === 0 || V <= 0) return [NaN, 0];
+      const v = V / this.A, dz = this.dz, P = this.onek;
+      // en küçük k (1..n) öyle ki k·dz[k] − S_k ≥ v  (dz[n] = ∞)
+      let lo = 1, hi = n;
+      while (lo < hi) {
+        const k = (lo + hi) >> 1;
+        if (k * dz[o0 + k] - (P[o0 + k] - P[o0]) >= v) hi = k; else lo = k + 1;
+      }
+      const k = lo;
+      return [(v + (P[o0 + k] - P[o0])) / k, k];
+    }
+
+    /** Yerel akış (m³) — birikimli yağış Pmm için, çukur başına. q tablosu dışarıdan verilebilir. */
+    yerelAkis(Pmm, cikti, cnTablo, pasif) {
+      const q = new Float64Array(this.cnN);
+      for (let c = 0; c < this.cnN; c++) q[c] = scsQ(Pmm, this.cnMin + c);
+      const out = cikti || new Float64Array(this.m + 1), f = this.A / 1000;
+      const T = cnTablo || { ptr: this.cnPtr, kod: this.cnKod, say: this.cnSay }, P = pasif || this.pasif;
+      const ptr = T.ptr, kod = T.kod, say = T.say;
+      for (let b = 0; b <= this.m; b++) {
+        if (P[b]) { out[b] = 0; continue; }
+        let s = 0;
+        for (let j = ptr[b]; j < ptr[b + 1]; j++) s += say[j] * q[kod[j]];
+        out[b] = s * f;
+      }
+      return out;
+    }
+
+    /** motor.py::senaryo(P) karşılığı (drenaj yok, tek adım). */
+    tekAdim(Pmm) {
+      const V = this.yerelAkis(Pmm);
+      this._kademe(V, null, null);
+      const sev = new Float32Array(this.m + 1), islak = new Uint32Array(this.m + 1);
+      for (let b = 1; b <= this.m; b++) {
+        const [h, k] = this.seviye(b, Math.min(V[b], this.kap[b]));
+        sev[b] = h; islak[b] = k;
+        V[b] = Math.min(V[b], this.kap[b]);
+      }
+      return { hacim: V, seviye: sev, islak };
+    }
+
+    /** Kademe: drenaj (varsa) ve taşma. depo yerinde güncellenir; dönüş: [şebekeye giden, denize/dereye giden] m³. */
+    _kademe(depo, drenaj, sira, alici) {
+      sira = sira || this.sira; alici = alici || this.alici;
+      const kap = this.kap;
+      let sebeke = 0, disari = 0;
+      for (let i = 0; i < sira.length; i++) {
+        const b = sira[i];
+        let s = depo[b];
+        if (drenaj && s > 0) {
+          const d = Math.min(s, drenaj[b]);
+          s -= d; sebeke += d;
+        }
+        const fazla = s - kap[b];
+        if (fazla > 0) {
+          s = kap[b];
+          const r = alici[b];
+          if (r > 0) depo[r] += fazla; else disari += fazla;
+        }
+        depo[b] = s;
+      }
+      return [sebeke, disari];
+    }
+
+    /**
+     * Zaman adımlı senaryo.
+     * p: {P_mm, sure_dk, desen: 'duzgun'|'basta'|'orta'|'sonda', sonra_dk, dt_dk, drenaj_mmsa, pompa (bool),
+     *     pompa_m3s, patlama: null | {cukur, debi_m3s, bas_dk, sure_dk}}
+     */
+    simule(p) {
+      const m = this.m, dt = p.dt_dk || 5;
+      let seriBir = null;
+      if (p.seri && p.seri.length) {                    // birikimli seri: seriBir[s] = s. adım sonuna kadar toplam mm
+        seriBir = new Float64Array(p.seri.length + 1);
+        for (let i = 0; i < p.seri.length; i++) seriBir[i + 1] = seriBir[i] + p.seri[i];
+        p.sure_dk = p.seri.length * dt; p.P_mm = seriBir[p.seri.length];
+      }
+      const N = Math.ceil((p.sure_dk + (p.sonra_dk || 0)) / dt);
+      const seviyeler = new Float32Array((N + 1) * (m + 1));
+      const depo = new Float64Array(m + 1), onceki = new Float64Array(m + 1).fill(-1);
+      const sev = new Float32Array(m + 1).fill(NaN), islak = new Uint32Array(m + 1);
+      const akisOnceki = new Float64Array(m + 1), akis = new Float64Array(m + 1);
+      const dolmaDk = new Float32Array(m + 1).fill(NaN), islakDk = new Float32Array(m + 1).fill(NaN);
+      const tepe = new Float32Array(m + 1).fill(NaN);
+      // drenaj kapasitesi: adım başına m³
+      const drenaj = new Float64Array(m + 1);
+      const dren = (p.drenaj_mmsa || 0) * (dt / 60) / 1000 * this.A;
+      const pompa = p.pompa ? (p.pompa_m3s || 0) * dt * 60 : 0;
+      for (let b = 1; b <= m; b++) drenaj[b] = dren * this.yerelPx[b] + (this.kat[b] === this.altgecit ? pompa : 0);
+      const drenajVar = dren > 0 || pompa > 0;
+      const st = {
+        t_dk: new Float32Array(N + 1), yagis_mm: new Float32Array(N + 1), birikimli_mm: new Float32Array(N + 1),
+        islak_km2: new Float32Array(N + 1), depo_m3: new Float64Array(N + 1), sebeke_m3: new Float64Array(N + 1),
+        disari_m3: new Float64Array(N + 1), bina10: new Uint32Array(N + 1), bina30: new Uint32Array(N + 1),
+        nufus10: new Float32Array(N + 1), yol_km: new Float32Array(N + 1), dolu_cukur: new Uint32Array(N + 1),
+        tesis: [0, 1, 2, 3].map(() => new Uint16Array(N + 1)),
+      };
+      const X = this.X, bd = new Float32Array(this.nBina), td = new Float32Array(this.nTesis);
+      const pat = p.patlama && p.patlama.cukur > 0 ? p.patlama : null;
+      // senaryo: arazi örtüsü ve tıkalı menfezler
+      const cnT = p.arazi === "1990" && this.cn90 ? this.cn90 : null;
+      const pasif = this.pasif.slice();
+      let alici = this.alici, sira = this.sira;
+      const acik = (p.menfezler || []).filter((g) => g >= 0 && this.m0 + 1 + g <= this.m);
+      if (acik.length && this.besOfs) {
+        alici = this.alici.slice();
+        for (const g of acik) {
+          const id = this.m0 + 1 + g;
+          pasif[id] = 0;
+          for (let j = this.besOfs[g]; j < this.besOfs[g + 1]; j++) alici[this.bes[j]] = id;
+        }
+        sira = basamakSirasi(alici);
+      }
+      let sebekeTop = 0, disariTop = 0;
+      for (let s = 0; s <= N; s++) {
+        const t = s * dt;
+        st.t_dk[s] = t;
+        // yağış: ya hazır seri (adım başına mm, geçmiş olaylar) ya da toplam + desen
+        let Pk;
+        if (seriBir) Pk = seriBir[Math.min(s, seriBir.length - 1)];
+        else Pk = p.P_mm * birikimli(p.desen || "orta", p.sure_dk > 0 ? t / p.sure_dk : 1);
+        st.birikimli_mm[s] = Pk;
+        st.yagis_mm[s] = s === 0 ? 0 : Pk - st.birikimli_mm[s - 1];
+        if (s > 0) {
+          this.yerelAkis(Pk, akis, cnT, pasif);
+          for (let b = 1; b <= m; b++) { depo[b] += akis[b] - akisOnceki[b]; akisOnceki[b] = akis[b]; }
+          if (pat) {
+            const a0 = pat.bas_dk, a1 = pat.bas_dk + pat.sure_dk;
+            const ortak = Math.max(0, Math.min(t, a1) - Math.max(t - dt, a0));
+            depo[pat.cukur] += pat.debi_m3s * ortak * 60;
+          }
+          const [sb, ds] = this._kademe(depo, drenajVar ? drenaj : null, sira, alici);
+          sebekeTop += sb; disariTop += ds;
+        }
+        st.sebeke_m3[s] = sebekeTop; st.disari_m3[s] = disariTop;
+        // seviyeler (yalnız değişen çukurlar)
+        let islakPx = 0, top = 0, dolu = 0;
+        for (let b = 1; b <= m; b++) {
+          const V = depo[b];
+          if (V !== onceki[b]) {
+            const r = this.seviye(b, V);
+            sev[b] = r[0]; islak[b] = r[1]; onceki[b] = V;
+          }
+          top += V;
+          if (this.ilIci[b]) islakPx += islak[b];
+          if (V >= this.kap[b] * 0.999 && this.kap[b] > 0) {
+            dolu++;
+            if (isNaN(dolmaDk[b])) dolmaDk[b] = t;
+          }
+          if (V > 0 && isNaN(islakDk[b])) islakDk[b] = t;
+          if (!(sev[b] <= tepe[b])) tepe[b] = sev[b];
+        }
+        seviyeler.set(sev, s * (m + 1));
+        st.islak_km2[s] = (islakPx * this.A) / 1e6;
+        st.depo_m3[s] = top;
+        st.dolu_cukur[s] = dolu;
+        // maruziyet
+        this._maruziyet(sev, bd, td);
+        let b10 = 0, b30 = 0, nf = 0;
+        for (let i = 0; i < bd.length; i++) {
+          if (!X.b_ist[i]) continue;
+          if (bd[i] >= 0.1) { b10++; nf += X.b_nufus[i]; if (bd[i] >= 0.3) b30++; }
+        }
+        st.bina10[s] = b10; st.bina30[s] = b30; st.nufus10[s] = nf;
+        let yk = 0;
+        for (let i = 0; i < X.y_cuk.length; i++) {
+          if (X.y_ist[i] && sev[X.y_cuk[i]] - X.y_dz[i] / 100 >= 0.3) yk += X.y_uz[i];
+        }
+        st.yol_km[s] = yk / 1000;
+        this._tesisSay(td, st.tesis, s);
+      }
+      return { N, dt, m, seviyeler, st, dolmaDk, islakDk, tepe, p };
+    }
+
+    /** sev (çukur başına seviye) için bina ve tesis duvarındaki en büyük su derinliği. */
+    _maruziyet(sev, bd, td) {
+      const X = this.X;
+      bd.fill(0); td.fill(0);
+      for (let i = 0; i < X.b_i.length; i++) {
+        const d = sev[X.b_cuk[i]] - X.b_dz[i] / 100;
+        if (d > bd[X.b_i[i]]) bd[X.b_i[i]] = d;
+      }
+      for (let i = 0; i < X.t_i.length; i++) {
+        const d = sev[X.t_cuk[i]] - X.t_dz[i] / 100;
+        if (d > td[X.t_i[i]]) td[X.t_i[i]] = d;
+      }
+    }
+
+    _tesisSay(td, hedef, s) {
+      const T = this.tesisler;
+      if (!T) return;
+      for (let i = 0; i < td.length; i++) {
+        if (td[i] >= 0.1 && T[i].ist) hedef[T[i].tur][s]++;
+      }
+    }
+  }
+
+  /** Taşma ağacında memba → mansap işlem sırası (motor.py::_basamak ile aynı, derinlik azalan, kararlı). */
+  function basamakSirasi(alici) {
+    const m = alici.length - 1, der = new Int32Array(m + 1).fill(-1), yol = new Int32Array(m + 1);
+    der[0] = 0;
+    for (let b = 1; b <= m; b++) {
+      if (der[b] >= 0) continue;
+      let k = 0, c = b;
+      while (c > 0 && der[c] < 0) { yol[k++] = c; c = alici[c]; }
+      let base = c > 0 ? der[c] : 0;
+      for (let j = k - 1; j >= 0; j--) der[yol[j]] = ++base;
+    }
+    const idx = Array.from({ length: m }, (_, i) => i + 1);
+    idx.sort((a, b) => der[b] - der[a] || a - b);
+    return Uint16Array.from(idx);
+  }
+
+  const api = { Motor, scsQ, birikimli, basamakSirasi };
+  if (typeof module !== "undefined" && module.exports) module.exports = api;
+  else kok.TaskinMotor = api;
+})(typeof self !== "undefined" ? self : this);
+</script>
+<script>
+"use strict";
+(function () {
+const VERI = "veri/";
+// İkili dosyalar statik barındırıcıların ikili olarak sunduğu bir uzantıyla yayımlanır (build.py ekler)
+const EK = ".wasm";
+const $ = (id) => document.getElementById(id);
+const fmt = (v, d = 0) => (v == null || isNaN(v)) ? "–" : v.toLocaleString("tr-TR", { minimumFractionDigits: d, maximumFractionDigits: d });
+const kisa = (v) => v >= 1e6 ? fmt(v / 1e6, 2) + " milyon" : v >= 1e4 ? fmt(v / 1e3, 0) + " bin" : fmt(v, 0);
+const saat = (dk) => `${String(Math.floor(dk / 60)).padStart(2, "0")}:${String(Math.round(dk % 60)).padStart(2, "0")}`;
+const KAT_AD = { kentsel: "kentsel", dere_vadi: "dere vadisi", alt_gecit: "alt geçit", kirsal: "kırsal", elenen_avlu: "avlu", elenen_su: "su yüzeyi", elenen_degisen: "maden ocağı", menfez_golet: "menfez göleti" };
+let MENFEZ_KAT = -2;
+function esikRenkleri() {
+  return (koyuMu() ? ["#ff5a4e", "#ff8a3d", "#f5b84a", "#d9cf7a", "#7f8f86", "#3b4549"] : ["#8c1d18", "#d0461f", "#ee8a2a", "#f3c55b", "#efe4b8", "#c3cbcc"]).map(hex);
+}
+function esikGuncelle() {
+  if (!suCizici) return;
+  const M = D.model, e = new Float32Array(65536);
+  const kaynak = arazi === "1990" && M.esik90 ? M.esik90 : M.esik;
+  for (let b = 1; b <= D.meta.m; b++) e[b] = kaynak[b];
+  suCizici.esikYukle(e);
+}
+// CSV: claude.ai'de "downloads" yeteneği, başka yerde (GitHub Pages) tarayıcı indirmesi
+async function indir(ad, satirlar) {
+  const metin = "\ufeff" + satirlar.map((r) => r.map((v) => {
+    const x = v == null ? "" : String(v);
+    return /[",\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x;
+  }).join(",")).join("\n");
+  try {
+    const d = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
+    if (d) { await d.save({ filename: ad, data: metin }); return; }
+  } catch (e) { if (e && (e.code === "declined" || e.code === "rate_limited")) return; }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([metin], { type: "text/csv" })); a.download = ad;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+const TESIS = [["hospital", "hastane", "#d64545"], ["school", "okul", "#7a5cc4"], ["fire_station", "itfaiye", "#d9801a"], ["metro_girisi", "metro girişi", "#2d8a8a"]];
+
+// ------------------------------------------------------------------ tema
+function koyuMu() {
+  const t = document.documentElement.getAttribute("data-theme");
+  if (t === "dark") return true;
+  if (t === "light") return false;
+  return matchMedia("(prefers-color-scheme: dark)").matches;
+}
+const css = (ad) => getComputedStyle(document.documentElement).getPropertyValue(ad).trim();
+function suRenkleri() { return ["--su1", "--su2", "--su3", "--su4"].map((v) => hex(css(v))); }
+function hex(h) { h = h.replace("#", ""); return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16) / 255); }
+
+// ------------------------------------------------------------------ yükleme
+const durum = (m, oran) => { $("durum-metin").textContent = m; if (oran != null) $("durum-cubuk").style.width = (oran * 100).toFixed(0) + "%"; };
+async function ikili(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(url + " okunamadı (" + r.status + ")");
+  let b = new Uint8Array(await r.arrayBuffer());
+  if (b[0] === 0x1f && b[1] === 0x8b) {
+    const s = new Blob([b]).stream().pipeThrough(new DecompressionStream("gzip"));
+    b = new Uint8Array(await new Response(s).arrayBuffer());
+  }
+  return b.buffer;
+}
+const TIP = { u1: Uint8Array, u2: Uint16Array, u4: Uint32Array, i4: Int32Array, f4: Float32Array, f8: Float64Array };
+async function veriYukle() {
+  const meta = await (await fetch(VERI + "meta.json")).json();
+  const adlar = Object.keys(meta.dosya);
+  let biten = 0;
+  const say = () => durum("Veri yükleniyor…", ++biten / (adlar.length + 4));
+  const d = { meta };
+  await Promise.all([
+    ...adlar.map(async (ad) => {
+      const buf = await ikili(VERI + ad + ".bin" + EK);
+      d[ad] = {};
+      for (const [k, [o, t, n]] of Object.entries(meta.dosya[ad])) d[ad][k] = new TIP[t](buf, o, n);
+      say();
+    }),
+    fetch(VERI + "tesisler.json").then((r) => r.json()).then((j) => { d.tesisler = j; say(); }),
+    fetch(VERI + "karne.json").then((r) => r.json()).then((j) => { d.karne = j; say(); }),
+    fetch(VERI + "olaylar.geojson").then((r) => r.json()).then((j) => { d.olaylar = j; say(); }),
+    fetch(VERI + "dogrulama.json").then((r) => r.json()).then((j) => { d.dogrulama = j; say(); }),
+    fetch(VERI + "karolar.json").then((r) => r.json()).then((j) => { d.karolar = j; }),
+    fetch(VERI + "olaylar_yagis.json").then((r) => (r.ok ? r.json() : null)).catch(() => null).then((j) => { d.yagisOlaylari = j; }),
+  ]);
+  return d;
+}
+
+// ------------------------------------------------------------------ PMTiles: 2 MB'lık parçalardan okuyan kaynak
+class ParcaKaynak {
+  constructor(ad, bilgi) { this.ad = ad; this.b = bilgi; this.onbellek = new Map(); }
+  getKey() { return this.ad; }
+  parca(i) {
+    if (!this.onbellek.has(i)) {
+      this.onbellek.set(i, fetch(`${VERI}${this.ad}.pmtiles.${String(i).padStart(3, "0")}${EK}`).then((r) => {
+        if (!r.ok) throw new Error("karo parçası okunamadı");
+        return r.arrayBuffer();
+      }).then((a) => new Uint8Array(a)));
+    }
+    return this.onbellek.get(i);
+  }
+  async getBytes(ofs, uz) {
+    const P = this.b.parca, son = Math.min(ofs + uz, this.b.bayt);
+    const i0 = Math.floor(ofs / P), i1 = Math.floor((son - 1) / P);
+    const out = new Uint8Array(son - ofs);
+    const ps = await Promise.all(Array.from({ length: i1 - i0 + 1 }, (_, k) => this.parca(i0 + k)));
+    ps.forEach((p, k) => {
+      const bas = (i0 + k) * P, a = Math.max(ofs, bas) - bas, b = Math.min(son, bas + p.length) - bas;
+      out.set(p.subarray(a, b), bas + a - ofs);
+    });
+    return { data: out.buffer };
+  }
+}
+
+// ------------------------------------------------------------------ uygulama durumu
+const D = {};            // veri
+let isci = null, isNo = 0;
+let sonuc = null;        // son simülasyon
+let zaman = 0;           // adım (kesirli)
+let oynuyor = false;
+let secili = 0;          // seçili çukur
+let patlama = null;      // {lngLat, cukur}
+let harita = null;
+
+let arazi = "2020", katman = "anlik", tikali = new Set(), olaySeri = null;
+const P = () => ({
+  arazi, menfezler: [...tikali], seri: olaySeri ? olaySeri.seri : null,
+  P_mm: +$("g-p").value, sure_dk: +$("g-s").value, desen: $("g-d").value, sonra_dk: 180, dt_dk: 5,
+  drenaj_mmsa: +$("g-dr").value, pompa: $("g-pm").checked, pompa_m3s: 0.5,
+  patlama: patlama && patlama.cukur ? { cukur: patlama.cukur, debi_m3s: +$("g-q").value, bas_dk: 0, sure_dk: +$("g-qs").value } : null,
+});
+
+function etiketleriYaz() {
+  $("v-p").textContent = $("g-p").value + " mm";
+  const s = +$("g-s").value;
+  $("v-s").textContent = s < 60 ? s + " dk" : (s / 60).toLocaleString("tr-TR", { maximumFractionDigits: 2 }) + " sa";
+  $("v-dr").textContent = $("g-dr").value === "0" ? "0 · devre dışı" : $("g-dr").value + " mm/sa";
+  $("v-q").textContent = fmt(+$("g-q").value, 1) + " m³/s";
+  $("v-qs").textContent = $("g-qs").value + " dk";
+  const ort = (+$("g-p").value) / (s / 60);
+  document.querySelectorAll("#yagis-hazir .cip").forEach((b) => b.setAttribute("aria-pressed",
+    String(!olaySeri && b.dataset.p === $("g-p").value && b.dataset.s === $("g-s").value && b.dataset.d === $("g-d").value)));
+  document.querySelectorAll("#altyapi-hazir .cip").forEach((b) => b.setAttribute("aria-pressed",
+    String(b.dataset.dr === $("g-dr").value && (b.dataset.pm === "1") === $("g-pm").checked)));
+  return ort;
+}
+
+// ------------------------------------------------------------------ simülasyon (işçide)
+let bekleyen = null;
+function simule() {
+  etiketleriYaz();
+  const id = ++isNo;
+  bekleyen = id;
+  isci.postMessage({ tip: "simule", id, p: P() });
+}
+function isciKur() {
+  const kaynak = $("motor-src").textContent + `
+    let motor;
+    onmessage = (e) => {
+      const m = e.data;
+      if (m.tip === "kur") { motor = new self.TaskinMotor.Motor(m.d); postMessage({ tip: "hazir" }); }
+      else if (m.tip === "simule") {
+        const r = motor.simule(m.p);
+        postMessage({ tip: "sonuc", id: m.id, r }, [r.seviyeler.buffer]);
+      }
+    };`;
+  isci = new Worker(URL.createObjectURL(new Blob([kaynak], { type: "text/javascript" })));
+  return new Promise((coz) => {
+    isci.onmessage = (e) => {
+      if (e.data.tip === "hazir") coz();
+      else if (e.data.tip === "sonuc" && e.data.id === bekleyen) sonucGeldi(e.data.r);
+    };
+    isci.postMessage({ tip: "kur", d: { meta: D.meta, model: D.model, piksel: { dz: D.piksel.dz }, maruz: D.maruz, tesisler: D.tesisler } });
+  });
+}
+let ilkSonuc = true;
+function sonucGeldi(r) {
+  const eski = sonuc;
+  sonuc = r;
+  r.tepeAdim = 0;
+  for (let s = 1; s <= r.N; s++) if (r.st.islak_km2[s] > r.st.islak_km2[r.tepeAdim]) r.tepeAdim = s;
+  if (ilkSonuc || !eski) { zaman = r.tepeAdim; ilkSonuc = false; }
+  zaman = Math.min(zaman, r.N);
+  ilkListesi();
+  grafikCiz();
+  zamanAyarla(zaman, true);
+}
+
+// ------------------------------------------------------------------ an: seviyeler, istatistik, harita
+const seviyeAn = new Float32Array(65536);
+let tamSev = null;
+function tamSeviyeler() {        // her çukurun dolu haldeki su seviyesi (tabandan, m) — dolma eşiği katmanı için
+  const M = D.model, dz = D.piksel.dz, A = D.meta.piksel_alan_m2, out = new Float32Array(65536).fill(-1);
+  for (let b = 1; b <= D.meta.m; b++) {
+    const o0 = M.ofset[b - 1], n = M.ofset[b] - o0, v = M.kap[b] / A;
+    let cs = 0, k = 0, h = 0;
+    while (k < n) { cs += dz[o0 + k] / 100; k++; const s = k < n ? dz[o0 + k] / 100 : 1e30; h = (v + cs) / k; if (h <= s) break; }
+    out[b] = D.gizli[b] || M.kat[b] === MENFEZ_KAT ? -1 : h;
+  }
+  return out;
+}
+function anSeviyeleri(t) {
+  if (katman === "esik") { seviyeAn.set(tamSev || (tamSev = tamSeviyeler())); return seviyeAn; }
+  if (katman === "tepe") {
+    for (let b = 1; b <= D.meta.m; b++) { const v = sonuc.tepe[b]; seviyeAn[b] = D.gizli[b] || isNaN(v) ? -1 : v; }
+    return seviyeAn;
+  }
+  const m = D.meta.m, s0 = Math.floor(t), s1 = Math.min(s0 + 1, sonuc.N), f = t - s0;
+  const L = sonuc.seviyeler, o0 = s0 * (m + 1), o1 = s1 * (m + 1);
+  for (let b = 1; b <= m; b++) {
+    const a = L[o0 + b], c = L[o1 + b];
+    let v = isNaN(a) ? (isNaN(c) ? -1 : c * f) : isNaN(c) ? a * (1 - f) : a + (c - a) * f;
+    if (D.gizli[b]) v = -1;
+    seviyeAn[b] = v;
+  }
+  return seviyeAn;
+}
+function zamanAyarla(t, tam) {
+  if (!sonuc) return;
+  zaman = Math.max(0, Math.min(t, sonuc.N));
+  const sev = anSeviyeleri(zaman);
+  suGuncelle(false);
+  const s = Math.round(zaman), st = sonuc.st, dk = zaman * sonuc.dt;
+  $("zaman").innerHTML = `${saat(dk)}<small>${dk <= sonuc.p.sure_dk ? "yağış sürüyor" : "yağış bitti · " + saat(dk - sonuc.p.sure_dk) + " sonra"}</small>`;
+  $("anlik-baslik").textContent = `Şu an · ${saat(dk)} · birikimli ${fmt(st.birikimli_mm[s], 0)} mm`;
+  $("o-alan").innerHTML = `${fmt(st.islak_km2[s], 1)}<small>km²</small>`;
+  $("o-bina").innerHTML = fmt(st.bina10[s]);
+  $("o-nufus").innerHTML = kisa(st.nufus10[s]) + "<small>kişi</small>";
+  $("o-bina30").innerHTML = fmt(st.bina30[s]);
+  $("o-yol").innerHTML = `${fmt(st.yol_km[s], 0)}<small>km</small>`;
+  $("o-dolu").innerHTML = fmt(st.dolu_cukur[s]);
+  $("o-tesis").innerHTML = TESIS.map((x, i) => `<span><i class="nokta" style="background:${x[2]}"></i>${x[1]} <b>${st.tesis[i][s]}</b></span>`).join("");
+  grafikOynatici();
+  if (tam || !oynuyor) tesisDurumu(s);
+  if (acikPopup && acikPopup.guncelle) acikPopup.guncelle();
+}
+
+// tesis noktaları: su değenleri feature-state ile işaretle
+let tesisIzli = [];
+function tesisDurumu(s) {
+  if (!harita || !harita.getSource("tesis")) return;
+  const sev = sonuc.seviyeler.subarray(s * (D.meta.m + 1), (s + 1) * (D.meta.m + 1));
+  const X = D.maruz, d = new Float32Array(D.tesisler.length);
+  for (let i = 0; i < X.t_i.length; i++) { const v = sev[X.t_cuk[i]] - X.t_dz[i] / 100; if (v > d[X.t_i[i]]) d[X.t_i[i]] = v; }
+  for (const i of tesisIzli) harita.setFeatureState({ source: "tesis", id: i }, { d: d[i] || 0 });
+}
+
+// ------------------------------------------------------------------ WebGL2 su katmanı
+function lodOlustur(s) {
+  const P = D.piksel, M = D.model, m = D.meta.m, n = D.meta.n_px;
+  if (s === 0) {
+    const cr = new Uint16Array(n * 2);
+    for (let i = 0; i < n; i++) { cr[2 * i] = P.col[i]; cr[2 * i + 1] = P.row[i]; }
+    return { cr, dz: P.dz, id: D.pikselId, n };
+  }
+  const cr = new Uint16Array(n * 2), dz = new Uint16Array(n), id = new Uint16Array(n), gor = new Map();
+  let k = 0;
+  for (let b = 1; b <= m; b++) {
+    gor.clear();
+    for (let i = M.ofset[b - 1]; i < M.ofset[b]; i++) {      // çukur içinde kotlar artan sırada: ilk görülen en düşük
+      const c = P.col[i] >> s, r = P.row[i] >> s, a = r * 65536 + c;
+      if (gor.has(a)) continue;
+      gor.set(a, 1); cr[2 * k] = c; cr[2 * k + 1] = r; dz[k] = P.dz[i]; id[k] = b; k++;
+    }
+  }
+  return { cr: cr.subarray(0, 2 * k), dz: dz.subarray(0, k), id: id.subarray(0, k), n: k };
+}
+// Su, ayrı bir WebGL2 bağlamında iki geçişte çizilir ve haritaya "canvas" kaynağı olarak serilir (3B'de araziye oturur):
+//  1) ızgara geçişi: görünen bölgedeki her çukur pikseli bir dokuya su derinliği olarak yazılır (10 m = 1 doku hücresi)
+//  2) görüntü geçişi: her ekran pikseli için derinlik bu dokudan çift doğrusal okunur; kıyı çizgisi derinliğin sıfır
+//     eş-eğrisi olarak yumuşak çıkar, renk derinlikle kesintisiz değişir.
+function suCiziciOlustur() {
+  const cv = document.createElement("canvas");
+  const gl = cv.getContext("webgl2", { premultipliedAlpha: true, preserveDrawingBuffer: true, antialias: false, alpha: true });
+  if (!gl) throw new Error("Tarayıcı WebGL2 desteklemiyor");
+  if (!gl.getExtension("EXT_color_buffer_float")) gl.getExtension("EXT_color_buffer_half_float");
+  const pr = D.meta.proj;
+  const VS1 = `#version 300 es
+  precision highp float; precision highp int;
+  layout(location=0) in uvec2 a_cr; layout(location=1) in uint a_dz; layout(location=2) in uint a_id;
+  uniform highp sampler2D u_sev; uniform highp sampler2D u_esik; uniform vec4 u_b; uniform uint u_sel; uniform int u_mod;
+  out vec4 v;
+  void main(){
+    ivec2 ti = ivec2(int(a_id & 255u), int(a_id >> 8u));
+    float h = texelFetch(u_sev, ti, 0).r;
+    float d = h < 0.0 ? -1.0 : h - float(a_dz) * 0.01;
+    vec2 p = (vec2(a_cr) + 0.5 - u_b.xy) / u_b.zw;
+    gl_Position = vec4(p * 2.0 - 1.0, 0.0, 1.0);
+    gl_PointSize = 1.0;
+    float sel = a_id == u_sel ? 1.0 : 0.0;
+    if (u_mod == 1) {                 // dolma eşiği: dolu haldeki kapsama alanına eşik (mm) yaz
+      if (d < 0.02) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); }
+      v = vec4(texelFetch(u_esik, ti, 0).r, sel, 1.0, 1.0);
+    } else {
+      v = vec4(d, sel, 0.0, 1.0);
+    }
+  }`;
+  const FS1 = `#version 300 es
+  precision highp float; in vec4 v; out vec4 o; void main(){ o = v; }`;
+  const VS2 = `#version 300 es
+  out vec2 v_uv;
+  void main(){ vec2 p = vec2(gl_VertexID == 1 ? 3.0 : -1.0, gl_VertexID == 2 ? 3.0 : -1.0); v_uv = (p + 1.0) * 0.5; gl_Position = vec4(p, 0.0, 1.0); }`;
+  const FS2 = `#version 300 es
+  precision highp float;
+  in vec2 v_uv; out vec4 o;
+  uniform sampler2D u_alan; uniform vec2 u_m0; uniform vec2 u_ms; uniform float u_pms; uniform float u_cu[10]; uniform float u_cv[10];
+  uniform vec4 u_b; uniform float u_H; uniform vec3 u_r[4]; uniform vec3 u_secim; uniform float u_a; uniform int u_mod; uniform vec3 u_e[6];
+  void main(){
+    vec2 m = u_m0 + vec2(v_uv.x, 1.0 - v_uv.y) * u_ms;
+    float s = m.x / u_pms, q = m.y / u_pms;
+    float t[10] = float[](1.0, s, q, s*s, s*q, q*q, s*s*s, s*s*q, s*q*q, q*q*q);
+    vec2 g = vec2(0.0);
+    for (int i = 0; i < 10; i++) g += vec2(u_cu[i], u_cv[i]) * t[i];
+    vec2 p = (g / u_H - u_b.xy) / u_b.zw;
+    if (any(lessThan(p, vec2(0.0))) || any(greaterThan(p, vec2(1.0)))) discard;
+    vec2 e = 0.5 / u_b.zw;                                   // çadır süzgeci: 4 çift doğrusal örneğin ortalaması
+    vec4 a = 0.25 * (texture(u_alan, p + vec2(-e.x, -e.y)) + texture(u_alan, p + vec2(e.x, -e.y)) +
+                     texture(u_alan, p + vec2(-e.x, e.y)) + texture(u_alan, p + vec2(e.x, e.y)));
+    if (u_mod == 1) {
+      float kap = a.b;
+      if (kap < 0.3) discard;
+      float e = a.r / max(kap, 1e-3);
+      vec3 c;
+      if (e <= 5.0) c = u_e[0];
+      else if (e <= 15.0) c = mix(u_e[0], u_e[1], (e - 5.0) / 10.0);
+      else if (e <= 30.0) c = mix(u_e[1], u_e[2], (e - 15.0) / 15.0);
+      else if (e <= 60.0) c = mix(u_e[2], u_e[3], (e - 30.0) / 30.0);
+      else if (e <= 150.0) c = mix(u_e[3], u_e[4], (e - 60.0) / 90.0);
+      else c = u_e[5];
+      c = mix(c, u_secim, clamp(a.g / max(kap, 1e-3), 0.0, 1.0) * 0.6);
+      float al = u_a * smoothstep(0.3, 0.6, kap) * 0.92;
+      o = vec4(c * al, al);
+      return;
+    }
+    float d = a.r;
+    float w = max(fwidth(d), 0.002);
+    float kiyi = smoothstep(0.01 - w, 0.01 + w, d);
+    if (kiyi <= 0.0) discard;
+    vec3 c;
+    if (d < 0.1) c = mix(u_r[0], u_r[1], smoothstep(0.01, 0.1, d));
+    else if (d < 0.5) c = mix(u_r[1], u_r[2], (d - 0.1) / 0.4);
+    else c = mix(u_r[2], u_r[3], clamp((d - 0.5) / 1.5, 0.0, 1.0));
+    c = mix(c, vec3(1.0), (1.0 - smoothstep(0.0, 0.07, d)) * 0.35);     // kıyıda ince açık şerit
+    c = mix(c, u_secim, clamp(a.g, 0.0, 1.0) * 0.85);
+    float al = u_a * kiyi * mix(0.6, 0.93, smoothstep(0.02, 0.6, d));
+    o = vec4(c * al, al);
+  }`;
+  const sh = (t, src) => { const x = gl.createShader(t); gl.shaderSource(x, src); gl.compileShader(x);
+    if (!gl.getShaderParameter(x, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(x)); return x; };
+  const prog = (a, b) => { const p = gl.createProgram(); gl.attachShader(p, sh(gl.VERTEX_SHADER, a)); gl.attachShader(p, sh(gl.FRAGMENT_SHADER, b));
+    gl.linkProgram(p); if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p)); return p; };
+  const p1 = prog(VS1, FS1), p2 = prog(VS2, FS2);
+  const U1 = {}, U2 = {};
+  for (const u of ["u_sev", "u_esik", "u_b", "u_sel", "u_mod"]) U1[u] = gl.getUniformLocation(p1, u);
+  for (const u of ["u_alan", "u_m0", "u_ms", "u_pms", "u_cu", "u_cv", "u_b", "u_H", "u_r", "u_secim", "u_a", "u_mod", "u_e"]) U2[u] = gl.getUniformLocation(p2, u);
+  const esikTex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, esikTex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.R32F, 256, 256, 0, gl.RED, gl.FLOAT, new Float32Array(65536));
+  for (const k of [gl.TEXTURE_MIN_FILTER, gl.TEXTURE_MAG_FILTER]) gl.texParameteri(gl.TEXTURE_2D, k, gl.NEAREST);
+  const sevTex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, sevTex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.R32F, 256, 256, 0, gl.RED, gl.FLOAT, seviyeAn);
+  for (const k of [gl.TEXTURE_MIN_FILTER, gl.TEXTURE_MAG_FILTER]) gl.texParameteri(gl.TEXTURE_2D, k, gl.NEAREST);
+  const alanTex = gl.createTexture(), fbo = gl.createFramebuffer();
+  let aw = 0, ah = 0;
+  const lodlar = {};
+  const lod = (s) => {
+    if (lodlar[s]) return lodlar[s];
+    const L = lodOlustur(s), v = gl.createVertexArray();
+    gl.bindVertexArray(v);
+    const buf = (veri, loc, k) => { const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, veri, gl.STATIC_DRAW);
+      gl.enableVertexAttribArray(loc); gl.vertexAttribIPointer(loc, k, gl.UNSIGNED_SHORT, 0, 0); };
+    buf(L.cr, 0, 2); buf(L.dz, 1, 1); buf(L.id, 2, 1);
+    gl.bindVertexArray(null);
+    return (lodlar[s] = { vao: v, n: L.n, H: 1 << s });
+  };
+  const gm = D.meta.izgara.piksel_m / (40075016.686 * Math.cos(pr.lat0 * Math.PI / 180));   // 10 m'nin mercator karşılığı
+  let B = null, kirli = true, bos = null;
+  const ll = (x, y) => [x * 360 - 180, Math.atan(Math.sinh(Math.PI * (1 - 2 * y))) * 180 / Math.PI];
+  // ızgara sınırı (mercator) — dışındaki karolar boş döner
+  const kose = [[0, 0], [D.meta.izgara.nx, 0], [0, D.meta.izgara.ny], [D.meta.izgara.nx, D.meta.izgara.ny]].map(([u, v]) => merc({ lng: cografyaya(u, v)[0], lat: cografyaya(u, v)[1] }));
+  const IZ = { x0: Math.min(...kose.map((k) => k[0])), x1: Math.max(...kose.map((k) => k[0])), y0: Math.min(...kose.map((k) => k[1])), y1: Math.max(...kose.map((k) => k[1])) };
+  function bolgeKur(cx, cy, z, yari) {
+    const mx0 = cx - yari, my0 = cy - yari, ms = 2 * yari;
+    let umin = 1e9, umax = -1e9, vmin = 1e9, vmax = -1e9;
+    for (const [fx, fy] of [[0, 0], [1, 0], [0, 1], [1, 1], [0.5, 0], [0.5, 1], [0, 0.5], [1, 0.5]]) {
+      const [u, v] = izgarayaMerc(mx0 + fx * ms, my0 + fy * ms);
+      umin = Math.min(umin, u); umax = Math.max(umax, u); vmin = Math.min(vmin, v); vmax = Math.max(vmax, v);
+    }
+    umin = Math.max(umin, -4); vmin = Math.max(vmin, -4);
+    umax = Math.min(umax, D.meta.izgara.nx + 4); vmax = Math.min(vmax, D.meta.izgara.ny + 4);
+    const cpm = 1 / (512 * Math.pow(2, Math.floor(z)));     // karo pikseli (512 px'lik karo)
+    let s = 0;
+    while (s < 3 && ((1 << (s + 1)) * gm <= cpm * 1.2 || (umax - umin) / (1 << s) > 4000 || (vmax - vmin) / (1 << s) > 4000)) s++;
+    const H = 1 << s;
+    const gx0 = Math.floor(umin / H) - 2, gy0 = Math.floor(vmin / H) - 2;
+    const tw = Math.max(1, Math.min(4096, Math.ceil(umax / H) + 2 - gx0)), th = Math.max(1, Math.min(4096, Math.ceil(vmax / H) + 2 - gy0));
+    B = { s, H, gx0, gy0, tw, th, mx0, my0, ms, z: Math.floor(z) };
+    kirli = true;
+  }
+  function alanCiz() {
+    if (aw !== B.tw || ah !== B.th) {
+      aw = B.tw; ah = B.th;
+      gl.bindTexture(gl.TEXTURE_2D, alanTex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA16F, aw, ah, 0, gl.RGBA, gl.HALF_FLOAT, null);
+      for (const k of [gl.TEXTURE_MIN_FILTER, gl.TEXTURE_MAG_FILTER]) gl.texParameteri(gl.TEXTURE_2D, k, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, alanTex, 0);
+    }
+    gl.bindTexture(gl.TEXTURE_2D, sevTex);
+    gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, 256, 256, gl.RED, gl.FLOAT, seviyeAn);
+    const L = lod(B.s);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+    gl.viewport(0, 0, B.tw, B.th);
+    const mod = katman === "esik" ? 1 : 0;
+    gl.clearColor(mod ? 0 : -0.15, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.enable(gl.BLEND); gl.blendEquation(gl.MAX); gl.blendFunc(gl.ONE, gl.ONE);
+    gl.useProgram(p1);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, sevTex); gl.uniform1i(U1.u_sev, 0);
+    gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, esikTex); gl.uniform1i(U1.u_esik, 1);
+    gl.uniform1i(U1.u_mod, mod);
+    gl.uniform4f(U1.u_b, B.gx0, B.gy0, B.tw, B.th);
+    gl.uniform1ui(U1.u_sel, secili);
+    gl.bindVertexArray(L.vao); gl.drawArrays(gl.POINTS, 0, L.n); gl.bindVertexArray(null);
+    gl.disable(gl.BLEND); gl.blendEquation(gl.FUNC_ADD);
+    kirli = false;
+  }
+  const blobBuf = () => new Promise((coz) => cv.toBlob((b) => b.arrayBuffer().then(coz), "image/png"));
+  cv.width = cv.height = 512;
+  return {
+    /** Görünen alanı kapsayan çalışma bölgesini kur (harita merkezi ve yakınlığına göre). */
+    bolge(map, uc) {
+      const W = map.getCanvas().clientWidth, Hh = map.getCanvas().clientHeight, z = map.getZoom();
+      const [cx, cy] = merc(map.getCenter()), mpp = 1 / (512 * Math.pow(2, z));
+      bolgeKur(cx, cy, z, Math.min(0.02, (uc ? 1.5 : 0.85) * Math.max(W, Hh) * mpp));
+    },
+    kirlet() { kirli = true; },
+    esikYukle(e) { gl.bindTexture(gl.TEXTURE_2D, esikTex); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, 256, 256, gl.RED, gl.FLOAT, e); kirli = true; },
+    /** z/x/y karosunun su görüntüsü (512 px PNG). */
+    async karo(z, x, y) {
+      const n = Math.pow(2, z), tx0 = x / n, ty0 = y / n, ts = 1 / n;
+      if (tx0 > IZ.x1 || tx0 + ts < IZ.x0 || ty0 > IZ.y1 || ty0 + ts < IZ.y0) {
+        if (!bos) { gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, 512, 512); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); bos = await blobBuf(); }
+        return bos.slice(0);
+      }
+      const icinde = B && tx0 >= B.mx0 && ty0 >= B.my0 && tx0 + ts <= B.mx0 + B.ms && ty0 + ts <= B.my0 + B.ms && Math.abs(B.z - z) <= 1;
+      if (!icinde) {
+        const W = harita.getCanvas().clientWidth, Hh = harita.getCanvas().clientHeight;
+        const yari = Math.max(ts * 0.75, Math.min(0.02, (ucBoyut ? 1.5 : 0.85) * Math.max(W, Hh) / (512 * n)));
+        bolgeKur(tx0 + ts / 2, ty0 + ts / 2, z, yari);
+      }
+      if (kirli) alanCiz();
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      gl.viewport(0, 0, 512, 512);
+      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.useProgram(p2);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, alanTex); gl.uniform1i(U2.u_alan, 0);
+      gl.uniform2f(U2.u_m0, tx0 - pr.mx0, ty0 - pr.my0);
+      gl.uniform2f(U2.u_ms, ts, ts);
+      gl.uniform1f(U2.u_pms, pr.ms);
+      gl.uniform1fv(U2.u_cu, pr.cu); gl.uniform1fv(U2.u_cv, pr.cv);
+      gl.uniform4f(U2.u_b, B.gx0, B.gy0, B.tw, B.th);
+      gl.uniform1f(U2.u_H, B.H);
+      gl.uniform3fv(U2.u_r, suRenkleri().flat());
+      gl.uniform3fv(U2.u_secim, hex(css("--vurgu")));
+      gl.uniform1f(U2.u_a, karneAcik ? 0.4 : 1.0);
+      gl.uniform1i(U2.u_mod, katman === "esik" ? 1 : 0);
+      gl.uniform3fv(U2.u_e, esikRenkleri().flat());
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      return blobBuf();
+    },
+    sinir: () => [ll(IZ.x0, IZ.y1)[0], ll(IZ.x0, IZ.y1)[1], ll(IZ.x1, IZ.y0)[0], ll(IZ.x1, IZ.y0)[1]],
+  };
+}
+function izgarayaMerc(mx, my) {
+  const pr = D.meta.proj, s = (mx - pr.mx0) / pr.ms, q = (my - pr.my0) / pr.ms;
+  const t = [1, s, q, s * s, s * q, q * q, s * s * s, s * s * q, s * q * q, q * q * q];
+  let u = 0, v = 0; for (let i = 0; i < 10; i++) { u += pr.cu[i] * t[i]; v += pr.cv[i] * t[i]; }
+  return [u, v];
+}
+// Su karoları "su://z/x/y" iç protokolüyle üretilir; zaman ya da seçim değişince görünen karolar yeniden istenir
+// (MapLibre yenileri gelene kadar eskileri gösterir, titreme olmaz).
+let suCizici = null, ucBoyut = false, yukleZaman = 0, yukleBekle = null;
+function suGuncelle(bolgeDegisti) {
+  if (!suCizici || !harita || !harita.getSource("su")) return;
+  if (bolgeDegisti) suCizici.bolge(harita, ucBoyut);
+  suCizici.kirlet();
+  if (yukleBekle) return;
+  yukleBekle = setTimeout(() => {
+    yukleBekle = null; yukleZaman = performance.now();
+    const sc = harita.style && harita.style.sourceCaches && harita.style.sourceCaches.su;
+    if (sc) sc.reload(); else harita.getSource("su").setTiles(["su://{z}/{x}/{y}?" + yukleZaman]);
+    harita.triggerRepaint();
+  }, Math.max(0, 80 - (performance.now() - yukleZaman)));
+}
+
+// ------------------------------------------------------------------ koordinat: harita ↔ ızgara
+function merc(ll) { const x = (ll.lng + 180) / 360, s = Math.sin(ll.lat * Math.PI / 180); return [x, 0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)]; }
+function izgaraya(ll) {
+  const pr = D.meta.proj, [mx, my] = merc(ll), s = (mx - pr.mx0) / pr.ms, q = (my - pr.my0) / pr.ms;
+  const t = [1, s, q, s * s, s * q, q * q, s * s * s, s * s * q, s * q * q, q * q * q];
+  let u = 0, v = 0; for (let i = 0; i < 10; i++) { u += pr.cu[i] * t[i]; v += pr.cv[i] * t[i]; }
+  return [u, v];
+}
+function cografyaya(u, v) {
+  const pr = D.meta.proj, s = (u - pr.u0) / pr.us, q = (v - pr.v0) / pr.vs;
+  const t = [1, s, q, s * s, s * q, q * q, s * s * s, s * s * q, s * q * q, q * q * q];
+  let x = pr.mx0, y = pr.my0; for (let i = 0; i < 10; i++) { x += pr.cx[i] * t[i]; y += pr.cy[i] * t[i]; }
+  return [x * 360 - 180, Math.atan(Math.sinh(Math.PI * (1 - 2 * y))) * 180 / Math.PI];
+}
+function pikselBul(ll) {
+  const [u, v] = izgaraya(ll), c = Math.floor(u), r = Math.floor(v), NX = D.meta.izgara.nx;
+  if (c < 0 || r < 0 || c >= NX || r >= D.meta.izgara.ny) return -1;
+  const k = r * NX + c, A = D.anahtar;
+  let lo = 0, hi = A.length - 1;
+  while (lo <= hi) { const mid = (lo + hi) >> 1, km = Math.floor(A[mid] / 2097152); if (km === k) return A[mid] % 2097152; if (km < k) lo = mid + 1; else hi = mid - 1; }
+  return -1;
+}
+function havzaBul(ll) {
+  const [u, v] = izgaraya(ll), h = D.meta.havza_izgara, c = Math.floor(u / h.adim), r = Math.floor(v / h.adim);
+  if (c < 0 || r < 0 || c >= h.nx || r >= h.ny) return 0;
+  return D.havza.havza[r * h.nx + c];
+}
+
+// ------------------------------------------------------------------ harita stili
+function stil() {
+  const k = koyuMu();
+  const C = k ? { kara: "#1a2125", deniz: "#0e1418", su: "#13202a", bina: "#252e33", binaCizgi: "#2e383e", yol: "#3a464c", yolAna: "#56646a", yolBuyuk: "#77858a", kasa: "#11171a", dere: "#2e5366", sinir: "#6f7f86", metin: "#c9d4d8", hale: "#151b1f", rolyef: 0.32 }
+              : { kara: "#e4e8e7", deniz: "#c3cfd6", su: "#c3cfd6", bina: "#d3d8d7", binaCizgi: "#c4cac9", yol: "#ffffff", yolAna: "#fbfbf8", yolBuyuk: "#f6efe2", kasa: "#bcc5c4", dere: "#8fb0c2", sinir: "#76858a", metin: "#2b3a40", hale: "#eef1f0", rolyef: 0.5 };
+  const kucuk = ["residential", "unclassified", "living_street", "pedestrian", "road", "service", "track", "busway"];
+  const ana = ["primary", "secondary", "primary_link", "secondary_link", "tertiary", "tertiary_link"];
+  const buyuk = ["motorway", "trunk", "motorway_link", "trunk_link"];
+  const gen = (a, b, c) => ["interpolate", ["exponential", 1.6], ["zoom"], 8, a, 13, b, 18, c];
+  const yolKatman = (id, sinif, renk, w, kasa) => [
+    { id: id + "-kasa", type: "line", source: "altlik", "source-layer": "yol", filter: ["all", ["in", ["get", "s"], ["literal", sinif]], ["!=", ["get", "tunel"], 1]],
+      layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": C.kasa, "line-width": gen(w[0] + kasa, w[1] + kasa * 1.5, w[2] + kasa * 2) }, minzoom: w[3] },
+    { id, type: "line", source: "altlik", "source-layer": "yol", filter: ["all", ["in", ["get", "s"], ["literal", sinif]], ["!=", ["get", "tunel"], 1]],
+      layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": renk, "line-width": gen(...w.slice(0, 3)) }, minzoom: w[3] },
+  ];
+  const taban = location.href.replace(/[#?].*$/, "").replace(/[^/]*$/, "");
+  return {
+    version: 8,
+    glyphs: taban + VERI + "font/{fontstack}/{range}.pbf" + EK,
+    sources: {
+      altlik: { type: "vector", url: "pmtiles://altlik", promoteId: { mahalle: "fid" } },
+      dem: { type: "raster-dem", url: "pmtiles://arazi", encoding: "terrarium", tileSize: 256 },
+      demGolge: { type: "raster-dem", url: "pmtiles://arazi", encoding: "terrarium", tileSize: 256 },
+    },
+    layers: [
+      { id: "zemin", type: "background", paint: { "background-color": C.kara } },
+      { id: "rolyef", type: "hillshade", source: "demGolge", paint: { "hillshade-exaggeration": C.rolyef, "hillshade-shadow-color": k ? "#000000" : "#5a6a70", "hillshade-highlight-color": k ? "#3a474d" : "#ffffff", "hillshade-accent-color": k ? "#000000" : "#6d7b80", "hillshade-illumination-anchor": "map" } },
+      { id: "su-alan", type: "fill", source: "altlik", "source-layer": "su", paint: { "fill-color": C.deniz } },
+      { id: "dere", type: "line", source: "altlik", "source-layer": "dere", minzoom: 11, paint: { "line-color": C.dere, "line-width": ["interpolate", ["linear"], ["zoom"], 11, 0.6, 16, ["match", ["get", "tur"], ["river", "canal"], 4, 1.6]] } },
+      { id: "mahalle-dolgu", type: "fill", source: "altlik", "source-layer": "mahalle", filter: ["==", ["get", "ist"], 1], layout: { visibility: "none" }, paint: { "fill-color": "#888", "fill-opacity": 0.72 } },
+      { id: "bina", type: "fill", source: "altlik", "source-layer": "bina", minzoom: 14, paint: { "fill-color": C.bina, "fill-outline-color": C.binaCizgi, "fill-opacity": ["interpolate", ["linear"], ["zoom"], 14, 0.4, 15, 1] } },
+      ...yolKatman("yol-kucuk", kucuk, C.yol, [0.2, 1.4, 9, 12.5], 0.6),
+      ...yolKatman("yol-ana", ana, C.yolAna, [0.5, 2.6, 13, 9], 0.8),
+      ...yolKatman("yol-buyuk", buyuk, C.yolBuyuk, [0.9, 3.4, 16, 6], 1),
+      { id: "ilce-sinir", type: "line", source: "altlik", "source-layer": "ilce", filter: ["==", ["get", "ist"], 1], paint: { "line-color": C.sinir, "line-width": ["interpolate", ["linear"], ["zoom"], 8, 0.6, 13, 1.6], "line-dasharray": [3, 2], "line-opacity": 0.8 } },
+      { id: "mahalle-sinir", type: "line", source: "altlik", "source-layer": "mahalle", minzoom: 12, filter: ["==", ["get", "ist"], 1], paint: { "line-color": C.sinir, "line-width": 0.6, "line-opacity": 0.5 } },
+      { id: "mahalle-secili", type: "line", source: "altlik", "source-layer": "mahalle", filter: ["==", ["get", "fid"], -1], paint: { "line-color": css("--vurgu"), "line-width": 2.5 } },
+      { id: "yol-ad", type: "symbol", source: "altlik", "source-layer": "yol", minzoom: 14.5, filter: ["has", "ad"],
+        layout: { "symbol-placement": "line", "text-field": ["get", "ad"], "text-font": ["nsr"], "text-size": 11.5, "text-max-angle": 30 },
+        paint: { "text-color": C.metin, "text-halo-color": C.hale, "text-halo-width": 1.4 } },
+      { id: "mahalle-ad", type: "symbol", source: "altlik", "source-layer": "etiket", minzoom: 12.5, filter: ["==", ["get", "t"], "mahalle"],
+        layout: { "text-field": ["get", "ad"], "text-font": ["nsr"], "text-size": 12, "text-transform": "uppercase", "text-letter-spacing": 0.08, "text-max-width": 8 },
+        paint: { "text-color": C.metin, "text-opacity": 0.75, "text-halo-color": C.hale, "text-halo-width": 1.4 } },
+      { id: "ilce-ad", type: "symbol", source: "altlik", "source-layer": "etiket", minzoom: 8.5, maxzoom: 12.5, filter: ["all", ["==", ["get", "t"], "ilce"], ["==", ["get", "ist"], 1]],
+        layout: { "text-field": ["get", "ad"], "text-font": ["nsm"], "text-size": ["interpolate", ["linear"], ["zoom"], 9, 11, 12, 15], "text-transform": "uppercase", "text-letter-spacing": 0.12 },
+        paint: { "text-color": C.metin, "text-halo-color": C.hale, "text-halo-width": 1.6 } },
+    ],
+  };
+}
+
+function katmanlariEkle() {
+  suCizici.bolge(harita, false);
+  harita.addSource("su", { type: "raster", tiles: ["su://{z}/{x}/{y}"], tileSize: 256, minzoom: 8, maxzoom: 18, bounds: suCizici.sinir() });
+  harita.addLayer({ id: "su", type: "raster", source: "su", paint: { "raster-fade-duration": 0, "raster-resampling": "linear" } }, "ilce-sinir");
+  // 3B binalar (kat sayısı × 3,2 m; kat bilgisi yoksa 2 kat)
+  harita.addLayer({ id: "bina-3b", type: "fill-extrusion", source: "altlik", "source-layer": "bina", minzoom: 14, layout: { visibility: "none" },
+    paint: { "fill-extrusion-color": koyuMu() ? "#3a454b" : "#e9ecea", "fill-extrusion-height": ["*", ["coalesce", ["get", "k"], 2], 3.2], "fill-extrusion-base": 0, "fill-extrusion-opacity": 0.9 } }, "yol-ad");
+  harita.on("moveend", () => suGuncelle(true));
+  // menfez işaretleri (tıkama / açma)
+  harita.addSource("menfez", { type: "geojson", data: { type: "FeatureCollection", features: (D.meta.menfez || []).map((m, i) => ({
+    type: "Feature", id: i, properties: { i, ad: m.ad }, geometry: { type: "Point", coordinates: [m.lon, m.lat] } })) } });
+  harita.addLayer({ id: "menfez", type: "circle", source: "menfez", minzoom: 11.5,
+    paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 11.5, 4, 16, 8],
+      "circle-color": ["case", ["boolean", ["feature-state", "tikali"], false], css("--vurgu"), css("--panel")],
+      "circle-stroke-color": css("--vurgu"), "circle-stroke-width": 2 } });
+  harita.on("resize", () => suGuncelle(true));
+  // tesisler
+  harita.addSource("tesis", { type: "geojson", data: { type: "FeatureCollection", features: D.tesisler.map((t, i) => ({ type: "Feature", id: i, properties: { tur: t.tur, ad: t.ad }, geometry: { type: "Point", coordinates: [t.lon, t.lat] } })).filter((f) => tesisIzliSet.has(f.id)) } });
+  harita.addLayer({ id: "tesis", type: "circle", source: "tesis", minzoom: 12.5,
+    paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 12.5, 3.5, 16, 7],
+      "circle-color": ["match", ["get", "tur"], 0, TESIS[0][2], 1, TESIS[1][2], 2, TESIS[2][2], TESIS[3][2]],
+      "circle-stroke-color": css("--panel"), "circle-stroke-width": 1.5,
+      "circle-opacity": ["case", [">=", ["coalesce", ["feature-state", "d"], 0], 0.1], 1, 0],
+      "circle-stroke-opacity": ["case", [">=", ["coalesce", ["feature-state", "d"], 0], 0.1], 1, 0] } });
+  // doğrulama olayları
+  harita.addSource("olay", { type: "geojson", data: D.olaylar });
+  const renk = koyuMu() ? "#f2d36b" : "#6b4a00";
+  harita.addLayer({ id: "olay-hat", type: "line", source: "olay", filter: ["==", ["geometry-type"], "MultiLineString"], paint: { "line-color": renk, "line-width": ["interpolate", ["linear"], ["zoom"], 10, 2, 16, 5], "line-dasharray": [1, 1] } });
+  harita.addLayer({ id: "olay-nokta", type: "circle", source: "olay", filter: ["==", ["geometry-type"], "Point"], paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 9, 4, 16, 8], "circle-color": "rgba(0,0,0,0)", "circle-stroke-color": renk, "circle-stroke-width": 2.2 } });
+}
+let tesisIzliSet = new Set();
+
+// ------------------------------------------------------------------ açılır pencereler
+let acikPopup = null;
+function popupAc(ll, html, guncelle) {
+  if (acikPopup) acikPopup.p.remove();
+  const p = new maplibregl.Popup({ maxWidth: "300px", focusAfterOpen: false }).setLngLat(ll).setHTML(html).addTo(harita);
+  acikPopup = { p, guncelle };
+  p.on("close", () => { if (acikPopup && acikPopup.p === p) { acikPopup = null; if (secili) { secili = 0; suGuncelle(false); } } });
+  if (guncelle) guncelle();
+}
+function cukurBilgi(b, ll, pikselNo) {
+  secili = b;
+  suGuncelle(false);
+  const M = D.model, kat = D.meta.kategori[M.kat[b]];
+  const ilce = M.ilce[b] ? D.meta.ilce[M.ilce[b] - 1] : "", mah = M.mah[b] ? D.meta.mahalle[M.mah[b] - 1].split("|")[1] : "";
+  const gol = kat === "menfez_golet" ? D.meta.menfez[b - D.meta.m0 - 1] : null;
+  const yer = gol ? `${gol.ad || "adsız " + gol.tur} · ${fmt(gol.uzunluk_m)} m kapalı hat` : [mah, ilce].filter(Boolean).join(", ") || "il sınırı dışında";
+  const e = (v) => (v > 300 ? "> 300" : v) + " mm";
+  let alt = gol ? `Memba alanı ${fmt(gol.memba_km2, 1)} km² · taşmasını gölete veren ${fmt(gol.besleyen)} çukur` :
+    `Drenajsız dolma eşiği: ${e(M.esik[b])}` + (M.esik90 ? ` · 1990 yapılaşmasıyla ${e(M.esik90[b])}` : "");
+  if (!gol && M.bel_olas && M.bel_olas[b] <= 100)
+    alt += `<br>DEM hatasına karşı: çukur olma olasılığı %${M.bel_olas[b]}, eşik aralığı ${e(M.bel_p10[b])}–${e(M.bel_p90[b])}`;
+  const html = `<div class="pop"><h4>${gol ? "Menfez göleti" : "Çukur " + fmt(b)} <span class="etiket">${KAT_AD[kat]}</span></h4><div class="alt">${yer}</div>
+    <dl id="pop-dl"></dl><canvas id="pop-grafik"></canvas>
+    <div class="alt">${alt}</div></div>`;
+  popupAc(ll, html, () => {
+    if (!sonuc) return;
+    const dl = document.getElementById("pop-dl"); if (!dl) return;
+    const m = D.meta.m, s = Math.round(zaman), h = sonuc.seviyeler[s * (m + 1) + b];
+    const dz = pikselNo >= 0 ? D.piksel.dz[pikselNo] / 100 : 0;
+    const kap = M.kap[b], o0 = M.ofset[b - 1], o1 = M.ofset[b];
+    const v = isNaN(h) ? 0 : hacim(b, h);
+    const dk = sonuc.dolmaDk[b], ik = sonuc.islakDk[b];
+    dl.innerHTML = `
+      <dt>Tıklanan noktada su</dt><dd>${isNaN(h) || h - dz <= 0 ? "kuru" : fmt((h - dz) * 100, 0) + " cm"}</dd>
+      <dt>En derin yerde</dt><dd>${isNaN(h) ? "kuru" : fmt(h * 100, 0) + " cm"} / ${fmt(M.maks_der[b] * 100, 0)} cm</dd>
+      <dt>Doluluk</dt><dd>%${fmt(Math.min(100, v / kap * 100), 0)} · ${kisa(kap)} m³</dd>
+      <dt>Alan</dt><dd>${fmt((o1 - o0) * D.meta.piksel_alan_m2 / 1e4, 2)} ha</dd>
+      <dt>Yerel / toplam havza</dt><dd>${fmt(M.yerel_havza[b] / 1e4, 1)} / ${fmt(M.toplam_havza[b] / 1e4, 0)} ha</dd>
+      <dt>İlk ıslanma · dolma</dt><dd>${isNaN(ik) ? "–" : saat(ik)} · ${isNaN(dk) ? "dolmuyor" : saat(dk)}</dd>`;
+    popGrafik(b, dz);
+  });
+}
+function hacim(b, h) {
+  const o0 = D.model.ofset[b - 1], o1 = D.model.ofset[b], dz = D.piksel.dz; let v = 0;
+  for (let i = o0; i < o1; i++) { const d = h - dz[i] / 100; if (d <= 0) break; v += d; }
+  return v * D.meta.piksel_alan_m2;
+}
+function popGrafik(b, dz) {
+  const cv = document.getElementById("pop-grafik"); if (!cv) return;
+  const W = cv.clientWidth, H = cv.clientHeight, r = devicePixelRatio || 1;
+  cv.width = W * r; cv.height = H * r;
+  const g = cv.getContext("2d"); g.scale(r, r);
+  const m = D.meta.m, N = sonuc.N, y = new Float32Array(N + 1);
+  let mx = D.model.maks_der[b];
+  for (let s = 0; s <= N; s++) { const h = sonuc.seviyeler[s * (m + 1) + b]; y[s] = isNaN(h) ? 0 : h; }
+  const X = (s) => 2 + (s / N) * (W - 4), Y = (v) => H - 12 - (v / (mx || 1)) * (H - 28);
+  g.font = "10.5px " + css("--f-sayi"); g.fillStyle = css("--soluk");
+  g.fillText(`derinlik, en fazla ${fmt(mx * 100, 0)} cm`, 2, 9);
+  g.strokeStyle = css("--cizgi"); g.beginPath(); g.moveTo(0, Y(mx)); g.lineTo(W, Y(mx)); g.stroke();
+  g.beginPath(); g.moveTo(X(0), Y(0)); for (let s = 0; s <= N; s++) g.lineTo(X(s), Y(y[s])); g.lineTo(X(N), Y(0)); g.closePath();
+  g.fillStyle = css("--su2") + "55"; g.fill();
+  g.beginPath(); for (let s = 0; s <= N; s++) (s ? g.lineTo : g.moveTo).call(g, X(s), Y(y[s])); g.strokeStyle = css("--su3"); g.lineWidth = 1.5; g.stroke();
+  g.strokeStyle = css("--vurgu"); g.beginPath(); g.moveTo(X(zaman), 12); g.lineTo(X(zaman), H - 12); g.stroke();
+  g.fillStyle = css("--soluk"); g.fillText("0", 2, H - 1); const son = saat(N * sonuc.dt); g.fillText(son, W - g.measureText(son).width - 2, H - 1);
+}
+
+// ------------------------------------------------------------------ zaman çizelgesi
+function grafikCiz() { grafikOynatici(); }
+function grafikOynatici() {
+  const cv = $("grafik"); if (!sonuc) return;
+  const W = cv.clientWidth, H = cv.clientHeight, r = devicePixelRatio || 1;
+  if (cv.width !== Math.round(W * r)) { cv.width = Math.round(W * r); cv.height = Math.round(H * r); }
+  const g = cv.getContext("2d"); g.setTransform(r, 0, 0, r, 0, 0); g.clearRect(0, 0, W, H);
+  const st = sonuc.st, N = sonuc.N, dt = sonuc.dt;
+  const sol = 34, sag = 10, ust = 4, alt = 16, w = W - sol - sag, h = H - ust - alt;
+  const X = (s) => sol + (s / N) * w;
+  const font = css("--f-sayi"); g.font = "10px " + font;
+  // yağış (mm/sa), yukarıdan sarkan çubuklar, üst %40
+  const yog = Array.from(st.yagis_mm, (v) => v * 60 / dt);
+  const ymax = Math.max(10, ...yog), hY = h * 0.4;
+  g.fillStyle = css("--yagis");
+  for (let s = 1; s <= N; s++) { const v = yog[s]; if (v <= 0) continue; g.fillRect(X(s - 1) + 0.5, ust, Math.max(1, X(s) - X(s - 1) - 1), (v / ymax) * hY); }
+  g.fillStyle = css("--soluk"); g.textAlign = "right";
+  g.fillText(fmt(ymax, 0), sol - 4, ust + 8); g.fillText("mm/sa", sol - 4, ust + 18);
+  // tepki eğrileri, alt kısım (ölçek: kendi tepesi)
+  const egri = (dizi, renk, dolgu) => {
+    const mx = Math.max(...dizi) || 1, Y = (v) => ust + h - (v / mx) * (h * 0.62);
+    g.beginPath(); g.moveTo(X(0), Y(dizi[0])); for (let s = 1; s <= N; s++) g.lineTo(X(s), Y(dizi[s]));
+    if (dolgu) { g.lineTo(X(N), ust + h); g.lineTo(X(0), ust + h); g.closePath(); g.fillStyle = renk + "30"; g.fill();
+      g.beginPath(); g.moveTo(X(0), Y(dizi[0])); for (let s = 1; s <= N; s++) g.lineTo(X(s), Y(dizi[s])); }
+    g.strokeStyle = renk; g.lineWidth = 1.6; g.stroke();
+    return mx;
+  };
+  const mA = egri(st.islak_km2, css("--su2"), true);
+  egri(st.nufus10, css("--tehlike"), false);
+  g.fillStyle = css("--soluk"); g.fillText(fmt(mA, 0), sol - 4, ust + h * 0.38 + 8); g.fillText("km²", sol - 4, ust + h * 0.38 + 18);
+  // zaman ekseni
+  g.strokeStyle = css("--cizgi"); g.lineWidth = 1; g.beginPath(); g.moveTo(sol, ust + h + 0.5); g.lineTo(W - sag, ust + h + 0.5); g.stroke();
+  g.textAlign = "center"; g.fillStyle = css("--soluk");
+  const top = N * dt, adim = [15, 30, 60, 120, 180, 240, 360].find((a) => (a / top) * w >= 48) || 360;
+  for (let t = 0; t <= top; t += adim) { const x = X(t / dt); g.fillText(saat(t), Math.min(Math.max(x, sol + 14), W - sag - 14), H - 3); g.beginPath(); g.moveTo(x, ust + h); g.lineTo(x, ust + h + 3); g.stroke(); }
+  // yağış sonu
+  const xs = X(sonuc.p.sure_dk / dt); g.setLineDash([2, 3]); g.beginPath(); g.moveTo(xs, ust); g.lineTo(xs, ust + h); g.stroke(); g.setLineDash([]);
+  // oynatıcı
+  const xz = X(zaman); g.strokeStyle = css("--vurgu"); g.lineWidth = 2; g.beginPath(); g.moveTo(xz, ust); g.lineTo(xz, ust + h); g.stroke();
+  g.fillStyle = css("--vurgu"); g.beginPath(); g.arc(xz, ust + h, 4, 0, 7); g.fill();
+  cv._olcek = { sol, w };
+}
+function grafikOlaylari() {
+  const cv = $("grafik");
+  let surukle = false;
+  const ayar = (e) => { const o = cv._olcek; if (!o || !sonuc) return; const x = e.clientX - cv.getBoundingClientRect().left;
+    zamanAyarla(Math.max(0, Math.min(1, (x - o.sol) / o.w)) * sonuc.N, true); };
+  cv.addEventListener("pointerdown", (e) => { surukle = true; cv.setPointerCapture(e.pointerId); durdur(); ayar(e); });
+  cv.addEventListener("pointermove", (e) => { if (surukle) ayar(e); });
+  cv.addEventListener("pointerup", () => { surukle = false; zamanAyarla(zaman, true); });
+  addEventListener("resize", () => grafikOynatici());
+}
+let sonKare = 0;
+function oynat() {
+  if (!sonuc) return;
+  oynuyor = !oynuyor;
+  $("oynat-ikon").innerHTML = oynuyor ? '<path d="M3 1.5h3.5v13H3zM9.5 1.5H13v13H9.5z"/>' : '<path d="M3 1.5v13l11-6.5z"/>';
+  $("oynat").setAttribute("aria-label", oynuyor ? "Duraklat" : "Oynat");
+  if (oynuyor) { if (zaman >= sonuc.N) zaman = 0; sonKare = performance.now(); requestAnimationFrame(kare); }
+  else zamanAyarla(zaman, true);
+}
+function durdur() { if (oynuyor) oynat(); }
+function kare(t) {
+  if (!oynuyor) return;
+  const hiz = Math.max(4, sonuc.N / 20); // adım/sn: çizelge ~20 sn'de oynar
+  zamanAyarla(zaman + (t - sonKare) / 1000 * hiz);
+  sonKare = t;
+  if (zaman >= sonuc.N) { oynat(); return; }
+  requestAnimationFrame(kare);
+}
+
+// ------------------------------------------------------------------ ilk dolanlar
+let ilkFiltre = "kent";
+function ilkListesi() {
+  const M = D.model, K = D.meta.kategori, aday = [];
+  const izin = new Set(["kentsel", "alt_gecit", "dere_vadi"]), minHacim = +$("ilk-hacim").value;
+  for (let b = 1; b <= D.meta.m; b++) {
+    const k = K[M.kat[b]];
+    if (!M.il_ici[b] || !izin.has(k)) continue;
+    if (ilkFiltre === "kent" ? k === "dere_vadi" : ilkFiltre !== "hepsi" && k !== ilkFiltre) continue;
+    const t = sonuc.dolmaDk[b]; if (isNaN(t) || M.kap[b] < minHacim) continue;
+    aday.push(b);
+  }
+  aday.sort((a, b) => sonuc.dolmaDk[a] - sonuc.dolmaDk[b] || M.esik[a] - M.esik[b] || M.kap[b] - M.kap[a]);
+  const ol = $("ilk-liste");
+  if (!aday.length) { ol.innerHTML = `<li><p class="not" style="padding:8px 0">Bu senaryoda hiçbir çukur tamamen dolmuyor.</p></li>`; return; }
+  ol.innerHTML = aday.slice(0, 60).map((b, i) => {
+    const ilce = M.ilce[b] ? D.meta.ilce[M.ilce[b] - 1] : "", mah = M.mah[b] ? D.meta.mahalle[M.mah[b] - 1].split("|")[1] : "";
+    return `<li><button data-b="${b}"><span class="no">${i + 1}</span><span class="ad"><b>${mah || "—"}</b><span>${ilce} · ${KAT_AD[K[M.kat[b]]]} · ${kisa(M.kap[b])} m³</span></span>
+      <span class="deger">${saat(sonuc.dolmaDk[b])}<small>en derin ${fmt(M.maks_der[b] * 100, 0)} cm</small></span></button></li>`;
+  }).join("") + (aday.length > 60 ? `<li><p class="not" style="padding:8px 0">… toplam ${fmt(aday.length)} çukur doluyor.</p></li>` : "");
+}
+function cukuraGit(b) {
+  const M = D.model, [lon, lat] = cografyaya(M.cx[b], M.cy[b]);
+  const alan = (M.ofset[b] - M.ofset[b - 1]) * D.meta.piksel_alan_m2;
+  harita.flyTo({ center: [lon, lat], zoom: alan > 2e5 ? 14 : alan > 2e4 ? 15.5 : 16.5, speed: 1.6 });
+  const enDerin = M.ofset[b - 1];
+  harita.once("moveend", () => cukurBilgi(b, { lng: lon, lat }, enDerin));
+}
+
+// ------------------------------------------------------------------ mahalle karnesi
+const GOSTERGE = {
+  risk_indeksi: { ad: "Risk indeksi", deger: (k) => k.risk_indeksi, d: [0, 30, 45, 60, 75], bicim: (v) => fmt(v, 0) },
+  gi_z: { ad: "Gi* z-skoru", deger: (k) => k.gi_z, d: [-2.58, -1.96, 0, 1.96, 2.58], bicim: (v) => fmt(v, 1), iki: true },
+  islak_oran_50: { ad: "Su altındaki alan", deger: (k) => k.islak_oran_50, d: [0, 0.01, 0.02, 0.04, 0.08], bicim: (v) => "%" + fmt(v * 100, 1) },
+  nufus_oran_50: { ad: "Etkilenen nüfus", deger: (k) => k.nufus ? k.nufus_10cm_50 / k.nufus : null, d: [0, 0.05, 0.1, 0.2, 0.4], bicim: (v) => "%" + fmt(v * 100, 0) },
+  dusus_mm: { ad: "Dolma eşiği düşüşü", deger: (k) => k.dusus_mm, d: [0, 5, 10, 20, 30], bicim: (v) => fmt(v, 0) + " mm" },
+  ulasilamaz_50: { ad: "Hastaneye ulaşamayan düğüm", deger: (k) => k.ulasilamaz_50, d: [0, 0.01, 0.03, 0.08, 0.2], bicim: (v) => "%" + fmt(v * 100, 1) },
+};
+function karneRenkleri(iki) {
+  const k = koyuMu();
+  if (iki) return k ? ["#3a6ea5", "#6f93b8", "#2a3238", "#c98a5a", "#e0663f"] : ["#2c6aa6", "#8fb2d4", "#eceeea", "#e3a17e", "#c4462a"];
+  return k ? ["#232b30", "#4a4b3c", "#8a6a2e", "#c4762a", "#ff8a3c"] : ["#eef0e9", "#f1d7a8", "#e7a660", "#cf6a32", "#9c3320"];
+}
+let karneAcik = false;
+function karneGoster(acik) {
+  if (!harita.getLayer("mahalle-dolgu")) return;
+  karneAcik = acik; suGuncelle(false);
+  harita.setLayoutProperty("mahalle-dolgu", "visibility", acik ? "visible" : "none");
+  if (!acik) return;
+  const g = GOSTERGE[$("k-gosterge").value], renk = karneRenkleri(g.iki);
+  const eslesme = ["match", ["get", "fid"]];
+  for (const [fid, k] of Object.entries(D.karne)) { const v = g.deger(k); if (v != null) eslesme.push(+fid, v); }
+  eslesme.push(-999);
+  const adimlar = ["step", eslesme, renk[0]];
+  for (let i = 1; i < 5; i++) adimlar.push(g.d[i] - (g.iki ? 1e-9 : 0), renk[i]);
+  harita.setPaintProperty("mahalle-dolgu", "fill-color", ["case", ["==", eslesme, -999], "rgba(0,0,0,0)", adimlar]);
+  $("k-lejant").innerHTML = `<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:2px;font-family:var(--f-sayi);font-size:10.5px;color:var(--soluk)">` +
+    renk.map((c, i) => `<div><div style="height:9px;background:${c};border:1px solid var(--cizgi)"></div>${i === 0 ? (g.iki ? "< " + g.bicim(g.d[1]) : g.bicim(g.d[0])) : "≥ " + g.bicim(g.d[i])}</div>`).join("") + "</div>";
+}
+function karneListesi() {
+  const s = Object.entries(D.karne).sort((a, b) => b[1].risk_indeksi - a[1].risk_indeksi).slice(0, 15);
+  $("k-liste").innerHTML = s.map(([fid, k], i) => `<li><button data-fid="${fid}"><span class="no">${i + 1}</span><span class="ad"><b>${k.ad}</b><span>${k.ilce}${k.sicak_nokta ? " · " + k.sicak_nokta : ""}</span></span><span class="deger">${fmt(k.risk_indeksi, 0)}<small>risk / 100</small></span></button></li>`).join("");
+}
+function mahalleDetay(fid, ll) {
+  const k = D.karne[fid]; if (!k) return;
+  harita.setFilter("mahalle-secili", ["==", ["get", "fid"], +fid]);
+  // bu senaryodaki etkilenen nüfus (anlık)
+  const s = Math.round(zaman), m = D.meta.m, sev = sonuc.seviyeler.subarray(s * (m + 1), (s + 1) * (m + 1)), X = D.maruz;
+  const bd = new Float32Array(X.b_nufus.length);
+  for (let i = 0; i < X.b_i.length; i++) { const d = sev[X.b_cuk[i]] - X.b_dz[i] / 100; if (d > bd[X.b_i[i]]) bd[X.b_i[i]] = d; }
+  let nf = 0, nb = 0; for (let i = 0; i < bd.length; i++) if (X.b_mah[i] === +fid && bd[i] >= 0.1) { nf += X.b_nufus[i]; nb++; }
+  const sat = (ad, f) => `<tr><td>${ad}</td>${[25, 50, 100].map((P) => `<td>${f(P)}</td>`).join("")}</tr>`;
+  $("k-detay").innerHTML = `<div class="kutu"><h3>${k.ad}</h3><div class="not">${k.ilce} · ${kisa(k.nufus)} kişi · ${fmt(k.bina)} bina${k.sicak_nokta ? " · <b>" + k.sicak_nokta + "</b>" : ""}</div>
+    <div class="not">Bu senaryoda, ${saat(s * sonuc.dt)} itibarıyla: <b>${fmt(nb)} bina, ${kisa(nf)} kişi</b> (≥10 cm su)</div>
+    <div style="overflow-x:auto"><table class="tablo"><thead><tr><th>Drenajsız yağış</th><th>25 mm</th><th>50 mm</th><th>100 mm</th></tr></thead><tbody>
+    ${sat("Su altındaki alan", (P) => "%" + fmt(k["islak_oran_" + P] * 100, 1))}
+    ${sat("Bina ≥10 cm", (P) => fmt(k["bina_10cm_" + P]))}
+    ${sat("Nüfus ≥10 cm", (P) => kisa(k["nufus_10cm_" + P]))}
+    ${sat("Kapalı yol", (P) => fmt(k["kapali_yol_km_" + P], 1) + " km")}
+    ${sat("Okul / hastane", (P) => k["okul_" + P] + " / " + k["hastane_" + P])}
+    ${sat("Hastaneye ulaşamayan", (P) => "%" + fmt(k["ulasilamaz_" + P] * 100, 1))}
+    ${k.esik20 != null ? `<tr><td>Dolma eşiği ortancası 1990 → bugün</td><td colspan="3">${fmt(k.esik90, 0)} → ${fmt(k.esik20, 0)} mm</td></tr>` : ""}
+    </tbody></table></div>
+    <div class="not">Risk indeksi ${fmt(k.risk_indeksi, 0)} / 100 · il içi yüzdelik sıra: tehlike ${fmt(k.tehlike_pct * 100, 0)}, maruziyet ${fmt(k.maruziyet_pct * 100, 0)}, erişim kaybı ${fmt(k.erisim_pct * 100, 0)} · Gi* z = ${fmt(k.gi_z, 1)}</div></div>`;
+  if (ll) harita.easeTo({ center: ll, zoom: Math.max(harita.getZoom(), 13) });
+}
+
+// ------------------------------------------------------------------ 3B görünüm
+const ucKontrol = {
+  onAdd() {
+    const d = document.createElement("div"); d.className = "maplibregl-ctrl maplibregl-ctrl-group";
+    const b = document.createElement("button"); b.type = "button"; b.className = "uc-dugme"; b.textContent = "3B";
+    b.title = "3B görünüm: arazi ve binalar"; b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => ucBoyutAyarla(!ucBoyut));
+    d.appendChild(b); this.d = d; this.b = b; return d;
+  },
+  onRemove() { this.d.remove(); },
+};
+function ucBoyutAyarla(ac) {
+  ucBoyut = ac;
+  ucKontrol.b.setAttribute("aria-pressed", String(ac));
+  if (ac) {
+    harita.setTerrain({ source: "dem", exaggeration: 1.6 });
+    harita.dragRotate.enable(); harita.touchZoomRotate.enableRotation(); harita.touchPitch.enable();
+    harita.setLayoutProperty("bina-3b", "visibility", "visible"); harita.setLayoutProperty("bina", "visibility", "none");
+    harita.easeTo({ pitch: 62, bearing: harita.getBearing() || -28, zoom: Math.max(harita.getZoom(), 14.6), duration: 1400 });
+  } else {
+    harita.setTerrain(null);
+    harita.dragRotate.disable(); harita.touchZoomRotate.disableRotation(); harita.touchPitch.disable();
+    harita.setLayoutProperty("bina-3b", "visibility", "none"); harita.setLayoutProperty("bina", "visibility", "visible");
+    harita.easeTo({ pitch: 0, bearing: 0, duration: 900 });
+  }
+}
+
+// ------------------------------------------------------------------ boru patlaması
+let patlamaModu = false, patlamaIsaret = null;
+function patlamaKur(ll) {
+  const c = havzaBul(ll);
+  patlama = { ll, cukur: c };
+  if (!patlamaIsaret) {
+    const el = document.createElement("div");
+    el.style.cssText = "width:18px;height:18px;border-radius:50%;background:var(--vurgu);border:3px solid var(--panel);box-shadow:0 0 0 2px var(--vurgu)";
+    patlamaIsaret = new maplibregl.Marker({ element: el });
+  }
+  patlamaIsaret.setLngLat(ll).addTo(harita);
+  $("patlama-sil").hidden = false;
+  const bilgi = $("patlama-bilgi"); bilgi.hidden = false;
+  if (!c) bilgi.innerHTML = "Bu noktanın suyu bir çukura değil doğrudan denize ya da dereye akıyor: birikme olmaz.";
+  else {
+    const M = D.model, ilce = M.ilce[c] ? D.meta.ilce[M.ilce[c] - 1] : "", mah = M.mah[c] ? D.meta.mahalle[M.mah[c] - 1].split("|")[1] : "";
+    bilgi.innerHTML = `Su, <b>çukur ${fmt(c)}</b>'e akıyor (${[mah, ilce].filter(Boolean).join(", ")}, ${kisa(M.kap[c])} m³ kapasite).`;
+  }
+  simule();
+}
+
+// ------------------------------------------------------------------ lejant
+function lejantYaz() {
+  let ic, baslik;
+  if (katman === "esik") {
+    const c = esikRenkleri().map((x) => `rgb(${x.map((v) => Math.round(v * 255)).join(",")})`);
+    ic = `<div class="rampa" style="background:linear-gradient(90deg, ${c[0]} 0%, ${c[1]} 20%, ${c[2]} 40%, ${c[3]} 60%, ${c[4]} 85%, ${c[5]} 100%)"></div>
+      <div class="olcek"><span>≤5</span><span>15</span><span>30</span><span>60</span><span>150+ mm</span></div>`;
+    baslik = `Dolma eşiği · ${arazi === "1990" ? "1990" : "bugün"}`;
+  } else {
+    const r = ["--su1", "--su2", "--su3", "--su4"].map(css);
+    ic = `<div class="rampa" style="background:linear-gradient(90deg, ${r[0]} 0%, ${r[1]} 12%, ${r[2]} 35%, ${r[3]} 100%)"></div>
+      <div class="olcek"><span>2–5 cm</span><span>10</span><span>50</span><span>2 m</span></div>`;
+    baslik = katman === "tepe" ? "En büyük su derinliği" : "Su derinliği";
+  }
+  $("lejant").innerHTML = `<b style="font-weight:600">${baslik}</b>${ic}<span style="color:var(--soluk)">Halkalar: haberlerdeki baskın yerleri</span>`;
+  $("lejant-panel").innerHTML = ic;
+  $("katman-not").textContent = katman === "esik" ? "Drenajsız, düzgün yağışta her çukurun tamamen dolduğu toplam yağış. Zaman çizelgesinden bağımsızdır; arazi örtüsü seçimine uyar."
+    : katman === "tepe" ? "Bu senaryo boyunca her çukurda görülen en yüksek su seviyesi."
+    : "Su, yağış bittikten sonra 3 saat daha izlenir. Drenaj kapasitesi varsa çukurlar bu sürede boşalır.";
+}
+function yontemMetinleri() {
+  const k = D.meta.kentlesme, d = D.meta.duyarlilik;
+  if (k) $("kentlesme-metin").innerHTML = `<p>1990'daki yapılaşmayla (GHSL) aynı çukurlar daha geç dolardı. İl içindeki ${fmt(k.kentsel_aday)} kentsel çukurdan
+    25 mm'de dolanların sayısı <b>${fmt(k.kentsel_25mm_dolan_1990)} → ${fmt(k.kentsel_25mm_dolan_2020)}</b>, 10 mm'de
+    <b>${fmt(k.kentsel_10mm_dolan_1990)} → ${fmt(k.kentsel_10mm_dolan_2020)}</b>. 50 mm yağışta oluşan yüzey akışı
+    ${fmt(k.yuzey_akisi_50mm_milyon_m3_1990, 1)} → ${fmt(k.yuzey_akisi_50mm_milyon_m3_2020, 1)} milyon m³. Eşiği düşen çukurlarda ortanca düşüş ${fmt(k.esik_dusus_ortanca_mm_dusenlerde)} mm.
+    Bu, yalnız geçirimsizliğin etkisidir; 1990'dan bu yana değişen topografya ve altyapı hesaba girmez.</p>`;
+  if (d && d.senaryolar) {
+    const satir = d.senaryolar.filter((r) => !/kontrol/.test(r.senaryo)).map((r) => `<tr><td>${r.senaryo}</td><td>${r["ilk100_korunan_%"]}</td><td>${fmt(r.spearman_rho, 2)}</td><td>${fmt(r.esik_fark_ortanca_mm, 0)}</td></tr>`).join("");
+    const mc = d.monte_carlo;
+    $("duyarlilik-metin").innerHTML = `<p>Koşullandırma parametreleri değiştirilip çukur analizi baştan yapıldı; "ilk 100 kentsel" listesinin kaçının listede kaldığına ve tüm kentsel çukurlarda eşik sıralamasının ne kadar korunduğuna bakıldı.</p>
+      <div style="overflow-x:auto"><table class="tablo"><thead><tr><th>Senaryo</th><th>İlk 100'de kalan</th><th>Spearman ρ</th><th>Eşik farkı (ortanca, mm)</th></tr></thead><tbody>${satir}</tbody></table></div>` +
+      (d.mahalle_duzeyi ? `<p>Aynı karşılaştırma mahalle ve ilçe düzeyinde (her mahallede 25 mm'de dolan kentsel çukur hacmi):</p>
+      <div style="overflow-x:auto"><table class="tablo"><thead><tr><th>Senaryo</th><th>Tek çukur: ilk 100'de kalan</th><th>Mahalle ρ</th><th>İlk 50 mahalleden ortak</th><th>İlçe ρ</th><th>İlk 10 ilçeden ortak</th></tr></thead><tbody>` +
+        d.mahalle_duzeyi.map((r) => `<tr><td>${r.senaryo}</td><td>${r["ilk100_korunan_%"]}</td><td>${fmt(r.mahalle_v25_spearman, 2)}</td><td>${r.mahalle_v25_ilk50_ortak}</td><td>${fmt(r.ilce_v25_spearman, 2)}</td><td>${r.ilce_v25_ilk10_ortak}</td></tr>`).join("") +
+        `</tbody></table></div><p><b>Sonuç:</b> bina, dere ve alt geçit parametreleri sonucu neredeyse değiştirmiyor. Yol alçaltma ve DEM hatası tek tek cadde çukurlarının sırasını belirgin biçimde değiştiriyor; mahalle ve ilçe düzeyindeki sıcak nokta tablosu ise dayanıklı. Bu yüzden simülatördeki sokak ölçeğindeki sonuçlar gösterge, mahalle karnesi daha güvenilir okumadır.</p>` : "") +
+      (mc ? `<p>DEM hatası (σ ${fmt(mc.sigma_m, 1)} m, ~${fmt(mc.iliski_px * 10)} m ilişki uzunluğu, ${mc.N} tekrar): ilk 100'deki çukurların bir tekrarda yine ilk 100'de olma olasılığı ortalama <b>%${fmt(mc.ilk100_ortalama_olasilik * 100)}</b>; çukur olarak korunma olasılığı ortanca %${fmt(mc.ilk100_cukur_olasiligi_ortanca * 100)}. Her çukurun olasılığı ve eşik aralığı çukur penceresinde görünür.</p>` : "");
+  }
+}
+
+// ------------------------------------------------------------------ başlat
+async function baslat() {
+  try {
+    Object.assign(D, await veriYukle());
+  } catch (e) { durum("Veri yüklenemedi: " + e.message); return; }
+  durum("Model hazırlanıyor…", 0.95);
+  const M = D.model, m = D.meta.m, n = D.meta.n_px;
+  D.pikselId = new Uint16Array(n);
+  for (let b = 1; b <= m; b++) D.pikselId.fill(b, M.ofset[b - 1], M.ofset[b]);
+  const NX = D.meta.izgara.nx, A = new Float64Array(n);
+  for (let i = 0; i < n; i++) A[i] = (D.piksel.row[i] * NX + D.piksel.col[i]) * 2097152 + i;
+  A.sort(); D.anahtar = A;
+  D.gizli = new Uint8Array(m + 1);
+  const suYuzeyi = D.meta.kategori.indexOf("elenen_su");
+  for (let b = 1; b <= m; b++) if (M.kat[b] === suYuzeyi) D.gizli[b] = 1;
+  for (let i = 0; i < D.maruz.t_i.length; i++) tesisIzliSet.add(D.maruz.t_i[i]);
+  tesisIzli = [...tesisIzliSet];
+  const dg = D.dogrulama;
+  if (dg && dg.hat_20m) $("dogrulama-metin").innerHTML = `Haberlerde su bastığı yazan 22 olay (2021–2026) rastgele yerlerle karşılaştırıldı. Model su basan <b>caddeleri</b> rastgele caddelerden ayırıyor: dolma eşiğinde AUC <b>${fmt(dg.hat_20m.auc_esik, 2)}</b> [${dg.hat_20m.auc_esik_ci95.map((v) => fmt(v, 2)).join("–")}]. Nokta olaylarda sinyal zayıf (100 m'de AUC ${fmt(dg.nokta_r100m.auc_derinlik_25mm, 2)}); kıyı ve köprü altı baskınları modelde yok.`;
+  karneListesi();
+  MENFEZ_KAT = D.meta.kategori.indexOf("menfez_golet");
+  yontemMetinleri();
+  lejantYaz();
+  etiketleriYaz();
+  // harita
+  const protokol = new pmtiles.Protocol();
+  maplibregl.addProtocol("pmtiles", protokol.tile);
+  maplibregl.addProtocol("su", async (params) => {
+    const m = params.url.match(/^su:\/\/(\d+)\/(\d+)\/(\d+)/);
+    return { data: await suCizici.karo(+m[1], +m[2], +m[3]) };
+  });
+  for (const ad of ["altlik", "arazi"]) protokol.add(new pmtiles.PMTiles(new ParcaKaynak(ad, D.karolar[ad + ".pmtiles"])));
+  durum("Harita hazırlanıyor…", 0.98);
+  try { suCizici = suCiziciOlustur(); window.__su = suCizici; } catch (e) { durum("Su katmanı çizilemiyor: " + e.message); return; }
+  esikGuncelle();
+  harita = new maplibregl.Map({
+    container: "harita", style: stil(), center: [28.93, 41.035], zoom: matchMedia("(max-width: 820px)").matches ? 9.6 : 10.4,
+    minZoom: 8, maxZoom: 18.5, maxPitch: 70, maxBounds: [[27.2, 40.55], [30.6, 41.9]], attributionControl: false, dragRotate: false, pitchWithRotate: true,
+  });
+  harita.touchZoomRotate.disableRotation();
+  harita.touchPitch.disable();
+  window.__harita = harita;
+  harita.addControl(new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }), "top-left");
+  harita.addControl(ucKontrol, "top-left");
+  harita.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-left");
+  harita.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: "© OpenStreetMap katkıcıları · FABDEM · ESA WorldCover · JRC GHSL" }));
+  await new Promise((r) => harita.on("load", r));
+  katmanlariEkle();
+  durum("Simülasyon çalışıyor…", 1);
+  await isciKur();
+  simule();
+  $("durum").hidden = true;
+  olaylariBagla();
+}
+
+function olaylariBagla() {
+  const yeniden = () => { durdur(); simule(); };
+  // geçmiş yağış olayları (IMERG)
+  const YO = D.yagisOlaylari;
+  if (YO && YO.olaylar && YO.olaylar.length) {
+    $("olay-blok").hidden = false;
+    $("g-olay-sec").innerHTML = '<option value="">— seçilmedi —</option>' + YO.olaylar.map((o, i) =>
+      `<option value="${i}">${o.ad} · ${fmt(o.toplam_mm, 0)} mm / ${o.sure_dk < 60 ? o.sure_dk + " dk" : fmt(o.sure_dk / 60, 0) + " sa"}</option>`).join("");
+    $("g-olay-sec").addEventListener("change", (e) => {
+      const o = e.target.value === "" ? null : YO.olaylar[+e.target.value];
+      olaySeri = o; ilkSonuc = true;
+      $("olay-not").innerHTML = o ? `${o.aciklama || ""} En şiddetli saatte ${fmt(o.tepe_1sa_mm, 1)} mm. Yağış bütün ile aynı uygulanır: "fırtınanın merkezi her yerde olsaydı". <a href="${o.kaynak}" target="_blank" rel="noopener" style="color:var(--vurgu)">Kaynak</a>` : "";
+      yeniden();
+    });
+  }
+  const olayBirak = () => { if (olaySeri) { olaySeri = null; $("g-olay-sec").value = ""; $("olay-not").innerHTML = ""; } };
+  for (const id of ["g-p", "g-s", "g-d"]) $(id).addEventListener("change", olayBirak);
+  document.querySelectorAll("#yagis-hazir .cip").forEach((b) => b.addEventListener("click", olayBirak, true));
+  for (const id of ["g-p", "g-s", "g-dr", "g-q", "g-qs"]) {
+    $(id).addEventListener("input", etiketleriYaz);
+    $(id).addEventListener("change", () => { if ((id === "g-q" || id === "g-qs") && !patlama) return; yeniden(); });
+  }
+  $("g-d").addEventListener("change", yeniden);
+  $("g-pm").addEventListener("change", yeniden);
+  document.querySelectorAll("#yagis-hazir .cip").forEach((b) => b.addEventListener("click", () => {
+    $("g-p").value = b.dataset.p; $("g-s").value = b.dataset.s; $("g-d").value = b.dataset.d; ilkSonuc = true; yeniden(); }));
+  document.querySelectorAll("#altyapi-hazir .cip").forEach((b) => b.addEventListener("click", () => {
+    $("g-dr").value = b.dataset.dr; $("g-pm").checked = b.dataset.pm === "1"; yeniden(); }));
+  $("oynat").addEventListener("click", oynat);
+  grafikOlaylari();
+  // sekmeler
+  document.querySelectorAll(".sekmeler button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".sekmeler button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
+    document.querySelectorAll(".panel .sayfa").forEach((s) => (s.hidden = s.id !== "s-" + b.dataset.sayfa));
+    karneGoster(b.dataset.sayfa === "karne");
+    if (b.dataset.sayfa !== "karne") harita.setFilter("mahalle-secili", ["==", ["get", "fid"], -1]);
+  }));
+  $("k-gosterge").addEventListener("change", () => karneGoster(true));
+  $("ilk-filtre").addEventListener("click", (e) => { const b = e.target.closest(".cip"); if (!b) return;
+    ilkFiltre = b.dataset.k; document.querySelectorAll("#ilk-filtre .cip").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); ilkListesi(); });
+  $("ilk-hacim").addEventListener("change", ilkListesi);
+  $("ilk-liste").addEventListener("click", (e) => { const b = e.target.closest("button[data-b]"); if (b) cukuraGit(+b.dataset.b); });
+  $("k-liste").addEventListener("click", (e) => { const b = e.target.closest("button[data-fid]"); if (!b) return;
+    const k = D.karne[b.dataset.fid]; mahalleDetay(b.dataset.fid, null);
+    const f = harita.querySourceFeatures("altlik", { sourceLayer: "etiket", filter: ["all", ["==", ["get", "t"], "mahalle"], ["==", ["get", "ad"], k.ad]] });
+    if (f.length) harita.easeTo({ center: f[0].geometry.coordinates, zoom: 13.5 }); });
+  document.querySelectorAll("#katman-sec .cip").forEach((b) => b.addEventListener("click", () => {
+    katman = b.dataset.k;
+    document.querySelectorAll("#katman-sec .cip").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    lejantYaz(); zamanAyarla(zaman, true);
+  }));
+  document.querySelectorAll("#arazi-sec .cip").forEach((b) => b.addEventListener("click", () => {
+    arazi = b.dataset.a;
+    document.querySelectorAll("#arazi-sec .cip").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    esikGuncelle(); lejantYaz(); yeniden();
+  }));
+  const menfezAyarla = (yeni) => {
+    tikali = yeni;
+    (D.meta.menfez || []).forEach((_, i) => harita.setFeatureState({ source: "menfez", id: i }, { tikali: tikali.has(i) }));
+    document.querySelectorAll("#menfez-hazir .cip").forEach((x) => x.setAttribute("aria-pressed",
+      String(+x.dataset.n === tikali.size && [...tikali].every((i) => i < +x.dataset.n))));
+    $("menfez-not").textContent = tikali.size ? `${tikali.size} menfez tıkalı. Tıkalı menfezler haritada dolu turuncu işaretle gösterilir; işaretlere tıklayarak değiştirebilirsin.`
+      : "Haritadaki menfez işaretlerine (yakınlaşınca görünür) tıklayarak tek tek tıkayıp açabilirsin.";
+    yeniden();
+  };
+  document.querySelectorAll("#menfez-hazir .cip").forEach((b) => b.addEventListener("click", () =>
+    menfezAyarla(new Set(Array.from({ length: Math.min(+b.dataset.n, (D.meta.menfez || []).length) }, (_, i) => i)))));
+  window.__menfezAyarla = menfezAyarla;
+  $("csv-ilk").addEventListener("click", () => {
+    const M = D.model, K = D.meta.kategori;
+    const aday = [];
+    for (let b = 1; b <= D.meta.m0; b++) if (M.il_ici[b] && ["kentsel", "alt_gecit", "dere_vadi"].includes(K[M.kat[b]]) && !isNaN(sonuc.dolmaDk[b])) aday.push(b);
+    aday.sort((a, b) => sonuc.dolmaDk[a] - sonuc.dolmaDk[b] || M.esik[a] - M.esik[b] || M.kap[b] - M.kap[a]);
+    const r = [["sira", "cukur_id", "ilce", "mahalle", "kategori", "dolma_dk", "hacim_m3", "maks_derinlik_m", "dolma_esigi_mm", "boylam", "enlem"]];
+    aday.forEach((b, i) => { const [lon, lat] = cografyaya(M.cx[b], M.cy[b]);
+      r.push([i + 1, b, M.ilce[b] ? D.meta.ilce[M.ilce[b] - 1] : "", M.mah[b] ? D.meta.mahalle[M.mah[b] - 1].split("|")[1] : "", K[M.kat[b]],
+        sonuc.dolmaDk[b], Math.round(M.kap[b]), M.maks_der[b].toFixed(2), M.esik[b], lon.toFixed(6), lat.toFixed(6)]); });
+    indir("istanbul_ilk_dolanlar.csv", r);
+  });
+  $("csv-zaman").addEventListener("click", () => {
+    const st = sonuc.st, r = [["dakika", "yagis_mm", "birikimli_mm", "su_alti_km2", "bina_10cm", "bina_30cm", "nufus_10cm", "kapali_yol_km", "hastane", "okul", "itfaiye", "metro_girisi", "sebekeye_m3", "depolanan_m3"]];
+    for (let s = 0; s <= sonuc.N; s++) r.push([st.t_dk[s], st.yagis_mm[s].toFixed(2), st.birikimli_mm[s].toFixed(1), st.islak_km2[s].toFixed(3), st.bina10[s], st.bina30[s],
+      Math.round(st.nufus10[s]), st.yol_km[s].toFixed(2), st.tesis[0][s], st.tesis[1][s], st.tesis[2][s], st.tesis[3][s], Math.round(st.sebeke_m3[s]), Math.round(st.depo_m3[s])]);
+    indir("istanbul_senaryo_zaman_serisi.csv", r);
+  });
+  $("csv-mahalle").addEventListener("click", () => {
+    const s = sonuc.tepeAdim, m = D.meta.m, sev = sonuc.seviyeler.subarray(s * (m + 1), (s + 1) * (m + 1)), X = D.maruz;
+    const bd = new Float32Array(X.b_nufus.length);
+    for (let i = 0; i < X.b_i.length; i++) { const d = sev[X.b_cuk[i]] - X.b_dz[i] / 100; if (d > bd[X.b_i[i]]) bd[X.b_i[i]] = d; }
+    const top = {};
+    for (let i = 0; i < bd.length; i++) { if (!X.b_ist[i] || bd[i] < 0.1) continue; const t = top[X.b_mah[i]] || (top[X.b_mah[i]] = [0, 0, 0]); t[0]++; t[2] += X.b_nufus[i]; if (bd[i] >= 0.3) t[1]++; }
+    const r = [["mahalle_fid", "mahalle", "ilce", "bina_10cm", "bina_30cm", "nufus_10cm", "risk_indeksi", "an_dk"]];
+    for (const [fid, k] of Object.entries(D.karne)) { const t = top[fid] || [0, 0, 0]; r.push([fid, k.ad, k.ilce, t[0], t[1], Math.round(t[2]), k.risk_indeksi, s * sonuc.dt]); }
+    indir("istanbul_senaryo_mahalleler.csv", r);
+  });
+  $("g-olay").addEventListener("change", (e) => { for (const l of ["olay-hat", "olay-nokta"]) harita.setLayoutProperty(l, "visibility", e.target.checked ? "visible" : "none"); });
+  // patlama
+  $("patlama-sec").addEventListener("click", () => { patlamaModu = true; $("ipucu").hidden = false; harita.getCanvas().style.cursor = "crosshair"; });
+  $("patlama-sil").addEventListener("click", () => { patlama = null; if (patlamaIsaret) patlamaIsaret.remove(); $("patlama-sil").hidden = true; $("patlama-bilgi").hidden = true; simule(); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && patlamaModu) { patlamaModu = false; $("ipucu").hidden = true; harita.getCanvas().style.cursor = ""; }
+    if (e.key === " " && e.target === document.body) { e.preventDefault(); oynat(); } });
+  // harita tıklama
+  harita.on("click", (e) => {
+    if (patlamaModu) { patlamaModu = false; $("ipucu").hidden = true; harita.getCanvas().style.cursor = ""; patlamaKur(e.lngLat); return; }
+    const kutu = [[e.point.x - 4, e.point.y - 4], [e.point.x + 4, e.point.y + 4]];
+    const ol = harita.queryRenderedFeatures(kutu, { layers: ["olay-nokta", "olay-hat"] });
+    const mf = harita.queryRenderedFeatures(kutu, { layers: ["menfez"] });
+    if (mf.length) {
+      const i = mf[0].properties.i, m = D.meta.menfez[i];
+      popupAc(e.lngLat, `<div class="pop"><h4>${m.ad || "Kapalı " + (m.tur === "stream" ? "dere" : m.tur)}</h4><div class="alt">Menfez / kapalı dere · ${fmt(m.uzunluk_m)} m · kritiklik sırası ${i + 1}</div>
+        <dl><dt>Tıkanırsa gölet</dt><dd>${kisa(m.hacim_m3)} m³</dd><dt>En derin</dt><dd>${fmt(m.maks_derinlik_m, 1)} m</dd><dt>Memba alanı</dt><dd>${fmt(m.memba_km2, 1)} km²</dd></dl>
+        <button class="dugme dolu" id="menfez-dugme">${tikali.has(i) ? "Menfezi aç" : "Menfezi tıka"}</button></div>`);
+      document.getElementById("menfez-dugme").addEventListener("click", () => {
+        const y = new Set(tikali); if (y.has(i)) y.delete(i); else y.add(i); window.__menfezAyarla(y); acikPopup && acikPopup.p.remove(); });
+      return;
+    }
+    if (ol.length) { const p = ol[0].properties;
+      popupAc(e.lngLat, `<div class="pop"><h4>${p.tanim}</h4><div class="alt">${p.tarih} · ${p.ilce.replaceAll("|", ", ")} · konum güveni: ${p.guven}</div>
+        <dl><dt>Model, 25 mm'de en derin</dt><dd>${fmt(p.derinlik25 * 100, 0)} cm</dd><dt>En düşük dolma eşiği</dt><dd>${p.esik_mm >= 301 ? "> 300" : fmt(p.esik_mm, 0)} mm</dd>
+        <dt>Rastgele yerlere göre</dt><dd>%${fmt(p.yuzdelik_derinlik25 * 100, 0)} yüzdelik</dd></dl><a href="${p.kaynak}" target="_blank" rel="noopener" style="color:var(--vurgu);font-size:12.5px">Haber kaynağı</a></div>`); return; }
+    const ts = harita.queryRenderedFeatures(kutu, { layers: ["tesis"] }).filter((f) => (harita.getFeatureState({ source: "tesis", id: f.id }).d || 0) >= 0.1);
+    if (ts.length) { const f = ts[0], d = harita.getFeatureState({ source: "tesis", id: f.id }).d;
+      popupAc(e.lngLat, `<div class="pop"><h4>${f.properties.ad || TESIS[f.properties.tur][1]}</h4><div class="alt">${TESIS[f.properties.tur][1]} · 30 m çevresinde en derin su</div><dl><dt>Şu an</dt><dd>${fmt(d * 100, 0)} cm</dd></dl></div>`); return; }
+    if (harita.getLayoutProperty("mahalle-dolgu", "visibility") === "visible") {
+      const mh = harita.queryRenderedFeatures(e.point, { layers: ["mahalle-dolgu"] });
+      if (mh.length) { mahalleDetay(mh[0].properties.fid, null); return; }
+    }
+    const i = pikselBul(e.lngLat);
+    if (i >= 0) { const b = D.pikselId[i]; if (!D.gizli[b]) { cukurBilgi(b, e.lngLat, i); return; } }
+    if (acikPopup) acikPopup.p.remove();
+  });
+  harita.on("mousemove", (e) => {
+    if (patlamaModu) return;
+    const i = pikselBul(e.lngLat), f = harita.queryRenderedFeatures([[e.point.x - 4, e.point.y - 4], [e.point.x + 4, e.point.y + 4]], { layers: ["olay-nokta", "olay-hat", "tesis"] });
+    harita.getCanvas().style.cursor = (i >= 0 || f.length) ? "pointer" : "";
+  });
+  // tema değişince stili yenile
+  const temaYenile = () => {
+    lejantYaz(); grafikOynatici();
+    const yeni = stil();
+    for (const l of yeni.layers) {
+      if (!harita.getLayer(l.id)) continue;
+      for (const [k, v] of Object.entries(l.paint || {})) if (!(l.id === "mahalle-dolgu" && k === "fill-color")) harita.setPaintProperty(l.id, k, v);
+    }
+    harita.setPaintProperty("tesis", "circle-stroke-color", css("--panel"));
+    harita.setPaintProperty("bina-3b", "fill-extrusion-color", koyuMu() ? "#3a454b" : "#e9ecea");
+    harita.setPaintProperty("menfez", "circle-color", ["case", ["boolean", ["feature-state", "tikali"], false], css("--vurgu"), css("--panel")]);
+    harita.setPaintProperty("menfez", "circle-stroke-color", css("--vurgu"));
+    suGuncelle(false);
+    const renk = koyuMu() ? "#f2d36b" : "#6b4a00";
+    harita.setPaintProperty("olay-hat", "line-color", renk); harita.setPaintProperty("olay-nokta", "circle-stroke-color", renk);
+    if (harita.getLayoutProperty("mahalle-dolgu", "visibility") === "visible") karneGoster(true);
+    harita.triggerRepaint();
+  };
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", temaYenile);
+  new MutationObserver(temaYenile).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+}
+
+baslat();
+})();
+</script>

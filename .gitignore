@@ -1,0 +1,13 @@
+# veri: Earth Engine ve OSM'den yeniden üretilir
+data/
+istanbul_taskin_gee/
+*.tif
+*.gpkg
+*.npz
+*.npy
+*.pbf
+web/node_modules/
+web/public/veri/
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,23 @@
+olay_id,tarih,ilce,tanim,tip,yol1,yol2,lat,lon,guven,kaynak
+E01,2021-06-15,Kağıthane|Eyüpsultan,İmrahor Cad. (Silahtarağa kesişimi) su baskını,yol,İmrahor,,,,orta,https://ankahaber.net/haber/detay/istanbulda_en_cok_yagis_sisli_ve_gungoren_ilcelerinde_oldu_18_noktada_su_baskini_yasandi_43288
+E02,2021-06-15,Fatih,Balat sahil yolu su baskını,yol,ezel,,,,orta,https://ankahaber.net/haber/detay/istanbulda_en_cok_yagis_sisli_ve_gungoren_ilcelerinde_oldu_18_noktada_su_baskini_yasandi_43288
+E03,2021-06-15,Avcılar|Beylikdüzü|Esenyurt|Küçükçekmece,Ambarlı Kumcular Yolu Caddesi su baskını,yol,Kumcular,,,,iyi,https://ankahaber.net/haber/detay/istanbulda_en_cok_yagis_sisli_ve_gungoren_ilcelerinde_oldu_18_noktada_su_baskini_yasandi_43288
+E04,2021-06-15,Fatih,Yenikapı Namık Kemal alt geçidi,yol,Namık Kemal,,,,orta,https://ankahaber.net/haber/detay/istanbulda_en_cok_yagis_sisli_ve_gungoren_ilcelerinde_oldu_18_noktada_su_baskini_yasandi_43288
+E05,2021-06-15,Esenler|Zeytinburnu|Bayrampaşa,Davutpaşa YTÜ önü su baskını,yol,Davutpaşa Caddesi,,,,orta,https://ankahaber.net/haber/detay/istanbulda_en_cok_yagis_sisli_ve_gungoren_ilcelerinde_oldu_18_noktada_su_baskini_yasandi_43288
+E06,2021-06-15,Fatih,Vatan Caddesi İGDAŞ Ulubatlı önü,nokta,,,41.0195,28.9335,orta,https://ankahaber.net/haber/detay/istanbulda_en_cok_yagis_sisli_ve_gungoren_ilcelerinde_oldu_18_noktada_su_baskini_yasandi_43288
+E07,2021-06-15,Fatih,Samatya alt geçidi,nokta,,,40.9985,28.9310,orta,https://ankahaber.net/haber/detay/istanbulda_en_cok_yagis_sisli_ve_gungoren_ilcelerinde_oldu_18_noktada_su_baskini_yasandi_43288
+E08,2021-06-15,Fatih,Eminönü iskeleler önü,nokta,,,41.0170,28.9740,iyi,https://ankahaber.net/haber/detay/istanbulda_en_cok_yagis_sisli_ve_gungoren_ilcelerinde_oldu_18_noktada_su_baskini_yasandi_43288
+E09,2021-06-15,Fatih,Millet Caddesi Fındıkzade,nokta,,,41.0165,28.9395,orta,https://ankahaber.net/haber/detay/istanbulda_en_cok_yagis_sisli_ve_gungoren_ilcelerinde_oldu_18_noktada_su_baskini_yasandi_43288
+E10,2021-06-15,Beyoğlu,Halıcıoğlu–Sütlüce alt geçidi,nokta,,,41.0525,28.9465,orta,https://ankahaber.net/haber/detay/istanbulda_en_cok_yagis_sisli_ve_gungoren_ilcelerinde_oldu_18_noktada_su_baskini_yasandi_43288
+E11,2021-06-15,Eyüpsultan|Fatih,Ayvansaray Haliç Köprüsü altı,nokta,,,41.0412,28.9452,iyi,https://ankahaber.net/haber/detay/istanbulda_en_cok_yagis_sisli_ve_gungoren_ilcelerinde_oldu_18_noktada_su_baskini_yasandi_43288
+E12,2021-06-15,Beyoğlu,D100 Halıcıoğlu orta köprü,nokta,,,41.0490,28.9500,orta,https://ankahaber.net/haber/detay/istanbulda_en_cok_yagis_sisli_ve_gungoren_ilcelerinde_oldu_18_noktada_su_baskini_yasandi_43288
+E13,2026-09-28,Beşiktaş|Şişli,Zincirlikuyu alt geçidi (Nispetiye Cad.) su bastı,nokta,,,41.0687,29.0115,orta,https://www.haberler.com/haberler/istanbulu-saganak-vurdu-yol-coktu-alt-gecidi-su-20277507-haberi/
+E14,2026-09-28,Küçükçekmece,Kanarya Mah. İstasyon Caddesi rögarlar taştı,yol,İstasyon Caddesi,,,,iyi,https://www.haberler.com/haberler/istanbulu-saganak-vurdu-yol-coktu-alt-gecidi-su-20277507-haberi/
+E15,2026-09-28,Bayrampaşa,Terazidere Manastır Caddesi su baskını,yol,Manastır,,,,iyi,https://www.haberler.com/haberler/istanbulu-saganak-vurdu-yol-coktu-alt-gecidi-su-20277507-haberi/
+E16,2026-09-28,Eyüpsultan,İslambey Caddesi su baskını,yol,İslambey,,,,iyi,https://www.haberler.com/haberler/istanbulu-saganak-vurdu-yol-coktu-alt-gecidi-su-20277507-haberi/
+E17,2026-09-28,Sultangazi,Lütfi Aykaç Bulvarı göle döndü (Yunus Emre Mah.),yol,Aykaç,,,,iyi,https://www.haberler.com/haberler/istanbulu-saganak-vurdu-yol-coktu-alt-gecidi-su-20277507-haberi/
+E18,2026-09-28,Kağıthane,Güzeldere Caddesi su baskını,yol,Güzeldere,,,,iyi,https://www.haberler.com/haberler/istanbulu-saganak-vurdu-yol-coktu-alt-gecidi-su-20277507-haberi/
+E19,2025-12-07,Eyüpsultan|Kağıthane,Hasdal Kavşağı göllenme,nokta,,,41.0925,28.9680,orta,https://www.trthaber.com/haber/turkiye/istanbulu-saganak-vurdu-rogarlar-tasti-araclar-mahsur-kaldi-928012.html
+E20,2026-07-04,Şişli,Mecidiyeköy Meydanı su baskını,nokta,,,41.0668,28.9960,iyi,https://haber.sol.org.tr/haber/istanbulda-kuvvetli-saganak-ev-ve-isyerlerini-caddeleri-su-basti-411379
+E21,2026-07-04,Üsküdar,Harem Sahil Yolu su birikti,yol,Harem Sahil,,,,iyi,https://haber.sol.org.tr/haber/istanbulda-kuvvetli-saganak-ev-ve-isyerlerini-caddeleri-su-basti-411379
+E22,2026-07-04,Üsküdar,Üsküdar Sahaflar Çarşısı ~1 m su,nokta,,,41.0263,29.0153,orta,https://haber.sol.org.tr/haber/istanbulda-kuvvetli-saganak-ev-ve-isyerlerini-caddeleri-su-basti-411379
