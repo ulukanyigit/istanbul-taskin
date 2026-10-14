@@ -1,4 +1,6 @@
-"""Simülatörü derler: src/index.html + motor.js + MapLibre CSS → dist/index.html, veri → dist/veri.
+"""Simülatörü derler: src/index.html + motor.js + MapLibre CSS → dist/index.html, src/uyari.html → dist/uyari.html, veri → dist/veri.
+
+dist/veri/uyari (günlük uyarı çıktısı, GitHub Actions yazar) derleme sırasında korunur.
 
 Çalıştırma: python web/build.py   (önce: cd web && npm install)
 """
@@ -15,10 +17,19 @@ assert "</script" not in motor
 # web türlerini sunuyor ve application/wasm baytları olduğu gibi iletiyor. Sayfa aynı eki URL'lere ekler.
 EK = ".wasm"
 html = html.replace("/*MOTOR_JS*/", motor).replace("/*MAPLIBRE_CSS*/", css).replace("/*IKILI_EK*/", EK)
+UYARI = os.path.join(DIST, "veri", "uyari")
+yedek = os.path.join(KOK, "_uyari_yedek")
+if os.path.exists(UYARI):
+    shutil.rmtree(yedek, ignore_errors=True); shutil.copytree(UYARI, yedek)
 if os.path.exists(DIST):
     shutil.rmtree(DIST)
 os.makedirs(os.path.join(DIST, "veri"))
+if os.path.exists(yedek):
+    shutil.copytree(yedek, UYARI); shutil.rmtree(yedek)
 open(os.path.join(DIST, "index.html"), "w", encoding="utf-8").write(html)
+uyari = open(os.path.join(SRC, "uyari.html"), encoding="utf-8").read()
+uyari = uyari.replace("/*MAPLIBRE_CSS*/", css).replace("/*IKILI_EK*/", EK)
+open(os.path.join(DIST, "uyari.html"), "w", encoding="utf-8").write(uyari)
 n = 0
 for kok, _, dosyalar in os.walk(VERI):
     if "_tmp" in kok:

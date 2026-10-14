@@ -1,0 +1,408 @@
+<meta charset="utf-8">
+<title>İstanbul Taşkın Ön Uyarısı</title>
+<meta name="description" content="Günlük yağış tahminini 58.874 çukurun dolma eşikleriyle karşılaştıran deneysel taşkın ön tarama haritası.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Barlow+Semi+Condensed:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>/*MAPLIBRE_CSS*/</style>
+<style>
+:root {
+  --zemin: #e4e8e7; --panel: #f6f8f7; --cizgi: #c5cdcb; --metin: #18232a; --soluk: #5b6a70;
+  --vurgu: #b0601a; --vurgu-metin: #ffffff;
+  --s0: #c3cbcc; --s1: #e2b22c; --s2: #e06a1b; --s3: #b8231b; --s-metin: #ffffff; --s1-metin: #2a2000;
+  --m1: #2f6f9f; --m2: #7a5cc4; --m3: #2f7d55; --m4: #b0601a;
+  --f-baslik: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-govde: "Barlow Semi Condensed", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --f-sayi: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --panel-gen: 392px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --zemin: #151b1f; --panel: #1b2227; --cizgi: #2f3a40; --metin: #e3ebee; --soluk: #93a4ab;
+    --vurgu: #e39a4c; --vurgu-metin: #1b1208;
+    --s0: #3b4549; --s1: #f2cb4f; --s2: #ff8a3d; --s3: #ff5a4e; --s-metin: #1b1208; --s1-metin: #1b1208;
+    --m1: #6fb6ea; --m2: #b39cff; --m3: #6cc596; --m4: #e39a4c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --zemin: #151b1f; --panel: #1b2227; --cizgi: #2f3a40; --metin: #e3ebee; --soluk: #93a4ab;
+  --vurgu: #e39a4c; --vurgu-metin: #1b1208;
+  --s0: #3b4549; --s1: #f2cb4f; --s2: #ff8a3d; --s3: #ff5a4e; --s-metin: #1b1208; --s1-metin: #1b1208;
+  --m1: #6fb6ea; --m2: #b39cff; --m3: #6cc596; --m4: #e39a4c;
+  color-scheme: dark;
+}
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--zemin); color: var(--metin); font-family: var(--f-govde); font-size: 14px; line-height: 1.4; }
+* { box-sizing: border-box; }
+button, select { font: inherit; color: inherit; }
+a { color: var(--vurgu); }
+.uygulama { display: grid; grid-template-columns: var(--panel-gen) minmax(0, 1fr); height: 100%; }
+.panel { background: var(--panel); border-right: 1px solid var(--cizgi); overflow-y: auto; min-width: 0; display: flex; flex-direction: column; }
+.ust { padding: 16px 18px 12px; border-bottom: 1px solid var(--cizgi); display: grid; gap: 4px; }
+.ust h1 { font-family: var(--f-baslik); font-weight: 600; font-size: 26px; line-height: 1.05; margin: 0; }
+.ust p { margin: 0; color: var(--soluk); font-size: 13px; }
+.ust .baglanti { font-size: 13px; }
+.rozet { display: inline-block; font-size: 10.5px; padding: 0 5px; border-radius: 2px; border: 1px solid currentColor; text-transform: uppercase; letter-spacing: .6px; vertical-align: 4px; margin-left: 6px; color: var(--vurgu); font-family: var(--f-govde); font-weight: 600; }
+.durum-kart { margin: 14px 18px 0; border-radius: 4px; padding: 12px 14px; display: grid; gap: 4px; background: var(--s0); color: var(--metin); }
+.durum-kart[data-s="1"] { background: var(--s1); color: var(--s1-metin); }
+.durum-kart[data-s="2"] { background: var(--s2); color: var(--s-metin); }
+.durum-kart[data-s="3"] { background: var(--s3); color: var(--s-metin); }
+.durum-kart .seviye { font-family: var(--f-baslik); font-size: 30px; font-weight: 600; line-height: 1; text-transform: uppercase; letter-spacing: .5px; }
+.durum-kart .zaman { font-size: 13px; opacity: .92; }
+.durum-kart .test { font-size: 12.5px; font-weight: 600; }
+.uyari-not { margin: 10px 18px 0; font-size: 12.5px; color: var(--soluk); border-left: 3px solid var(--vurgu); padding: 2px 0 2px 9px; }
+.uyari-not b { color: var(--metin); }
+.sayfa { padding: 14px 18px 22px; display: grid; gap: 18px; align-content: start; }
+.bolum { display: grid; gap: 8px; min-width: 0; }
+.bolum h2 { font-family: var(--f-baslik); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--soluk); margin: 0; }
+.olcum { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--cizgi); margin: 0; }
+.olcum > div { padding: 8px 8px 8px 0; border-bottom: 1px solid var(--cizgi); display: grid; gap: 1px; }
+.olcum > div + div { padding-left: 8px; border-left: 1px solid var(--cizgi); }
+.olcum > div:nth-child(3n+1) { border-left: 0; padding-left: 0; }
+.olcum dt { font-size: 12px; color: var(--soluk); }
+.olcum dd { margin: 0; font-family: var(--f-sayi); font-size: 19px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.kare { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: 0; }
+#grafik { width: 100%; height: 150px; display: block; }
+.grafik-alt { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11.5px; color: var(--soluk); }
+.grafik-alt i { display: inline-block; width: 14px; height: 3px; vertical-align: 3px; margin-right: 4px; }
+.sekmeler { display: flex; border-bottom: 1px solid var(--cizgi); }
+.sekmeler button { flex: 1; background: none; border: 0; border-bottom: 2px solid transparent; padding: 8px 4px 7px; cursor: pointer; color: var(--soluk); font-weight: 500; }
+.sekmeler button[aria-selected="true"] { color: var(--metin); border-bottom-color: var(--vurgu); }
+button:focus-visible { outline: 2px solid var(--vurgu); outline-offset: 1px; }
+.liste { list-style: none; margin: 0; padding: 0; }
+.liste li { border-bottom: 1px solid var(--cizgi); }
+.liste button { width: 100%; text-align: left; background: none; border: 0; padding: 7px 2px; cursor: pointer; display: grid; grid-template-columns: 14px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; }
+.liste button:hover { background: color-mix(in srgb, var(--vurgu) 8%, transparent); }
+.liste .ad { min-width: 0; }
+.liste .ad b { font-weight: 600; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.liste .ad span { color: var(--soluk); font-size: 12px; }
+.liste .deger { font-family: var(--f-sayi); font-size: 12.5px; text-align: right; }
+.liste .deger small { display: block; color: var(--soluk); font-size: 11px; }
+.bos { color: var(--soluk); font-size: 13px; padding: 8px 0; margin: 0; }
+.gecmis { display: flex; gap: 2px; align-items: end; height: 26px; }
+.gecmis span { flex: 1; min-width: 3px; max-width: 14px; border-radius: 1px; background: var(--s0); }
+.gecmis span[data-s="1"] { background: var(--s1); } .gecmis span[data-s="2"] { background: var(--s2); } .gecmis span[data-s="3"] { background: var(--s3); }
+.metin p, .metin li { font-size: 13px; margin: 0; }
+.metin ul { padding-left: 18px; margin: 0; display: grid; gap: 4px; }
+.metin { display: grid; gap: 8px; }
+#harita { position: relative; min-width: 0; min-height: 0; }
+.lejant { position: absolute; right: 10px; top: 10px; background: var(--panel); border: 1px solid var(--cizgi); border-radius: 3px; padding: 8px 10px; font-size: 12px; display: grid; gap: 4px; z-index: 2; }
+.lejant label { display: flex; gap: 6px; align-items: center; cursor: pointer; margin-top: 4px; }
+.lejant input { accent-color: var(--vurgu); }
+.yukleniyor { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: var(--panel); border: 1px solid var(--cizgi); padding: 12px 16px; border-radius: 4px; z-index: 5; }
+.maplibregl-popup-content { background: var(--panel); color: var(--metin); border: 1px solid var(--cizgi); border-radius: 3px; padding: 10px 12px; font-family: var(--f-govde); box-shadow: 0 4px 18px rgba(0,0,0,.18); }
+.maplibregl-popup-tip { border-top-color: var(--cizgi) !important; border-bottom-color: var(--cizgi) !important; }
+.maplibregl-popup-close-button { color: var(--soluk); font-size: 18px; padding: 0 6px; }
+.maplibregl-ctrl-group { background: var(--panel); }
+.maplibregl-ctrl-attrib { background: color-mix(in srgb, var(--panel) 80%, transparent) !important; color: var(--soluk); }
+.maplibregl-ctrl-attrib a { color: var(--soluk); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); } }
+:root[data-theme="dark"] .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); }
+.pp { display: grid; gap: 3px; font-size: 13px; min-width: 190px; }
+.pp b { font-size: 14px; }
+.pp .sv { font-weight: 600; }
+.pp .s { color: var(--soluk); font-size: 12px; }
+@media (max-width: 820px) {
+  html, body { height: auto; }
+  .uygulama { grid-template-columns: minmax(0, 1fr); height: auto; }
+  #harita { height: 64vh; min-height: 380px; order: -1; }
+  .panel { border-right: 0; overflow: visible; }
+  .ust h1 { font-size: 22px; }
+}
+</style>
+
+<div class="uygulama">
+  <aside class="panel" aria-label="Uyarı özeti">
+    <header class="ust">
+      <h1>İstanbul Taşkın Ön Uyarısı<span class="rozet">deneysel</span></h1>
+      <p>Günlük yağış tahmini, 58.874 çukurun dolma eşikleriyle karşılaştırılır: hangi alt geçit, hangi mahalle önce su toplar?</p>
+      <a class="baglanti" href="./">← Simülatöre dön</a>
+    </header>
+    <div class="durum-kart" id="kart" data-s="0">
+      <div class="seviye" id="k-seviye">–</div>
+      <div class="zaman" id="k-zaman">Yükleniyor…</div>
+      <div class="test" id="k-test" hidden></div>
+    </div>
+    <p class="uyari-not"><b>Resmi uyarı değildir.</b> Bu sayfa bir ön tarama denemesidir; resmi meteorolojik uyarılar için MGM, AKOM ve AFAD duyurularını izleyin.</p>
+
+    <div class="sayfa">
+      <section class="bolum">
+        <h2>Önümüzdeki 24 saatte</h2>
+        <dl class="olcum">
+          <div><dt><span class="kare" style="background:var(--s3)"></span>kırmızı</dt><dd id="o-k">–</dd></div>
+          <div><dt><span class="kare" style="background:var(--s2)"></span>turuncu</dt><dd id="o-t">–</dd></div>
+          <div><dt><span class="kare" style="background:var(--s1)"></span>sarı</dt><dd id="o-s">–</dd></div>
+          <div><dt>alt geçit ≥30 cm</dt><dd id="o-ag">–</dd></div>
+          <div><dt>bina ≥10 cm</dt><dd id="o-b">–</dd></div>
+          <div><dt>nüfus ≥10 cm</dt><dd id="o-n">–</dd></div>
+        </dl>
+        <p class="bos" id="o-not" style="padding:0"></p>
+      </section>
+
+      <section class="bolum">
+        <h2>Yağış tahmini · il ortalaması (mm/sa)</h2>
+        <canvas id="grafik" aria-label="Dört modelin saatlik yağış tahmini"></canvas>
+        <div class="grafik-alt" id="grafik-alt"></div>
+      </section>
+
+      <section class="bolum">
+        <nav class="sekmeler" role="tablist">
+          <button role="tab" aria-selected="true" data-s="ag">Alt geçitler</button>
+          <button role="tab" aria-selected="false" data-s="mh">Mahalleler</button>
+          <button role="tab" aria-selected="false" data-s="il">İlçeler</button>
+        </nav>
+        <div id="l-ag"></div>
+        <div id="l-mh" hidden></div>
+        <div id="l-il" hidden></div>
+      </section>
+
+      <section class="bolum" id="gecmis-blok" hidden>
+        <h2>Son çalıştırmalar</h2>
+        <div class="gecmis" id="gecmis"></div>
+        <p class="bos" id="gecmis-not" style="padding:0"></p>
+      </section>
+
+      <section class="bolum metin">
+        <h2>Nasıl çalışır</h2>
+        <p>Günde dört kez Open-Meteo'dan dört hava modelinin (ECMWF, ICON, GFS, ARPEGE) saatlik yağış tahmini 0,1°'lik ızgarada alınır.
+          Her saat için şebekenin taşıyabildiği yağış (<span id="m-dr">6</span> mm/sa) düşülür, kalan kısım 24 saatlik kayan pencerede toplanır.
+          Her çukur bu "etkin yağışı" kendi eşiğiyle karşılaştırılır: en derin noktasında suyun 10 cm ve 30 cm'ye ulaştığı yağış.
+          Bir eşiğin aşılmış sayılması için en az iki modelin aynı fikirde olması gerekir.</p>
+        <ul>
+          <li><b>Sarı:</b> mahallede en az bir çukur 10 cm'ye ulaşıyor.</li>
+          <li><b>Turuncu:</b> en az 3 kentsel çukur 30 cm'ye ulaşıyor ya da ≥20 binanın duvarına su değiyor.</li>
+          <li><b>Kırmızı:</b> bir alt geçit 30 cm'ye ulaşıyor ya da ≥100 binanın duvarına su değiyor.</li>
+        </ul>
+        <p>Drenaj değeri 14 Ekim 2026 yağışında haberlerde su bastığı yazılan 16 mahalleye göre ayarlandı (tek olay; kalibrasyon sürüyor).
+          Model yüzeyde biriken suyu hesaplar; akan sel, dere taşkını ve kanalizasyon geri tepmesi kapsamda değildir.
+          Kaynak kod ve yöntem: <a href="https://github.com/ulukanyigit/istanbul-taskin/tree/main/uyari" target="_blank" rel="noopener">uyari/README.md</a>.</p>
+      </section>
+    </div>
+  </aside>
+
+  <main id="harita">
+    <div class="yukleniyor" id="yukleniyor">Harita yükleniyor…</div>
+    <div class="lejant" id="lejant">
+      <div><span class="kare" style="background:var(--s3)"></span>kırmızı</div>
+      <div><span class="kare" style="background:var(--s2)"></span>turuncu</div>
+      <div><span class="kare" style="background:var(--s1)"></span>sarı</div>
+      <div><span class="kare" style="background:var(--s3);border-radius:50%;outline:2px solid var(--panel)"></span>alt geçit ≥30 cm</div>
+      <label><input type="checkbox" id="c-izgara">48 sa yağış (ızgara)</label>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pmtiles@3.2.1/dist/pmtiles.js"></script>
+<script>
+"use strict";
+(function () {
+const VERI = "veri/", UV = VERI + "uyari/";
+const EK = "/*IKILI_EK*/";
+const $ = (id) => document.getElementById(id);
+const fmt = (v, d = 0) => (v == null || isNaN(v)) ? "–" : v.toLocaleString("tr-TR", { minimumFractionDigits: d, maximumFractionDigits: d });
+const kisa = (v) => v >= 1e6 ? fmt(v / 1e6, 2) + " mn" : v >= 1e4 ? fmt(v / 1e3, 0) + " bin" : fmt(v, 0);
+const SEV = ["yok", "sarı", "turuncu", "kırmızı"];
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const css = (ad) => getComputedStyle(document.documentElement).getPropertyValue(ad).trim();
+const koyuMu = () => { const t = document.documentElement.getAttribute("data-theme"); return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; };
+const tarih = (iso) => new Date(iso).toLocaleString("tr-TR", { day: "numeric", month: "long", weekday: "long", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Istanbul" });
+let U = null, harita = null, popup = null;
+
+// ---------------------------------------------------------------- PMTiles parçaları (simülatörle aynı altlık)
+class ParcaKaynak {
+  constructor(ad, bilgi) { this.ad = ad; this.b = bilgi; this.o = new Map(); }
+  getKey() { return this.ad; }
+  parca(i) {
+    if (!this.o.has(i)) this.o.set(i, fetch(`${VERI}${this.ad}.pmtiles.${String(i).padStart(3, "0")}${EK}`).then((r) => { if (!r.ok) throw new Error("karo"); return r.arrayBuffer(); }).then((a) => new Uint8Array(a)));
+    return this.o.get(i);
+  }
+  async getBytes(ofs, uz) {
+    const P = this.b.parca, son = Math.min(ofs + uz, this.b.bayt), i0 = Math.floor(ofs / P), i1 = Math.floor((son - 1) / P);
+    const out = new Uint8Array(son - ofs);
+    const ps = await Promise.all(Array.from({ length: i1 - i0 + 1 }, (_, k) => this.parca(i0 + k)));
+    ps.forEach((p, k) => { const bas = (i0 + k) * P, a = Math.max(ofs, bas) - bas, b = Math.min(son, bas + p.length) - bas; out.set(p.subarray(a, b), bas + a - ofs); });
+    return { data: out.buffer };
+  }
+}
+
+function stil() {
+  const k = koyuMu();
+  const C = k ? { kara: "#1a2125", deniz: "#0e1418", yol: "#323d43", yolAna: "#4a575d", kasa: "#11171a", sinir: "#6f7f86", metin: "#c9d4d8", hale: "#151b1f" }
+              : { kara: "#e4e8e7", deniz: "#c3cfd6", yol: "#ffffff", yolAna: "#fbfbf8", kasa: "#bcc5c4", sinir: "#76858a", metin: "#2b3a40", hale: "#eef1f0" };
+  const taban = location.href.replace(/[#?].*$/, "").replace(/[^/]*$/, "");
+  const yol = (id, s, renk, w, mz) => ({ id, type: "line", source: "altlik", "source-layer": "yol", minzoom: mz,
+    filter: ["all", ["in", ["get", "s"], ["literal", s]], ["!=", ["get", "tunel"], 1]], layout: { "line-cap": "round", "line-join": "round" },
+    paint: { "line-color": renk, "line-width": ["interpolate", ["exponential", 1.6], ["zoom"], 8, w[0], 13, w[1], 18, w[2]] } });
+  return {
+    version: 8, glyphs: taban + VERI + "font/{fontstack}/{range}.pbf" + EK,
+    sources: { altlik: { type: "vector", url: "pmtiles://altlik", promoteId: { mahalle: "fid" } } },
+    layers: [
+      { id: "zemin", type: "background", paint: { "background-color": C.kara } },
+      { id: "su-alan", type: "fill", source: "altlik", "source-layer": "su", paint: { "fill-color": C.deniz } },
+      { id: "uyari", type: "fill", source: "altlik", "source-layer": "mahalle", filter: ["==", ["get", "ist"], 1], paint: { "fill-color": "rgba(0,0,0,0)", "fill-opacity": 0.62 } },
+      yol("yol-kucuk", ["residential", "unclassified", "living_street", "road", "service"], C.yol, [0.2, 1.2, 8], 12.5),
+      yol("yol-ana", ["primary", "secondary", "tertiary", "primary_link", "secondary_link"], C.yolAna, [0.4, 2.2, 11], 9),
+      yol("yol-buyuk", ["motorway", "trunk", "motorway_link", "trunk_link"], C.yolAna, [0.8, 3, 14], 6),
+      { id: "mahalle-sinir", type: "line", source: "altlik", "source-layer": "mahalle", minzoom: 10.5, filter: ["==", ["get", "ist"], 1], paint: { "line-color": C.sinir, "line-width": 0.5, "line-opacity": 0.55 } },
+      { id: "ilce-sinir", type: "line", source: "altlik", "source-layer": "ilce", filter: ["==", ["get", "ist"], 1], paint: { "line-color": C.sinir, "line-width": ["interpolate", ["linear"], ["zoom"], 8, 0.6, 13, 1.6], "line-dasharray": [3, 2] } },
+      { id: "secili", type: "line", source: "altlik", "source-layer": "mahalle", filter: ["==", ["get", "fid"], -1], paint: { "line-color": css("--metin"), "line-width": 2.2 } },
+      { id: "mahalle-ad", type: "symbol", source: "altlik", "source-layer": "etiket", minzoom: 12.5, filter: ["==", ["get", "t"], "mahalle"],
+        layout: { "text-field": ["get", "ad"], "text-font": ["nsr"], "text-size": 12, "text-transform": "uppercase", "text-letter-spacing": 0.08, "text-max-width": 8 },
+        paint: { "text-color": C.metin, "text-opacity": 0.8, "text-halo-color": C.hale, "text-halo-width": 1.4 } },
+      { id: "ilce-ad", type: "symbol", source: "altlik", "source-layer": "etiket", minzoom: 8.5, maxzoom: 12.5, filter: ["all", ["==", ["get", "t"], "ilce"], ["==", ["get", "ist"], 1]],
+        layout: { "text-field": ["get", "ad"], "text-font": ["nsm"], "text-size": ["interpolate", ["linear"], ["zoom"], 9, 11, 12, 15], "text-transform": "uppercase", "text-letter-spacing": 0.12 },
+        paint: { "text-color": C.metin, "text-halo-color": C.hale, "text-halo-width": 1.6 } },
+    ],
+  };
+}
+
+const medyan = (a) => { const s = a.filter((v) => v != null && !isNaN(v)).sort((x, y) => x - y); if (!s.length) return NaN; const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+
+function katmanlar() {
+  const renk = [css("--s0"), css("--s1"), css("--s2"), css("--s3")];
+  const e = ["match", ["get", "fid"]];
+  for (const [fid, v] of Object.entries(U.mahalle)) if (v[0] > 0) e.push(+fid, renk[v[0]]);
+  e.push("rgba(0,0,0,0)");
+  harita.setPaintProperty("uyari", "fill-color", e.length > 3 ? e : "rgba(0,0,0,0)");
+  const nokta = (liste, tur) => liste.map((a) => ({ type: "Feature", properties: { ...a, tur }, geometry: { type: "Point", coordinates: [a.lon, a.lat] } }));
+  const veri = { type: "FeatureCollection", features: [...nokta(U.noktalar, "k"), ...nokta(U.alt_gecitler, "ag")] };
+  if (harita.getSource("nokta")) harita.getSource("nokta").setData(veri);
+  else harita.addSource("nokta", { type: "geojson", data: veri });
+  const mods = U.modeller;
+  const izg = { type: "FeatureCollection", features: U.izgara.map((g) => ({ type: "Feature", properties: { mm: medyan(mods.map((m) => g[m])), ...g }, geometry: { type: "Point", coordinates: [g.lon, g.lat] } })) };
+  if (harita.getSource("izgara")) harita.getSource("izgara").setData(izg);
+  else harita.addSource("izgara", { type: "geojson", data: izg });
+  const yagis = koyuMu() ? "#8fb2c9" : "#3f6a8a";
+  if (!harita.getLayer("izgara")) {
+    harita.addLayer({ id: "izgara", type: "circle", source: "izgara", layout: { visibility: $("c-izgara").checked ? "visible" : "none" },
+      paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, ["interpolate", ["linear"], ["get", "mm"], 0, 1, 100, 14], 12, ["interpolate", ["linear"], ["get", "mm"], 0, 3, 100, 40]],
+        "circle-color": yagis, "circle-opacity": 0.35, "circle-stroke-color": yagis, "circle-stroke-width": 1 } }, "mahalle-ad");
+    harita.addLayer({ id: "izgara-mm", type: "symbol", source: "izgara", layout: { visibility: $("c-izgara").checked ? "visible" : "none", "text-field": ["to-string", ["round", ["get", "mm"]]], "text-font": ["nsm"], "text-size": 11 },
+      paint: { "text-color": css("--metin"), "text-halo-color": css("--panel"), "text-halo-width": 1.4 } });
+    harita.addLayer({ id: "kentsel", type: "circle", source: "nokta", minzoom: 10.5, filter: ["==", ["get", "tur"], "k"],
+      paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 10.5, 2.5, 15, 6], "circle-color": css("--s2"), "circle-stroke-color": css("--panel"), "circle-stroke-width": 1 } });
+    harita.addLayer({ id: "altgecit", type: "circle", source: "nokta", filter: ["==", ["get", "tur"], "ag"],
+      paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 3.5, 15, 9], "circle-color": css("--s3"), "circle-stroke-color": css("--panel"), "circle-stroke-width": 1.8 } });
+  }
+}
+
+function ozet() {
+  const il = U.il;
+  $("kart").dataset.s = il.seviye;
+  $("k-seviye").textContent = il.seviye ? `${SEV[il.seviye]} seviye` : "Uyarı yok";
+  $("k-zaman").textContent = `Tahmin ${tarih(U.simdi)} itibarıyla · ${U.kaynak}`;
+  if (U.etiket) { $("k-test").hidden = false; $("k-test").textContent = U.etiket; }
+  $("o-k").textContent = fmt(il.kirmizi); $("o-t").textContent = fmt(il.turuncu); $("o-s").textContent = fmt(il.sari);
+  $("o-ag").textContent = fmt(il.alt_gecit_30cm); $("o-b").textContent = kisa(il.bina_10cm); $("o-n").textContent = kisa(il.nufus_10cm);
+  $("o-not").textContent = `Sayılar mahalle; bina ve nüfus yaklaşık değerdir. Etkin yağış (24 sa, drenaj sonrası) en çok ${fmt(il.etkin_24sa_medyan_en_cok, 0)} mm.`;
+  $("m-dr").textContent = fmt(U.drenaj_mmsa, 0);
+  // listeler
+  const satir = (s, ad, alt, deger, altDeger, veri) => `<li><button ${veri}><span class="kare" style="background:var(--s${s})"></span><span class="ad"><b>${esc(ad)}</b><span>${esc(alt)}</span></span><span class="deger">${deger}<small>${altDeger}</small></span></button></li>`;
+  const ag = U.alt_gecitler;
+  $("l-ag").innerHTML = ag.length ? `<ul class="liste">${ag.slice(0, 40).map((a, i) => satir(3, a.ad || "Adsız alt geçit", `${a.mahalle || ""} · ${a.ilce || ""}`, `${fmt(a.yagis, 0)} / ${fmt(a.p30, 0)} mm`, `${a.n30}/${U.modeller.length} model`, `data-i="${i}" data-l="ag"`)).join("")}</ul>` +
+    (ag.length > 40 ? `<p class="bos">+${ag.length - 40} alt geçit daha (haritada)</p>` : "") +
+    `<p class="bos">Değer: etkin yağış / 30 cm eşiği.</p>` : `<p class="bos">30 cm'ye ulaşması beklenen alt geçit yok.</p>`;
+  const mh = Object.entries(U.mahalle).filter(([, v]) => v[0] > 0).sort((a, b) => b[1][0] - a[1][0] || b[1][2] - a[1][2]);
+  $("l-mh").innerHTML = mh.length ? `<ul class="liste">${mh.slice(0, 40).map(([fid, v]) => satir(v[0], v[4], v[5], `${fmt(v[2])} bina`, `${fmt(v[1], 0)} mm etkin`, `data-fid="${fid}"`)).join("")}</ul>` : `<p class="bos">Uyarı seviyesinde mahalle yok.</p>`;
+  const ilc = U.ilceler.filter((x) => x.seviye > 0);
+  $("l-il").innerHTML = ilc.length ? `<ul class="liste">${ilc.map((x) => satir(x.seviye, x.ilce, SEV[x.seviye], `${fmt(x.bina)} bina`, `${kisa(x.nufus)} kişi`, `data-ilce="${esc(x.ilce)}"`)).join("")}</ul>` : `<p class="bos">Uyarı seviyesinde ilçe yok.</p>`;
+}
+
+function grafik() {
+  const cv = $("grafik"), dpr = devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
+  cv.width = W * dpr; cv.height = H * dpr;
+  const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  const S = U.seri, n = S.saat.length, mods = U.modeller, renk = ["--m1", "--m2", "--m3", "--m4"].map(css);
+  const ymax = Math.max(1, ...mods.flatMap((m) => S[m])) * 1.12;
+  const L = 26, R = 6, T = 6, B = 18, x = (i) => L + (i / (n - 1)) * (W - L - R), y = (v) => T + (1 - v / ymax) * (H - T - B);
+  g.font = `11px ${css("--f-sayi")}`; g.fillStyle = css("--soluk"); g.strokeStyle = css("--cizgi"); g.lineWidth = 1;
+  const adim = ymax > 8 ? 4 : ymax > 4 ? 2 : 1;
+  for (let v = 0; v <= ymax; v += adim) { g.beginPath(); g.moveTo(L, y(v) + .5); g.lineTo(W - R, y(v) + .5); g.stroke(); g.fillText(String(v), 2, y(v) + 4); }
+  S.saat.forEach((s, i) => { if (s.endsWith("T00:00")) { g.beginPath(); g.moveTo(x(i) + .5, T); g.lineTo(x(i) + .5, H - B); g.stroke();
+    if (x(i) < W - 44) g.fillText(new Date(s + ":00+03:00").toLocaleDateString("tr-TR", { day: "numeric", month: "short", timeZone: "Europe/Istanbul" }), x(i) + 3, H - 5); } });
+  const simdi = S.saat.findIndex((s) => s >= U.simdi.slice(0, 13));
+  if (simdi >= 0) { g.fillStyle = color(css("--vurgu"), 0.12); g.fillRect(x(simdi), T, Math.min(x(simdi + 24), W - R) - x(simdi), H - T - B);
+    g.strokeStyle = css("--vurgu"); g.setLineDash([3, 3]); g.beginPath(); g.moveTo(x(simdi) + .5, T); g.lineTo(x(simdi) + .5, H - B); g.stroke(); g.setLineDash([]);
+    g.fillStyle = css("--vurgu"); g.fillText("şimdi", x(simdi) + 3, T + 10); }
+  mods.forEach((m, k) => { g.strokeStyle = renk[k]; g.lineWidth = 1.6; g.beginPath(); S[m].forEach((v, i) => (i ? g.lineTo(x(i), y(v)) : g.moveTo(x(i), y(v)))); g.stroke(); });
+  $("grafik-alt").innerHTML = mods.map((m, k) => `<span><i style="background:${renk[k]}"></i>${m} · 48 sa en çok ${fmt(U.il.yagis_48sa_en_cok[m], 0)} mm</span>`).join("");
+}
+function color(c, a) { const h = c.replace("#", ""); if (h.length !== 6) return c; return `rgba(${parseInt(h.slice(0, 2), 16)},${parseInt(h.slice(2, 4), 16)},${parseInt(h.slice(4, 6), 16)},${a})`; }
+
+async function gecmis() {
+  try {
+    const a = await (await fetch(UV + "arsiv.json", { cache: "no-cache" })).json();
+    if (!a.length) return;
+    $("gecmis-blok").hidden = false;
+    $("gecmis").innerHTML = a.slice(-60).map((x) => `<span data-s="${x.seviye}" style="height:${30 + 70 * Math.min(1, Math.log10(1 + x.bina) / 4)}%" title="${x.ad.replace("T", " ")}:00 · ${SEV[x.seviye]} · ${x.alt_gecit} alt geçit · ${fmt(x.bina)} bina"></span>`).join("");
+    $("gecmis-not").textContent = `${a.length} çalıştırma · ilki ${a[0].ad.replace("T", " ")}:00`;
+  } catch (e) { /* arşiv yoksa gösterme */ }
+}
+
+function mahallePopup(fid, ll) {
+  const v = U.mahalle[fid]; if (!v) return;
+  harita.setFilter("secili", ["==", ["get", "fid"], +fid]);
+  ac(ll, `<div class="pp"><b>${esc(v[4])}</b><span class="s">${esc(v[5])}</span><span class="sv">${v[0] ? SEV[v[0]] + " seviye" : "uyarı yok"}</span>
+    <span>Etkin yağış (24 sa): <b>${fmt(v[1], 0)} mm</b></span><span>Duvarına ≥10 cm su: ~${fmt(v[2])} bina, ~${fmt(v[3])} kişi</span></div>`);
+}
+function noktaPopup(p, ll) {
+  ac(ll, `<div class="pp"><b>${esc(p.ad || (p.kat === "alt_gecit" ? "Adsız alt geçit" : "Kentsel çukur"))}</b><span class="s">${esc(p.mahalle || "")} · ${esc(p.ilce || "")}</span>
+    <span>Etkin yağış: <b>${fmt(p.yagis, 0)} mm</b> (medyan)</span><span>10 cm eşiği ${fmt(p.p10, 0)} mm · 30 cm eşiği ${fmt(p.p30, 0)} mm</span>
+    <span class="s">${p.n30}/${U.modeller.length} model 30 cm diyor</span></div>`);
+}
+function ac(ll, html) { if (popup) popup.remove(); popup = new maplibregl.Popup({ maxWidth: "290px", focusAfterOpen: false }).setLngLat(ll).setHTML(html).addTo(harita); }
+
+async function basla() {
+  const [u, karolar] = await Promise.all([
+    fetch(UV + "latest.json", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error("latest.json yok"); return r.json(); }),
+    fetch(VERI + "karolar.json").then((r) => r.json()),
+  ]);
+  U = u; ozet(); grafik(); gecmis();
+  const pr = new pmtiles.Protocol(); maplibregl.addProtocol("pmtiles", pr.tile);
+  pr.add(new pmtiles.PMTiles(new ParcaKaynak("altlik", karolar["altlik.pmtiles"])));
+  harita = new maplibregl.Map({ container: "harita", style: stil(), center: [28.85, 41.06], zoom: matchMedia("(max-width: 820px)").matches ? 8.9 : 9.7,
+    minZoom: 8, maxZoom: 17, maxBounds: [[27.2, 40.55], [30.6, 41.9]], attributionControl: false, dragRotate: false });
+  harita.touchZoomRotate.disableRotation();
+  harita.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-left");
+  harita.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: "Yağış: Open-Meteo (ECMWF, DWD ICON, NOAA GFS, Météo-France) · © OpenStreetMap katkıcıları" }));
+  await new Promise((r) => harita.on("load", r));
+  katmanlar(); $("yukleniyor").hidden = true;
+  harita.on("click", (e) => {
+    const n = harita.queryRenderedFeatures(e.point, { layers: ["altgecit", "kentsel"] });
+    if (n.length) return noktaPopup(n[0].properties, n[0].geometry.coordinates);
+    const m = harita.queryRenderedFeatures(e.point, { layers: ["uyari"] });
+    if (m.length) mahallePopup(m[0].properties.fid, e.lngLat);
+  });
+  for (const l of ["altgecit", "kentsel", "uyari"]) { harita.on("mouseenter", l, () => (harita.getCanvas().style.cursor = "pointer")); harita.on("mouseleave", l, () => (harita.getCanvas().style.cursor = "")); }
+  $("c-izgara").addEventListener("change", (e) => { for (const l of ["izgara", "izgara-mm"]) harita.setLayoutProperty(l, "visibility", e.target.checked ? "visible" : "none"); });
+  window.__harita = harita; window.__U = U;
+}
+
+document.querySelectorAll(".sekmeler button").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll(".sekmeler button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
+  for (const k of ["ag", "mh", "il"]) $("l-" + k).hidden = k !== b.dataset.s;
+}));
+document.querySelector(".panel").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-l], button[data-fid], button[data-ilce]"); if (!b || !harita) return;
+  if (b.dataset.l === "ag") { const a = U.alt_gecitler[+b.dataset.i]; harita.easeTo({ center: [a.lon, a.lat], zoom: 15 }); noktaPopup(a, [a.lon, a.lat]); }
+  else if (b.dataset.fid) {
+    const f = harita.querySourceFeatures("altlik", { sourceLayer: "etiket", filter: ["all", ["==", ["get", "t"], "mahalle"], ["==", ["get", "ad"], U.mahalle[b.dataset.fid][4]]] });
+    const ll = f.length ? f[0].geometry.coordinates : null;
+    if (ll) harita.easeTo({ center: ll, zoom: 13 });
+    mahallePopup(b.dataset.fid, ll || harita.getCenter());
+  } else if (b.dataset.ilce) {
+    const f = harita.querySourceFeatures("altlik", { sourceLayer: "etiket", filter: ["all", ["==", ["get", "t"], "ilce"], ["==", ["get", "ad"], b.dataset.ilce]] });
+    if (f.length) harita.easeTo({ center: f[0].geometry.coordinates, zoom: 11.5 });
+  }
+});
+addEventListener("resize", () => U && grafik());
+const tema = () => { if (!harita || !U) return; harita.setStyle(stil()); harita.once("styledata", () => { katmanlar(); }); grafik(); };
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", tema);
+new MutationObserver(tema).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+basla().catch((e) => { $("yukleniyor").textContent = "Uyarı verisi okunamadı: " + e.message; $("k-zaman").textContent = "Veri yok"; });
+})();
+</script>

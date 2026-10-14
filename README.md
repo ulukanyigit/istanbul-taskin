@@ -7,7 +7,11 @@ tarayıcıda çalışan, zaman adımlı bir taşkın simülatörü. Yağış mik
 pompaları, menfez tıkanması, boru patlaması ve 1990 / bugün arazi örtüsü değiştirilebilir; su her an için 1,1 milyon
 çukur pikselinde hesaplanıp haritaya (3B dahil) serilir.
 
-**Canlı sürüm:** `web/dist/` (statik; GitHub Pages ile yayımlanır) · Ekran görüntüleri: `docs/`
+**Canlı simülatör:** https://ulukanyigit.github.io/istanbul-taskin/ (statik, `web/dist/` GitHub Pages ile yayımlanır) · Ekran görüntüleri: `docs/`
+
+**Günlük ön uyarı (deneysel):** https://ulukanyigit.github.io/istanbul-taskin/uyari.html — dört hava modelinin yağış
+tahmini günde dört kez çukur eşikleriyle karşılaştırılır; hangi alt geçit ve mahallenin su toplayabileceği gösterilir.
+Resmi uyarı değildir. Yöntem ve 14 Ekim 2026 kalibrasyonu: [`uyari/README.md`](uyari/README.md)
 
 ![Simülatör](docs/ekran_3b.png)
 
@@ -58,7 +62,8 @@ Ayrıntı, varsayımlar ve sınırlamalar: [`docs/yontem.md`](docs/yontem.md) ·
 | `pipeline/maruziyet/` | Kova motoru (Python), su derinliği, maruziyet, erişim, mahalle karnesi, kentleşme, menfez |
 | `pipeline/web/` | Simülatör veri paketi, altlık karoları, yağış olayları |
 | `validation/` | Haber olayları ve doğrulama |
-| `web/` | Simülatör (kaynak, testler, `dist/` yayın klasörü) |
+| `uyari/` | Günlük yağış tahminiyle ön uyarı (eşik paketi, çalıştırıcı, kalibrasyon); `.github/workflows/uyari.yml` |
+| `web/` | Simülatör ve uyarı sayfası (kaynak, testler, `dist/` yayın klasörü) |
 | `docs/` | Yöntem notu (TR/EN), proje özeti |
 
 Her klasörün README'si o fazın sonuçlarını ve kontrol notlarını içerir.

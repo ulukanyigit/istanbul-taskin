@@ -14,10 +14,13 @@ gittiği, duvarına su değen bina ve nüfus, kapanan yollar, hastaneye erişim.
 Simülatörde yağışı, drenaj kapasitesini, alt geçit pompalarını, menfez tıkanmasını ve boru patlamasını
 değiştirip suyun yükselişini zaman çizelgesinde, 3B dahil izleyebiliyorsunuz.
 
-Yöntem: Google Earth Engine (FABDEM, WorldCover, GHSL, IMERG, GEDI) · OSM · Priority-Flood ve dolma–taşma ağacı
+🎬 Videodaki 3B sahne Esenler Fevzi Çakmak'taki bir çukur: model su seviyesiyle yağış 6 mm'den 100 mm'ye çıkarken
+su ~0,8 m yükseliyor; 1,6 × 2 km'lik sahnede ~970 binanın duvarına su değiyor (düşey abartma ×2, bina yükseklikleri temsili).
+
+Yöntem: Google Earth Engine (FABDEM, WorldCover, GHSL) · OSM · Priority-Flood ve dolma–taşma ağacı
 (Python/numba) · SCS-CN · ağ analizi ve Getis-Ord Gi* · MapLibre + WebGL2.
 
-Bu bir ön tarama; resmi taşkın haritası değil. Sınırlamalar ve kod: [repo bağlantısı]
-Canlı simülatör: [bağlantı]
+Bu bir ön tarama; resmi taşkın haritası değil. Sınırlamalar ve kod: https://github.com/ulukanyigit/istanbul-taskin
+Canlı simülatör: https://ulukanyigit.github.io/istanbul-taskin/
 
 #CBS #GIS #Hidroloji #İstanbul #UrbanFlood #EarthEngine #RemoteSensing #HaritaMühendisliği

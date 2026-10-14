@@ -1,0 +1,53 @@
+# Günlük taşkın ön uyarısı: Open-Meteo tahmini → uyari/calistir.py → web/dist/veri/uyari → GitHub Pages
+# GITHUB_TOKEN ile yapılan push pages.yml'i tetiklemez; bu yüzden yayımı bu iş kendisi yapar.
+name: uyari
+on:
+  schedule:
+    - cron: "17 2,8,14,20 * * *"   # TSİ 05:17, 11:17, 17:17, 23:17
+  workflow_dispatch:
+    inputs:
+      drenaj:
+        description: "Drenaj kapasitesi (mm/sa)"
+        required: false
+        default: "6"
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  uyari:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy pandas
+      - name: Tahmini çek ve uyarıyı hesapla
+        run: python uyari/calistir.py --drenaj "${{ github.event.inputs.drenaj || '6' }}" --kaydet uyari_girdi.json.gz
+      - name: Ham tahmini sakla (kalibrasyon için)
+        uses: actions/upload-artifact@v4
+        with:
+          name: tahmin-${{ github.run_id }}
+          path: uyari_girdi.json.gz
+          retention-days: 90
+      - name: Sonucu depoya yaz
+        run: |
+          git config user.name "uyari-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/dist/veri/uyari
+          if git diff --cached --quiet; then echo "değişiklik yok"; exit 0; fi
+          git commit -m "uyari: $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist
+      - id: deploy
+        uses: actions/deploy-pages@v4
